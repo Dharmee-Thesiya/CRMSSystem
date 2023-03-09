@@ -14,11 +14,11 @@ namespace CRMSSystem.SQL
         {
 
         }
-
-        public DbSet<User> Users { get; set; }
             public DbSet<Role> Roles { get; set; }
             public DbSet<UserRole> UserRoles { get; set; }
-        
+            public DbSet<User> User { get; set; }
+
+
 
     }
 

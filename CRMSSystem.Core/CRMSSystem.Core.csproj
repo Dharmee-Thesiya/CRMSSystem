@@ -54,9 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\IMRepository.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\RoleBase.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
