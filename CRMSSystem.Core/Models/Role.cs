@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Models
 {
-    public class Role
+    public class Role : BaseEntity
     {
         public string RoleName { get; set; }
     }

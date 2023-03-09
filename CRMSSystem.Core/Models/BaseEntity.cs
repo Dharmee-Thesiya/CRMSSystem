@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace CRMSSystem.Core.Models
 {
     public class BaseEntity
     {
-         
+        [Key]
         public Guid Id { get; set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
@@ -16,7 +17,7 @@ namespace CRMSSystem.Core.Models
         public DateTime UpdatedOn { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
-
+        public string V { get; }
     }
 }
 
