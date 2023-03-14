@@ -1,5 +1,6 @@
-﻿using CRMSSystem.Core.Models;
-using IdentityServer3.Core.ViewModels;
+﻿using CRMSSystem.Core.Contracts;
+using CRMSSystem.Core.Models;
+using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,17 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.SQL
 {
-    public class LoginRepository
+    public class LoginRepository : ILoginRepository
     {
-        public DataContext context;
-        public LoginRepository()
+        internal DataContext context;
+
+        public LoginRepository(DataContext context)
         {
-            context = new DataContext();
+            this.context = context;
         }
-        public IQueryable<User> SQLRepository(LoginViewModel model)
+        public User Login(AccountViewModel model)
         {
-            var user = context.User.Where(User => User.UserName == "Admin");
+            var user = context.User.Where(User => User.Email == model.Email && User.Password == model.Password).FirstOrDefault();
             return user;
         }
     }

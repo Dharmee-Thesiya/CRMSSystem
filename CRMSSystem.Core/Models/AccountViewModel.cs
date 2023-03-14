@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace CRMSSystem.Models
+namespace CRMSSystem.Core.Models
 {
-    public class LoginViewModel
+    public class AccountViewModel
     {
         [Required]
         [Display(Name = "Email")]
@@ -21,11 +21,4 @@ namespace CRMSSystem.Models
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
-    //public class ValidationViewModel
-    //{
-    //    [Display(Name = "Email address")]
-    //    [Required(ErrorMessage = "The email address is required")]
-    //    [EmailAddress(ErrorMessage = "Invalid Email Address")]
-    //    public string Email { get; set; }
-    //}
 }

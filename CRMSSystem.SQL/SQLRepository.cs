@@ -1,23 +1,28 @@
-﻿using CRMSSystem.Core.Context;
+﻿
+using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 
 namespace CRMSSystem.SQL
 {
-    public class LoginRepository<T> : IMRepository<T> where T : BaseEntity
+    public class SQLRepository<T> : IMRepository<T> where T : BaseEntity
     {
         internal DataContext context;
-        internal DbSet<T> dbset;
+        internal DbSet<T> DbSet;
 
-        public LoginRepository(DataContext context)
+        public SQLRepository(DataContext context)
         {
             this.context = context;
-            this.dbset = context.Set<T>();
+            this.DbSet = context.Set<T>();
         }
+    
+
+     
         public IQueryable<T> Collection()
         {
-            return dbset;
+            return DbSet; 
         }
 
         public void Commit()
@@ -25,30 +30,29 @@ namespace CRMSSystem.SQL
             context.SaveChanges();
         }
 
-        public void Delete(string Id)
+        public void Delete(Guid Id)
         {
             var t = Find(Id);
             if (context.Entry(t).State == EntityState.Detached)
             {
-                dbset.Attach(t);
+                DbSet.Attach(t);
             }
-            dbset.Remove(t);
-
+            DbSet.Remove(t);
         }
 
-        public T Find(string Id)
+        public T Find(Guid Id)
         {
-            return dbset.Find(Id);
+            return DbSet.Find(Id);
         }
 
         public void Insert(T t)
         {
-            dbset.Add(t);
+            DbSet.Add(t);
         }
 
         public void Update(T t)
         {
-            dbset.Attach(t);
+            DbSet.Attach(t);
             context.Entry(t).State = EntityState.Modified;
         }
     }

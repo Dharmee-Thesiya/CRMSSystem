@@ -12,10 +12,5 @@ namespace CRMSSystem.Core.Models
         
         public Guid UserId { get; set; }
         public Guid RoleId { get; set; }
-
-        [ForeignKey("UserId")]
-        public User UsersId { get; set; }
-        [ForeignKey("RoleId")]
-        public Role RolesId { get; set; }
     }
 }

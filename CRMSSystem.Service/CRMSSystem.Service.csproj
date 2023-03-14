@@ -54,11 +54,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoginService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CRMSSystem.Core\CRMSSystem.Core.csproj">
+      <Project>{F7B88A90-7668-4BB1-A193-7A02B159624C}</Project>
+      <Name>CRMSSystem.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRMSSystem.SQL\CRMSSystem.SQL.csproj">
+      <Project>{215644DC-FAF4-4417-9761-86BC51F5DC63}</Project>
+      <Name>CRMSSystem.SQL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

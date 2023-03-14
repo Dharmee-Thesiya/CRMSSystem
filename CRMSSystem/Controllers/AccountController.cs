@@ -1,6 +1,6 @@
-﻿using CRMSSystem.SQL;
-
-using IdentityServer3.Core.ViewModels;
+﻿using CRMSSystem.Core.Contracts;
+using CRMSSystem.Core.Models;
+using CRMSSystem.SQL;
 using Intercom.Data;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -12,28 +12,29 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    
+
     public class AccountController : Controller
     {
 
-        LoginRepository Repository;
+        private ILoginService _loginService;
+        
 
-        public AccountController()
+        public AccountController(ILoginService loginService)
         {
-            Repository = new LoginRepository();
+            _loginService = loginService;
         }
 
 
         [AllowAnonymous]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
-            //ViewBag.ReturnUrl = returnUrl;
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(AccountViewModel model)
         {
-            var users = Repository.SQLRepository(model).Count();
+            
 
             if (!ModelState.IsValid)
             {
@@ -42,22 +43,32 @@ namespace CRMSSystem.Controllers
             }
             else
             {
-                if (users > 0)
+                var user = _loginService.Login(model);
+                if (user != null)
                 {
-                    return RedirectToAction("Dashboard");
+                    return RedirectToAction("Index");
+
                 }
                 else
                 {
-                    return RedirectToAction("Error");
-                }
-            }
-        }
+                    if (user != null)
+                    {
+                        
+                        return RedirectToAction("Index");
 
-        public ActionResult Dashboard()
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "You Enter Invalid username or password.");
+                        return View();
+                    }
+                }
+            } 
+        }
+        public ActionResult Index()
         {
             return View();
         }
-
     }
-
 }
+        

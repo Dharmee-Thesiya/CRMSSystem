@@ -60,6 +60,20 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CRMSSystem.Core\CRMSSystem.Core.csproj">
+      <Project>{f7b88a90-7668-4bb1-a193-7a02b159624c}</Project>
+      <Name>CRMSSystem.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRMSSystem.Service\CRMSSystem.Service.csproj">
+      <Project>{2280f37c-4db5-4f99-901c-23ca1adf9fe0}</Project>
+      <Name>CRMSSystem.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CRMSSystem.SQL\CRMSSystem.SQL.csproj">
+      <Project>{215644dc-faf4-4417-9761-86bc51f5dc63}</Project>
+      <Name>CRMSSystem.SQL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
