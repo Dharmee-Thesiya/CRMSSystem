@@ -46,8 +46,8 @@ namespace CRMSSystem.Service
 
         public RoleViewModel GetRole(Guid Id)
         {
-            var role = RoleContext.Find(Id)
-;
+            var role = RoleContext.Find(Id);
+
             RoleViewModel roleViewModel = new RoleViewModel();
             roleViewModel.Id = role.Id;
             roleViewModel.Name = role.Name;

@@ -52,6 +52,8 @@ namespace CRMSSystem
             container.RegisterType<IMRepository<Role>, SQLRepository<Role>>();
             container.RegisterType<IRoleService, RoleService>();
             container.RegisterType<IRoleRepository, RoleRepository>();
+            container.RegisterType<IUserService,UserService>();
+            container.RegisterType<IUserRepository, UserRepository>();
 
         }
     }

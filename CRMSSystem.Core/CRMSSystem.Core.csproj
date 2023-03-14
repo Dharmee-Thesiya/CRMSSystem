@@ -60,6 +60,7 @@
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />
+    <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\Role.cs" />
