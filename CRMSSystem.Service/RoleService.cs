@@ -12,14 +12,14 @@ namespace CRMSSystem.Service
 {
     public class RoleService : IRoleService
     {
-        IRoleRepository RoleContext;
-        public RoleService(IRoleRepository RoleContext)
+        IRoleRepository roleRepository;
+        public RoleService(IRoleRepository roleRepository)
         {
-            this.RoleContext = RoleContext;
+            this.roleRepository = roleRepository;
         }
         public List<Role> GetRoles()
         {
-            return RoleContext.Collection().Where(x => !x.IsDeleted).ToList();
+            return roleRepository.Collection().Where(x => !x.IsDeleted).ToList();
         }
 
         public void CreateRole(RoleViewModel model)
@@ -29,24 +29,24 @@ namespace CRMSSystem.Service
             role.Name = model.Name;
             //role.Id = model.Id;
 
-            RoleContext.Insert(role);
-            RoleContext.Commit();
+            roleRepository.Insert(role);
+            roleRepository.Commit();
         }
         public void EditRole(RoleViewModel model)
         {
-            var role = RoleContext.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            Role role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             role.Name = model.Name;
             role.Code = model.Code;
             //role.Id = model.Id;
             role.UpdatedOn = DateTime.Now;
-            
-            RoleContext.Update(role);
-            RoleContext.Commit();
+
+            roleRepository.Update(role);
+            roleRepository.Commit();
         }
 
         public RoleViewModel GetRole(Guid Id)
         {
-            var role = RoleContext.Find(Id);
+            var role = roleRepository.Find(Id);
 
             RoleViewModel roleViewModel = new RoleViewModel();
             roleViewModel.Id = role.Id;
@@ -57,10 +57,10 @@ namespace CRMSSystem.Service
 
         public void DeleteRole(RoleViewModel model)
         {
-            var role = RoleContext.Collection().Where(x => x.Id ==model.Id).FirstOrDefault();
+            var role = roleRepository.Collection().Where(x => x.Id ==model.Id).FirstOrDefault();
             role.IsDeleted = true;
-            RoleContext.Update(role);
-            RoleContext.Commit();
+            roleRepository.Update(role);
+            roleRepository.Commit();
         }
     }
 }

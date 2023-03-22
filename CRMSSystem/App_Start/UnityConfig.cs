@@ -1,6 +1,7 @@
 using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Service;
+using CRMSSystem.Services;
 using CRMSSystem.SQL;
 using System;
 
@@ -54,6 +55,12 @@ namespace CRMSSystem
             container.RegisterType<IRoleRepository, RoleRepository>();
             container.RegisterType<IUserService,UserService>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IMRepository<UserRole>, SQLRepository<UserRole>>();
+            container.RegisterType<IMRepository<ConferenceRoom>, SQLRepository<ConferenceRoom>>();
+            container.RegisterType<IConferenceRoomService, ConferenceRoomService>();
+            container.RegisterType<IMRepository<CommonLookUp>, SQLRepository<CommonLookUp>>();
+            container.RegisterType<ICommonLookUpService, CommonLookUpService>();
+
 
         }
     }

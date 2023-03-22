@@ -11,15 +11,17 @@ namespace CRMSSystem.SQL
     {
         internal DataContext context;
         internal DbSet<T> DbSet;
-
+        internal DbSet<ConferenceRoom> conferenceRoomsDbSet;
+        internal DbSet<CommonLookUp> commonLookUpDbSet;
+        
         public SQLRepository(DataContext context)
         {
             this.context = context;
             this.DbSet = context.Set<T>();
+            this.conferenceRoomsDbSet = context.Set<ConferenceRoom>();
+            this.commonLookUpDbSet = context.Set<CommonLookUp>();
         }
-    
 
-     
         public IQueryable<T> Collection()
         {
             return DbSet; 

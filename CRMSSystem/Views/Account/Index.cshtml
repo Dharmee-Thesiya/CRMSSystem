@@ -1,7 +1,8 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Admin";
 }
-@*<h2> Admin Pages </h2>*@
+<h2> Admin Pages </h2>
 <div class="col-md-6">
     <h4> Role </h4>
     <div class="list-group">
@@ -12,6 +13,18 @@
     <h4> User </h4>
     <div class="list-group">
         @Html.ActionLink("User", "Index", "User", null, new { @class = "list-group-item" })
+    </div>
+</div>
+<div class="col-md-6">
+    <h4> User </h4>
+    <div class="list-group">
+        @Html.ActionLink("ConferenceRoom", "Index", "ConferenceRoom", null, new { @class = "list-group-item" })
+    </div>
+</div>
+<div class="col-md-6">
+    <h4> User </h4>
+    <div class="list-group">
+        @Html.ActionLink("CommonLookUp", "Index", "CommonLookUp", null, new { @class = "list-group-item" })
     </div>
 </div>
 

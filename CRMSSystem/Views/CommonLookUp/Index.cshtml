@@ -1,0 +1,207 @@
+﻿@model CRMSSystem.Core.Models.CommonLookUp
+
+@{ViewBag.Title = "Index";
+
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<h2>CommonLookUp</h2>
+<br />
+
+<p>
+    <a href="#" class="btn btn-success" data-toggle="modal" data-target="#CreateModal">Create</a>
+</p>
+
+<div class="modal fade" id="CreateModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">CommonLookUp</h2>
+            </div>
+            <div class="modal-body">
+                <form name="CommonLookUpForm">
+                    <label>Config Name:</label>
+                    @Html.TextBoxFor(m => m.ConfigName, new { @class = "form-control" })
+                    <label>Config Value:</label>
+                    @Html.TextBoxFor(m => m.ConfigValue, new { @class = "form-control" })
+                    <label>Config Key:</label>
+                    @Html.TextBoxFor(m => m.ConfigKey, new { @class = "form-control" })
+                    <label>Display Order:</label>
+                    @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "form-control" })
+                    <label>Description:</label>
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a id="btnSave" class="btn btn-primary">Save</a>
+                </div>
+                <div class="btn-group">
+                    <a id="btnCancel" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="EditModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">CommonLookUp</h2>
+            </div>
+            <div class="modal-body">
+                <form name="CommonLookUpForm">
+                    <label>Config Name:</label>
+                    @Html.TextBoxFor(m => m.ConfigName, new { @class = "form-control" })
+                    <label>Config Value:</label>
+                    @Html.TextBoxFor(m => m.ConfigValue, new { @class = "form-control" })
+                    <label>Config Key:</label>
+                    @Html.TextBoxFor(m => m.ConfigKey, new { @class = "form-control" })
+                    <label>Display Order:</label>
+                    @Html.TextBoxFor(m => m.DisplayOrder, new { @class = "form-control" })
+                    <label>Description:</label>
+                    @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a id="btnSave" class="btn btn-primary">Save</a>
+                </div>
+                <div class="btn-group">
+                    <a id="btnCancel" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deletemodal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <h3> Are You Sure You Want To Delete?</h3>
+            </div>
+            <input type="hidden" id="hdnDeleteId" />
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a id="btnDelete" class="btn btn-primary" onclick="deleteCommonLookup()">Delete</a>
+                </div>
+                <div class="btn-group">
+                    <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
+    <tr class="bg-primary">
+
+        <th>
+            ConfigName
+        </th>
+        <th>
+            ConfigKey
+        </th>
+        <th>
+            ConfigValue
+        </th>
+        <th>
+            DisplayOrder
+        </th>
+        <th>
+            Description
+        </th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in ViewBag.CommonLookUps)
+    {
+        <tr>
+
+            <td>
+                @item.ConfigName
+            </td>
+            <td>
+                @item.ConfigKey
+            </td>
+            <td>
+                @item.ConfigValue
+            </td>
+            <td>
+                @item.DisplayOrder
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                <a href="javascript:Edit('@item.Id')" id="showmodal" class="btn btn-success">Edit</a>
+
+                <a href="javascript:confirm('@item.Id')" id="showmodal" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@Styles.Render("~/Content/StyleSheet1.css")
+
+<script>
+
+
+        var AddCommonLookUp=function(commonlookupId){
+
+            var url = "/CommonLookUp/AddCommonLookUp";
+
+        $("#myModalBodyDiv1").load(url,function(){
+            $("#myModal1").modal("show");
+
+        })
+
+    }
+
+        var Edit = function () {
+            $("#EditModal").modal('show');
+        }
+
+        var confirm = function (id) {
+            debugger
+            $("#deletemodal").modal('show');
+            $("#hdnDeleteId").val(id);
+        }
+
+        function deleteCommonLookup() {
+            var id = $("#hdnDeleteId").val()
+            $.ajax({
+
+                type: "POST",
+                url: "/CommonLookup/Delete/" + id,
+                success: function () {
+                    $("#deletemodal").modal("hide");
+                    location.reload()
+                }
+            })
+        }
+    </script>
+
+
+
+

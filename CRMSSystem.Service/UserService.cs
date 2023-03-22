@@ -7,14 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CRMSSystem.Service
+namespace CRMSSystem.Services
 {
     public class UserService : IUserService
     {
-        IUserRepository UserContext;
-        public UserService(IUserRepository UserContext)
+        IUserRepository _userRepository;
+        IMRepository<UserRole> _userRoleRepository;
+        public UserService(IUserRepository userRepository, IMRepository<UserRole> userRoleRepository)
         {
-            this.UserContext = UserContext;
+            _userRepository = userRepository;
+            _userRoleRepository = userRoleRepository;
         }
         public void CreateUser(UserViewModel model)
         {
@@ -23,45 +25,58 @@ namespace CRMSSystem.Service
             user.Email = model.Email;
             user.Password = model.Password;
 
-            UserContext.Insert(user);
-            UserContext.Commit();
+            _userRepository.Insert(user);
+            _userRepository.Commit();
+            UserRole userRole = new UserRole();
+            userRole.RoleId = model.RoleId;
+            userRole.UserId = user.Id;
+            _userRoleRepository.Insert(userRole);
+            _userRoleRepository.Commit();
+
         }
 
-        public void DeleteUser(UserViewModel model)
+        public void DeleteUser(Guid Id)
         {
-            var user = UserContext.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            UserViewModel model = new UserViewModel();
+            User user = _userRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
             user.IsDeleted = true;
-            UserContext.Update(user);
-            UserContext.Commit();
+            _userRepository.Update(user);
+            _userRepository.Commit();
+
+            UserRole userRole = _userRoleRepository.Collection().Where(x => x.UserId == Id).FirstOrDefault();
+            userRole.IsDeleted = true;
+            _userRoleRepository.Update(userRole);
+            _userRoleRepository.Commit();
         }
 
         public void EditUser(UserViewModel model)
         {
-            var user = UserContext.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            User user = _userRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             user.Name = model.Name;
             user.Email = model.Email;
-            user.Password = model.Password;
             user.UpdatedOn = DateTime.Now;
+            _userRepository.Update(user);
+            _userRepository.Commit();
 
-            UserContext.Update(user);
-            UserContext.Commit();
+            UserRole userRole = _userRoleRepository.Collection().Where(x => x.UserId == model.Id).FirstOrDefault();
+            userRole.RoleId = model.RoleId;
+            userRole.UpdatedOn = DateTime.Now;
+            _userRoleRepository.Update(userRole);
+            _userRoleRepository.Commit();
+
+
         }
-
         public UserViewModel GetUser(Guid Id)
         {
-            var user = UserContext.Find(Id);
+            return _userRepository.GetUserById(Id);
 
-            UserViewModel userViewModel = new UserViewModel();
-            userViewModel.Id = user.Id;
-            userViewModel.Name = user.Name;
-            userViewModel.Email = user.Email;
-            userViewModel.Password = user.Password;
-            return userViewModel;
         }
 
-        public List<User> GetUsers()
+        public List<UserViewModel> GetUsers()
         {
-            return UserContext.Collection().Where(x => !x.IsDeleted).ToList();
+            //return userRepository.Collection().Where(x => !x.IsDeleted).ToList();
+            return _userRepository.GetUsers();
+
         }
     }
 }

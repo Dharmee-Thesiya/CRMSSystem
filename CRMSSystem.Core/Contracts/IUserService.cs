@@ -10,10 +10,12 @@ namespace CRMSSystem.Core.Contracts
 {
     public interface IUserService
     {
-        List<User> GetUsers();
+        List<UserViewModel> GetUsers();
         UserViewModel GetUser(Guid Id);
         void CreateUser(UserViewModel model);
         void EditUser(UserViewModel model);
-        void DeleteUser(UserViewModel model);
+        void DeleteUser(Guid Id);
+       
     }
 }
+

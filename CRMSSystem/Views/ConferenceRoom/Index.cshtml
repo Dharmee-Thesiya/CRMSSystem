@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CRMSSystem.Core.View.UserViewModel>
+﻿@model IEnumerable<CRMSSystem.Core.Models.ConferenceRoom>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -27,10 +27,7 @@
             @Html.DisplayNameFor(model => model.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RoleName)
+            @Html.DisplayNameFor(model => model.Capacity)
         </th>
         <th></th>
     </tr>
@@ -59,20 +56,14 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RoleName)
+            @Html.DisplayFor(modelItem => item.Capacity)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            
+            |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
 
 </table>
-<div>
-    @Html.ActionLink("Back to List", "Home")
-</div>
