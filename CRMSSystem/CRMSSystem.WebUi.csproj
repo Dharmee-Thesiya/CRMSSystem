@@ -272,11 +272,11 @@
     <Content Include="Views\ConferenceRoom\Create.cshtml" />
     <Content Include="Views\ConferenceRoom\Edit.cshtml" />
     <Content Include="Views\ConferenceRoom\Delete.cshtml" />
-    <Content Include="Views\CommonLookUp\Create.cshtml" />
     <Content Include="Views\CommonLookUp\Edit.cshtml" />
     <Content Include="Views\CommonLookUp\Delete.cshtml" />
+    <Content Include="Views\CommonLookUp\Create.cshtml" />
     <Content Include="Views\CommonLookUp\Index.cshtml" />
-    <Content Include="Views\CommonLookUp\_CommonLookUp.cshtml" />
+    <Content Include="Views\CommonLookUp\CreatePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

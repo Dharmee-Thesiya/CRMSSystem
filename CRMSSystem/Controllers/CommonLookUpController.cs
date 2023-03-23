@@ -19,6 +19,7 @@ namespace CRMSSystem.Controllers
         // GET: CommonLookUp
         [AllowAnonymous]
         public ActionResult Index()
+
         {
             List<CommonLookUp> commonLookUps = _commonLookUpService.GetCommonLookUp().ToList();
             ViewBag.CommonLookUps = commonLookUps;
@@ -26,21 +27,10 @@ namespace CRMSSystem.Controllers
         }
 
         //Create Get: CommonLookUp
-        public ActionResult Create(Guid? Id = null)
+        public ActionResult Create(Guid? Id=null)
         {
-            CommonLookUp commonLookUp = new CommonLookUp();
-            if(Id==null)
-            {
-                commonLookUp.IsEdit = false;
-                return PartialView("_CommonLookupPartial", commonLookUp);
-            }
-            else
-            {
-                //commonLookUp = _commonLookUpService.CreateCommonLookUp(Id.Value);
-                commonLookUp.IsEdit = true;
-                return PartialView("_CommonLookupPartial", commonLookUp);
-            }
-            
+            CommonLookUpViewModel commonLookUp = new CommonLookUpViewModel();
+            return PartialView("CreatePartialPartial",commonLookUp);
         }
         //Create Post: CommonLookUp
         [HttpPost]
@@ -48,7 +38,6 @@ namespace CRMSSystem.Controllers
         {
             _commonLookUpService.CreateCommonLookUp(model);
             return RedirectToAction("Index");
-            
         }
             
         
@@ -67,7 +56,7 @@ namespace CRMSSystem.Controllers
             return RedirectToAction("Index");
         }
         
-        [HttpPost]
+        [HttpPost]                     
         public ActionResult Delete(Guid Id)
         {
             _commonLookUpService.DeleteCommonLookUp(Id);

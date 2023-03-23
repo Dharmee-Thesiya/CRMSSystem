@@ -1,0 +1,97 @@
+﻿@model ITSTMSystem.Core.Models.CommonLookup
+
+<div>
+    @if (Model.IsEdit)
+    {<span>Edit Common Lookup</span> }
+    else
+    {<span>Create  Common Lookup</span>}
+    <form id="commonLookupform">
+        <div>
+            <label>Config Name:</label>
+            @Html.TextBoxFor(model => model.ConfigName, new { @class = "form-control", @placeholder = "Enter Config Name", @id = "ConfigName" })
+            <span id="configNameError" style="color:red"></span>
+        </div>
+        <br />
+        <div>
+            <label>Config Key:</label>
+            @Html.TextBoxFor(model => model.ConfigKey, new { @class = "form-control", @placeholder = "Enter Config Key", @id = "ConfigKey" })
+            <span id="configKeyError" style="color:red"></span>
+        </div>
+        <br />
+        <div>
+            <label>Config Value:</label>
+            @Html.TextBoxFor(model => model.ConfigValue, new { @class = "form-control", @placeholder = "0" })
+        </div>
+        <br />
+        <div>
+            <label>Description:</label>
+            @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Enter Description" })
+        </div>
+        <br />
+        <div>
+            <label>DisplayOrder:</label>
+            @Html.TextBoxFor(model => model.DisplayOrder, new { @class = "form-control", @placeholder = "Enter Config Value", @id = "ConfigValue" })
+            <span id="configValueError" style="color:red"></span>
+        </div>
+        <br />
+        <div>
+            <label>Is Active:</label>
+            @Html.CheckBoxFor(model => model.IsActive, new { id = "isactive" })
+        </div>
+        @Html.HiddenFor(model => model.Id)
+        <a href="#" id="btnSubmit" class="btn btn-success btn-block" onclick="commonLookupSave()">
+            @if (Model.IsEdit)
+            {<span>Update</span> }
+            else
+            {<span>Save</span>}
+        </a>
+    </form>
+</div>
+
+
+
+<script>
+    function commonLookupSave() {
+
+            var form = $("#commonLookupform").serialize();
+            var configName = $("#ConfigName").val();
+            var configKey = $("#ConfigKey").val();
+            var configValue = $("#ConfigValue").val();
+            if (configName != '' && configKey != '' && configValue != '') {
+                $.ajax({
+                    type: 'POST',
+                    url: '/CommonLookup/Create',
+                    data: form,
+                    success: function () {
+
+                        $("#CommonLookupModal").modal("hide");
+                        location.reload();
+                    }
+                })
+            }
+            else {
+                if (configName == '') {
+                    $("#configNameError").text("Config Name is required.")
+                }
+                else {
+                    $("#configNameError").hide().text("")
+                }
+                if (configKey == '') {
+                    $("#configKeyError").text("Config Key is required.")
+
+                }
+                else {
+                    $("#configKeyError").text("")
+                }
+                if (configValue == '') {
+                    $("#configValueError").text("Config Value is required.")
+
+                }
+                else {
+                    $("#configValueError").text("")
+                }
+            }
+    }
+</script>
+
+
