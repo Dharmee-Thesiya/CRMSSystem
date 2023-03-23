@@ -1,0 +1,119 @@
+﻿@model CRMSSystem.Core.Models.CommonLookUp
+
+<div>
+    <div class="modal-header">
+        @if (Model.IsEdit)
+        {<span class="modal-title" style="font-size:xx-large">CommonLookUp Edit</span>
+            <a href="#" class="close" data-dismiss="modal">&times;</a>}
+        else
+        {<span class="modal-title" style="font-size:xx-large">CommonLookUp Create</span>
+            <a href="#" class="close" data-dismiss="modal">&times;</a>}
+
+    <div class="modal-body">
+
+        <form id="commonlookup">
+            <div>
+                <label>Config Name:</label>
+                @Html.TextBoxFor(model => model.ConfigName, new { @class = "form-control", @placeholder = "Enter Config Name", @id = "ConfigName",onkeyup= "checkValidation()" })
+                <span id="configNameError" style="color:red"></span>
+            </div>
+            <br />
+            <div>
+                <label>Config Key:</label>
+                @Html.TextBoxFor(model => model.ConfigKey, new { @class = "form-control", @placeholder = "Enter Config Key", @id = "ConfigKey", onkeyup = "checkValidation()" })
+                <span id="configKeyError" style="color:red"></span>
+            </div>
+            <br />
+            <div>
+                <label>Config Value:</label>
+                @Html.TextBoxFor(model => model.ConfigValue, new { @class = "form-control", @placeholder = "Enter Config Value", @id = "ConfigValue", onkeyup = "checkValidation()" })
+                <span id="configValueError" style="color:red"></span>
+            </div>
+            <br />
+            <div>
+                <label>DisplayOrder:</label>
+                @Html.TextBoxFor(model => model.DisplayOrder, new { @class = "form-control", @placeholder = "0" })
+            </div>
+            <br />
+            <div>
+                <label>Description:</label>
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Enter Description" })
+            </div>
+            <br />
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.IsEdit, new { @id = "IsEdit" })
+        </form>
+        <div class="modal-footer">
+        
+            <a href="#" id="btnSave" class="btn btn-success" onclick="CommonLookUpSave()">
+                @if (Model.IsEdit)
+                {<span>Update</span> }
+                else
+                {<span>Create</span>}
+            </a>
+            <a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+           
+        </div>
+
+    </div>
+    </div>
+</div>
+
+
+<script>
+    function CommonLookUpSave() {
+        debugger;
+        var form = $("#commonlookup").serialize();
+        var IsEdit = $("#IsEdit").val();
+        var configName = $("#ConfigName").val();
+        var configKey = $("#ConfigKey").val();
+        var configValue = $("#ConfigValue").val();
+        if (configName != '' && configKey != '' && configValue != '') {
+            var url = IsEdit == 'False' ? '/CommonLookup/Create' : '/CommonLookup/Edit';
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: form,
+                success: function () {
+
+                    $("#CommonLookUpModal").modal("hide");
+                    location.reload();
+                }
+            })
+        }
+        else {
+            checkValidation(); 
+        }
+    }
+
+    function checkValidation() {
+        var configName = $("#ConfigName").val();
+        var configKey = $("#ConfigKey").val();
+        var configValue = $("#ConfigValue").val();
+        if (configName == '') {
+            $("#configNameError").text("This Field is required.")
+        }
+        else {
+            $("#configNameError").text("")
+        }
+        if (configKey == '') {
+            $("#configKeyError").text("This Field is required.")
+
+        }
+        else {
+            $("#configKeyError").text("")
+        }
+        if (configValue == '') {
+            $("#configValueError").text("This Field is required.")
+
+        }
+        else {
+            $("#configValueError").text("")
+        }
+    }
+</script>
+
+
+
+

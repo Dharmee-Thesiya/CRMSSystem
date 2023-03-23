@@ -21,11 +21,12 @@ namespace CRMSSystem.Service
         public void CreateCommonLookUp(CommonLookUp model)
         {
             CommonLookUp commonLookUp = new CommonLookUp();
-            //commonLookUp.ConfigName = model.ConfigName;
-            //commonLookUp.ConfigKey = model.ConfigKey;
-            //commonLookUp.ConfigValue = model.ConfigValue;
-            //commonLookUp.Description = model.Description;
-            //commonLookUp.DisplayOrder = model.DisplayOrder;
+            commonLookUp.ConfigName = model.ConfigName;
+            commonLookUp.ConfigKey = model.ConfigKey;
+            commonLookUp.ConfigValue = model.ConfigValue;
+            commonLookUp.Description = model.Description;
+            commonLookUp.DisplayOrder = model.DisplayOrder;
+           
             _commonLookUpRepository.Insert(commonLookUp);
             _commonLookUpRepository.Commit();
             
@@ -40,7 +41,7 @@ namespace CRMSSystem.Service
            
         }
 
-        public void EditCommonLookUp(CommonLookUpViewModel model)
+        public void EditCommonLookUp(CommonLookUp model)
         {
             CommonLookUp commonLookUp = _commonLookUpRepository.Collection().Where(cl => cl.Id == model.Id).FirstOrDefault();
             commonLookUp.ConfigKey = model.ConfigKey;
@@ -60,16 +61,16 @@ namespace CRMSSystem.Service
 
         }
 
-        public CommonLookUpViewModel GetCommonLookUp(Guid Id)
+        public CommonLookUp GetCommonLookUp(Guid Id)
         {
             CommonLookUp commonLookUp = _commonLookUpRepository.Find(Id);
-            CommonLookUpViewModel commonLookUpViewModel = new CommonLookUpViewModel();
-            commonLookUpViewModel.ConfigName = commonLookUp.ConfigName;
-            commonLookUpViewModel.ConfigKey = commonLookUp.ConfigKey;
-            commonLookUpViewModel.ConfigValue = commonLookUp.ConfigValue;
-            commonLookUpViewModel.DisplayOrder = commonLookUp.DisplayOrder;
-            commonLookUpViewModel.Description = commonLookUp.Description;
-            return commonLookUpViewModel;
+            CommonLookUp commonLookUpViewModel = new CommonLookUp();
+            //commonLookUpViewModel.ConfigName = commonLookUp.ConfigName;
+            //commonLookUpViewModel.ConfigKey = commonLookUp.ConfigKey;
+            //commonLookUpViewModel.ConfigValue = commonLookUp.ConfigValue;
+            //commonLookUpViewModel.DisplayOrder = commonLookUp.DisplayOrder;
+            //commonLookUpViewModel.Description = commonLookUp.Description;
+            return commonLookUp;
             
         }
  

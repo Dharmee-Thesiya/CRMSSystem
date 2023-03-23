@@ -19,7 +19,9 @@
                         Description = c.String(),
                         CreatedBy = c.Guid(),
                         CreatedOn = c.DateTime(nullable: false),
-                        UpdatedBy = c.Guid(),
+                        
+                    
+                    dBy = c.Guid(),
                         UpdatedOn = c.DateTime(),
                         IsActive = c.Boolean(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),

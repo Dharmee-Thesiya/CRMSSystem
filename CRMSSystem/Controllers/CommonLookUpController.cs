@@ -27,35 +27,36 @@ namespace CRMSSystem.Controllers
         }
 
         //Create Get: CommonLookUp
-        public ActionResult Create(Guid? Id=null)
+        public ActionResult Create(Guid? Id = null)
         {
-            CommonLookUpViewModel commonLookUp = new CommonLookUpViewModel();
-            return PartialView("CreatePartialPartial",commonLookUp);
+            CommonLookUp commonLookup = new CommonLookUp();
+            if (Id == null)
+            {
+                commonLookup.IsEdit = false;
+                return PartialView("PartialView", commonLookup);
+            }
+            else
+            {
+                commonLookup = _commonLookUpService.GetCommonLookUp(Id.Value);
+                commonLookup.IsEdit = true;
+                return PartialView("PartialView", commonLookup);
+            }
+
         }
-        //Create Post: CommonLookUp
+
         [HttpPost]
         public ActionResult Create(CommonLookUp model)
         {
             _commonLookUpService.CreateCommonLookUp(model);
             return RedirectToAction("Index");
         }
-            
-        
         //Edit Get: CommonLookUp
-        public ActionResult Edit(Guid Id)
-        {
-            CommonLookUpViewModel commonLookUp = _commonLookUpService.GetCommonLookUp(Id);
-            return View(commonLookUp);
-        }
-
-        //Edit Post:CommonLookUp
         [HttpPost]
-        public ActionResult Edit(CommonLookUpViewModel model)
+        public ActionResult Edit(CommonLookUp model)
         {
             _commonLookUpService.EditCommonLookUp(model);
             return RedirectToAction("Index");
         }
-        
         [HttpPost]                     
         public ActionResult Delete(Guid Id)
         {

@@ -7,7 +7,7 @@ namespace CRMSSystem.SQL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdateData : IMigrationMetadata
+    public sealed partial class Data : IMigrationMetadata
     {
         private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateData));
         

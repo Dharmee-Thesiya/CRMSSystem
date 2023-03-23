@@ -14,8 +14,8 @@ namespace CRMSSystem.Core.Models
        public string ConfigValue { get; set; }
        public int? DisplayOrder { get; set; }
        public string  Description { get; set; }
-        [NotMapped ]
-        public bool IsEdit { get; set; }
+       [NotMapped ]
+       public bool IsEdit { get; set; }
       
     }
 }
