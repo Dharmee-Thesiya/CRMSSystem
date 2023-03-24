@@ -50,27 +50,28 @@
 </div>
 
 
-<table class="table table-bordered" >
-        <tr class="bg-primary">
 
-            <th>
-                ConfigName
-            </th>
-            <th>
-                Config Key
-            </th>
-            <th>
-                Config Value
-            </th>
-            <th>
-                DisplayOrder
-            </th>
-            <th>
-                Description
-            </th>
+<table class="table table-bordered">
+    <tr class="bg-primary">
 
-            <th>Action</th>
-        </tr>
+        <th>
+            ConfigName
+        </th>
+        <th>
+            Config Key
+        </th>
+        <th>
+            Config Value
+        </th>
+        <th>
+            DisplayOrder
+        </th>
+        <th>
+            Description
+        </th>
+
+        <th>Action</th>
+    </tr>
 
     @foreach (var item in ViewBag.CommonLookups)
     {
@@ -103,6 +104,7 @@
 
 @Styles.Render("~/Content/StyleSheet1.css")
 <script>
+
     function Create(Id) {
         debugger;
         var url = '';
@@ -139,6 +141,8 @@
             }
         });
     }
+
+
 
 </script>
 

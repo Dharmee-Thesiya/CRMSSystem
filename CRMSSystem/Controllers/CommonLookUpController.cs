@@ -47,15 +47,34 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Create(CommonLookUp model)
         {
-            _commonLookUpService.CreateCommonLookUp(model);
-            return RedirectToAction("Index");
+            
+            CommonLookUp commonLookUp =_commonLookUpService.CreateCommonLookUp(model);
+            if(commonLookUp!=null)
+            {
+                return Content("True");
+            }
+            else
+            {
+                return Content("False");
+            }
+            //return RedirectToAction("Index");
         }
         //Edit Get: CommonLookUp
         [HttpPost]
         public ActionResult Edit(CommonLookUp model)
         {
-            _commonLookUpService.EditCommonLookUp(model);
-            return RedirectToAction("Index");
+
+            CommonLookUp commonLookUp = _commonLookUpService.EditCommonLookUp(model);
+            if (commonLookUp != null)
+            {
+                return Content("True");
+            }
+            else
+            {
+                return Content("False");
+            }
+            //_commonLookUpService.EditCommonLookUp(model);
+            //return RedirectToAction("Index");
         }
         [HttpPost]                     
         public ActionResult Delete(Guid Id)

@@ -61,8 +61,10 @@
 
 
 <script>
+    var IsCheck = false;
     function CommonLookUpSave() {
-        debugger;
+        IsCheck = true;
+     
         var form = $("#commonlookup").serialize();
         var IsEdit = $("#IsEdit").val();
         var configName = $("#ConfigName").val();
@@ -75,10 +77,15 @@
                 type: 'POST',
                 url: url,
                 data: form,
-                success: function () {
-
-                    $("#CommonLookUpModal").modal("hide");
-                    location.reload();
+                success: function (data) {
+                    debugger;
+                    if (data == "False") {
+                        alert("CommonLookUp Already Exists");
+                    }
+                    else {
+                        $("#CommonLookUpModal").modal("hide");
+                        location.reload();
+                    }
                 }
             })
         }
@@ -88,28 +95,32 @@
     }
 
     function checkValidation() {
+        if (IsCheck) {
+
+        
         var configName = $("#ConfigName").val();
         var configKey = $("#ConfigKey").val();
         var configValue = $("#ConfigValue").val();
         if (configName == '') {
-            $("#configNameError").text("This Field is required.")
+            $("#configNameError").text("Config Name is required.")
         }
         else {
             $("#configNameError").text("")
         }
         if (configKey == '') {
-            $("#configKeyError").text("This Field is required.")
+            $("#configKeyError").text("Config Key is required.")
 
         }
         else {
             $("#configKeyError").text("")
         }
         if (configValue == '') {
-            $("#configValueError").text("This Field is required.")
+            $("#configValueError").text("Config Value is required.")
 
         }
         else {
             $("#configValueError").text("")
+        }
         }
     }
 </script>
