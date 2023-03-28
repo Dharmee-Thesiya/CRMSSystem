@@ -18,22 +18,36 @@ namespace CRMSSystem.Services
             _userRepository = userRepository;
             _userRoleRepository = userRoleRepository;
         }
-        public void CreateUser(UserViewModel model)
+        public string CreateUser(UserViewModel model)
         {
+            if(_userRepository.Collection().Where(u=>u.UserName==model.UserName).Any())
+            {
+                return "UserName Already Exists";
+            }
+            if(_userRepository.Collection().Where(u => u.Email == model.Email).Any())
+            {
+                return "Email Already Exists";
+            }
             User user = new User();
             user.Name = model.Name;
             user.Email = model.Email;
             user.Password = model.Password;
+            user.MobileNumber = model.MobileNumber;
+            user.UserName = model.UserName;
+            user.Gender = model.Gender;
 
             _userRepository.Insert(user);
             _userRepository.Commit();
+
             UserRole userRole = new UserRole();
             userRole.RoleId = model.RoleId;
             userRole.UserId = user.Id;
             _userRoleRepository.Insert(userRole);
             _userRoleRepository.Commit();
 
+            return null;
         }
+        
 
         public void DeleteUser(Guid Id)
         {
@@ -49,12 +63,25 @@ namespace CRMSSystem.Services
             _userRoleRepository.Commit();
         }
 
-        public void EditUser(UserViewModel model)
+        public string EditUser(UserViewModel model)
         {
+            if(_userRepository.Collection().Where(u => u.Id != model.Id && u.UserName == model.UserName).Any())
+            {
+                return "UserName Already Exists";
+            }
+            if (_userRepository.Collection().Where(u => u.Id != model.Id &&u.Email == model.Email).Any())
+            {
+                return "Email Already Exists";
+            }
             User user = _userRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             user.Name = model.Name;
             user.Email = model.Email;
             user.UpdatedOn = DateTime.Now;
+            user.UserName = model.UserName;
+            user.MobileNumber = model.MobileNumber;
+            user.Gender = model.Gender;
+            user.Password = model.Password;
+
             _userRepository.Update(user);
             _userRepository.Commit();
 
@@ -64,6 +91,7 @@ namespace CRMSSystem.Services
             _userRoleRepository.Update(userRole);
             _userRoleRepository.Commit();
 
+            return null;
 
         }
         public UserViewModel GetUser(Guid Id)
@@ -71,12 +99,13 @@ namespace CRMSSystem.Services
             return _userRepository.GetUserById(Id);
 
         }
-
         public List<UserViewModel> GetUsers()
         {
             //return userRepository.Collection().Where(x => !x.IsDeleted).ToList();
             return _userRepository.GetUsers();
 
         }
+       
+        
     }
 }

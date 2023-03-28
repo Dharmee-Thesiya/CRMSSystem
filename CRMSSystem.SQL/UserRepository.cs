@@ -1,4 +1,4 @@
-﻿using CRMSSystem.Core.Contracts;
+﻿ using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.SQL;
@@ -46,7 +46,6 @@ namespace CRMSSystem.SQL
             dbSet.Add(user);
 
         }
-
         public void Delete(Guid Id)
         {
             var user = Find(Id)
@@ -79,7 +78,11 @@ namespace CRMSSystem.SQL
                              Name = u.Name,
                              Email = u.Email,
                              RoleId = ur.RoleId,
-                             RoleName=r.Name
+                             RoleName = r.Name,
+                             UserName = u.UserName,
+                             MobileNumber = u.MobileNumber,
+                             Password=u.Password,
+                             Gender = u.Gender
 
                          }).FirstOrDefault();
             return users;
@@ -99,12 +102,14 @@ namespace CRMSSystem.SQL
                              Name = u.Name,
                              RoleName = r.Name,
                              Email = u.Email,
-                             Password = u.Password
+                             Password = u.Password,
+                             UserName = u.UserName,
+                             MobileNumber = u.MobileNumber,
+                             Gender = u.Gender
 
                          }).ToList();
             return users;
         }
-
     }
 }
 

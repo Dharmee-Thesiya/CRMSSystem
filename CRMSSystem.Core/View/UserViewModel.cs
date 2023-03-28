@@ -11,15 +11,20 @@ namespace CRMSSystem.Core.View
 {
     public class UserViewModel : BaseEntity
     {
-        [Required]
+        [Required(ErrorMessage ="Name Is Required")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Email Is Required")]
+        [EmailAddress(ErrorMessage ="Please Enter Valid Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password Is Required")]
         public string Password { get; set; }
+        public string MobileNumber { get; set; }
+        [Required(ErrorMessage = "UserName Is Required")]
+        [StringLength(10,MinimumLength =6)]
+        public string UserName { get; set; }
+        [Required(ErrorMessage = "Gender Is Required")]
+        public string Gender { get; set; }
         //public Guid? Id { get; set; }
-
-
         [Required]
         public Guid RoleId { get; set; }
 

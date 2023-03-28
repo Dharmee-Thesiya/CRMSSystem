@@ -12,9 +12,10 @@ namespace CRMSSystem.Core.Contracts
     {
         List<UserViewModel> GetUsers();
         UserViewModel GetUser(Guid Id);
-        void CreateUser(UserViewModel model);
-        void EditUser(UserViewModel model);
+        string CreateUser(UserViewModel model);
+        string EditUser(UserViewModel model);
         void DeleteUser(Guid Id);
+       
        
     }
 }

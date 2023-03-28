@@ -4,6 +4,7 @@ using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Web;
 using System.Web.Mvc;
 
@@ -28,6 +29,7 @@ namespace CRMSSystem.Controllers
 
         public ActionResult Create()
         {
+
             UserViewModel user = new UserViewModel();
             user.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
             return View(user);
@@ -36,7 +38,14 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Create(UserViewModel model)
         {
-            _userService.CreateUser(model);
+            var User = _userService.CreateUser(model);
+            if (User!=null)
+            {
+                ViewBag.Message= User;
+                model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
+                return View(model);
+            }
+            
             return RedirectToAction("Index");
         }
 
@@ -50,7 +59,14 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Edit(UserViewModel model)
         {
-            _userService.EditUser(model);
+            var User = _userService.EditUser(model);
+            if (User != null)
+            {
+                ViewBag.Message = User;
+                model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
+                return View(model);
+            }
+
             return RedirectToAction("Index");
         }
         public ActionResult Delete(Guid Id)

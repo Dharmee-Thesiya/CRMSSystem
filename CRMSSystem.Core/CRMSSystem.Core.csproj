@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\CommonLookUpViewModel.cs" />
     <Compile Include="View\ConferenceRoomViewModel.cs" />
+    <Compile Include="View\RemoteAttribute.cs" />
     <Compile Include="View\RoleViewModel.cs" />
     <Compile Include="View\UserViewModel.cs" />
   </ItemGroup>

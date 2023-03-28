@@ -19,7 +19,7 @@ namespace CRMSSystem.Core.Contracts
             void Delete(Guid Id);
             List<UserViewModel> GetUsers();
             UserViewModel GetUserById(Guid Id);
-        
+           
     }
     }
 
