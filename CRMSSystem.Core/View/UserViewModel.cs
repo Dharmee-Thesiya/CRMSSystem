@@ -17,6 +17,7 @@ namespace CRMSSystem.Core.View
         [EmailAddress(ErrorMessage ="Please Enter Valid Email")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Password Is Required")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", ErrorMessage = "Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long")]
         public string Password { get; set; }
         public string MobileNumber { get; set; }
         [Required(ErrorMessage = "UserName Is Required")]

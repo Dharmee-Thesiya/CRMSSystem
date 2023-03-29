@@ -1,5 +1,6 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
+using CRMSSystem.filter;
 using CRMSSystem.SQL;
 using Intercom.Data;
 using Microsoft.AspNet.Identity.Owin;
@@ -9,10 +10,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace CRMSSystem.Controllers
 {
-
+    
     public class AccountController : Controller
     {
 
@@ -34,8 +36,6 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Login(AccountViewModel model)
         {
-            
-
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -46,28 +46,23 @@ namespace CRMSSystem.Controllers
                 var user = _loginService.Login(model);
                 if (user != null)
                 {
-                    return RedirectToAction("Index");
-
+                    Session["Id"] = user.Id;
+                    Session["UserName"] = user.UserName;
+                    return RedirectToAction("Index","Admin"); 
                 }
                 else
                 {
-                    if (user != null)
-                    {
-                        
-                        return RedirectToAction("Index");
-
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "You Enter Invalid username or password.");
-                        return View();
-                    }
+                    ModelState.AddModelError("", " Email or password Is Incorrect.");
+                    return View();
                 }
+
             } 
         }
-        public ActionResult Index()
+        public ActionResult Logout()
         {
-            return View();
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

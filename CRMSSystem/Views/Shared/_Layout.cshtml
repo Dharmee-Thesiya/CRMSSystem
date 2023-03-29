@@ -20,12 +20,11 @@
                 @Html.ActionLink("CRMSSystem", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>*@
-
+                @if (Session["UserName"]!=null)
+                {
+                    <li>@Session["UserName"]</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Account",new { area=""},new { @class="navbar-right", @style="color:white"})</li>
+                }
             </div>
         </div>
     </div>

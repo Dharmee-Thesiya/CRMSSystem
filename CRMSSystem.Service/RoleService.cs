@@ -19,29 +19,39 @@ namespace CRMSSystem.Service
         }
         public List<Role> GetRoles()
         {
-            return roleRepository.Collection().Where(x => !x.IsDeleted).ToList();
+            return roleRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x=>x.CreatedOn).ToList();
         }
 
-        public void CreateRole(RoleViewModel model)
-        {
+        public string CreateRole(RoleViewModel model)
+        { 
+            if(roleRepository.Collection().Where(r=>r.Code==model.Code && !r.IsDeleted).Any())
+            {
+                return "Code Already Exist";
+            }
             Role role = new Role();
-            role.Code = model.Code;
+            role.Code = model.Code.ToUpper();
             role.Name = model.Name;
             //role.Id = model.Id;
 
             roleRepository.Insert(role);
             roleRepository.Commit();
+            return null;
         }
-        public void EditRole(RoleViewModel model)
+        public string EditRole(RoleViewModel model)
         {
+            if (roleRepository.Collection().Where(r => r.Id != model.Id && r.Code == model.Code && !r.IsDeleted).Any())
+            {
+                return "Code Already Exist";
+            }
             Role role = roleRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             role.Name = model.Name;
-            role.Code = model.Code;
+            role.Code = model.Code.ToUpper();
             //role.Id = model.Id;
             role.UpdatedOn = DateTime.Now;
 
             roleRepository.Update(role);
             roleRepository.Commit();
+            return null;
         }
 
         public RoleViewModel GetRole(Guid Id)

@@ -12,8 +12,8 @@ namespace CRMSSystem.Core.Contracts
     {
         List<Role> GetRoles();
         RoleViewModel GetRole(Guid Id);
-        void CreateRole(RoleViewModel model);
-        void EditRole(RoleViewModel model);
+        string CreateRole(RoleViewModel model);
+        string EditRole(RoleViewModel model);
         void DeleteRole(RoleViewModel model);
         
         

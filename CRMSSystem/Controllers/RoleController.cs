@@ -1,6 +1,7 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using CRMSSystem.filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Web.Security;
 
 namespace CRMSSystem.Controllers
 {
+    [CustomAuthentication]
     public class RoleController : Controller
     {
         IRoleService _roleService;
@@ -32,7 +34,13 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
-            _roleService.CreateRole(model);
+            var Role= _roleService.CreateRole(model);
+            if (Role != null)
+            {
+                ViewBag.Message = Role;
+                return View(model);
+            }
+            
             return RedirectToAction("Index");
         }
 
@@ -52,7 +60,14 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Edit(RoleViewModel model)
         {
-            _roleService.EditRole(model);
+            var Role = _roleService.EditRole(model);
+            if (Role != null)
+            {
+                ViewBag.Message = Role;
+                return View(model);
+            }
+
+            
             return RedirectToAction("Index");
         }
         public ActionResult Delete(Guid Id)

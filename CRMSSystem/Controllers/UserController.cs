@@ -1,6 +1,7 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using CRMSSystem.filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
+    [CustomAuthentication]
+    
     public class UserController : Controller
     {
         IUserService _userService;
@@ -21,8 +24,10 @@ namespace CRMSSystem.Controllers
 
         }
         [AllowAnonymous]
+        
         public ActionResult Index()
         {
+           
             List<UserViewModel> users = _userService.GetUsers().ToList();
             return View(users);
         }

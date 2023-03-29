@@ -4,6 +4,7 @@ using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,20 +21,25 @@ namespace CRMSSystem.Services
         }
         public string CreateUser(UserViewModel model)
         {
-            if(_userRepository.Collection().Where(u=>u.UserName==model.UserName).Any())
+            if(_userRepository.Collection().Where(u=>u.UserName==model.UserName && !u.IsDeleted).Any())
             {
                 return "UserName Already Exists";
             }
-            if(_userRepository.Collection().Where(u => u.Email == model.Email).Any())
+            if(_userRepository.Collection().Where(u => u.Email == model.Email && !u.IsDeleted).Any())
             {
                 return "Email Already Exists";
             }
             User user = new User();
+            string salt = "";
+            string password = HashPasword(model.Password, out salt);
+
             user.Name = model.Name;
             user.Email = model.Email;
-            user.Password = model.Password;
+            user.Password = password;
             user.MobileNumber = model.MobileNumber;
+            user.Passwordsalt = salt;
             user.UserName = model.UserName;
+            
             user.Gender = model.Gender;
 
             _userRepository.Insert(user);
@@ -65,11 +71,11 @@ namespace CRMSSystem.Services
 
         public string EditUser(UserViewModel model)
         {
-            if(_userRepository.Collection().Where(u => u.Id != model.Id && u.UserName == model.UserName).Any())
+            if(_userRepository.Collection().Where(u => u.Id != model.Id && u.UserName == model.UserName && !u.IsDeleted).Any())
             {
                 return "UserName Already Exists";
             }
-            if (_userRepository.Collection().Where(u => u.Id != model.Id &&u.Email == model.Email).Any())
+            if (_userRepository.Collection().Where(u => u.Id != model.Id &&u.Email == model.Email && !u.IsDeleted).Any())
             {
                 return "Email Already Exists";
             }
@@ -101,11 +107,30 @@ namespace CRMSSystem.Services
         }
         public List<UserViewModel> GetUsers()
         {
-            //return userRepository.Collection().Where(x => !x.IsDeleted).ToList();
+            //return _userRepository.Collection().Where(x => !x.IsDeleted).ToList();
             return _userRepository.GetUsers();
-
         }
-       
-        
+        private static string CreateSalt(int size)
+        {
+            // Generate a cryptographic random number using the cryptographic 
+            // service provider
+            RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+            byte[] buff = new byte[size];
+            rng.GetBytes(buff);
+            // Return a Base64 string representation of the random number
+            return Convert.ToBase64String(buff);
+        }
+
+
+        private string HashPasword(string Password, out string salt)
+        {
+            salt = CreateSalt(64);
+            string stringDataToHash = Password + "" + salt;
+            HashAlgorithm hashAlg = new SHA256CryptoServiceProvider();
+            byte[] bytValue = System.Text.Encoding.UTF8.GetBytes(stringDataToHash);
+            byte[] bytHash = hashAlg.ComputeHash(bytValue);
+            string base64 = Convert.ToBase64String(bytHash);
+            return base64;
+        }
     }
 }

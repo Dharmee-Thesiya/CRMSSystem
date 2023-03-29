@@ -72,6 +72,7 @@ namespace CRMSSystem.SQL
                          join ur in context.UserRoles on u.Id equals ur.UserId
                          join r in context.Roles on ur.RoleId equals r.Id
                          where !u.IsDeleted && !ur.IsDeleted && u.Id == Id
+                         orderby u.CreatedOn descending
                          select new UserViewModel
                          {
                              Id = u.Id,
@@ -94,7 +95,7 @@ namespace CRMSSystem.SQL
                          join ur in context.UserRoles on u.Id equals ur.UserId
                          join r in context.Roles on ur.RoleId equals r.Id
                          where !u.IsDeleted && !ur.IsDeleted && !r.IsDeleted
-                         orderby u.Id descending
+                         orderby u.CreatedOn descending
                          select new UserViewModel
                          {
                              Id = u.Id,

@@ -19,7 +19,7 @@ namespace CRMSSystem.SQL
         }
         public User Login(AccountViewModel model)
         {
-            var user = context.User.Where(User => User.Email == model.Email && User.Password == model.Password).FirstOrDefault();
+            var user = context.User.Where(User => User.Email == model.Email && !User.IsDeleted).FirstOrDefault();
             return user;
         }
     }

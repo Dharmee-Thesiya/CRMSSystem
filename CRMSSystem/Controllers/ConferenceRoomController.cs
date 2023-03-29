@@ -1,6 +1,7 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using CRMSSystem.filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
+    [CustomAuthentication]
     public class ConferenceRoomController : Controller
     {
         IConferenceRoomService _conferenceRoomService;
