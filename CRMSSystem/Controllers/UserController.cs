@@ -2,6 +2,8 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +27,11 @@ namespace CRMSSystem.Controllers
         }
         [AllowAnonymous]
         
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
            
             List<UserViewModel> users = _userService.GetUsers().ToList();
-            return View(users);
+            return View(users.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -94,6 +96,10 @@ namespace CRMSSystem.Controllers
             _userService.DeleteUser(Id);
             return RedirectToAction("Index");
         }
-
+        public ActionResult GetUsers([DataSourceRequest] DataSourceRequest request)
+        {
+            List<UserViewModel> userViewModels = _userService.GetUsers().Select(x => new UserViewModel() { Id = x.Id, Name = x.Name, Email = x.Email, Password=x.Password, MobileNumber=x.MobileNumber, Gender=x.Gender, UserName=x.UserName, RoleName=x.RoleName}).ToList();
+            return Json(userViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
     }
 }

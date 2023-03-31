@@ -17,8 +17,6 @@
 <div class="modal fade" id="CommonLookUpModal">
     <div class="modal-dialog">
         <div class="modal-content" id="CommonLookUpForm">
-
-
         </div>
     </div>
 </div>
@@ -104,15 +102,18 @@
 
 @Styles.Render("~/Content/StyleSheet1.css")
 <script>
-
+    var IsCheck = false;
     function Create(Id) {
         debugger;
+       
         var url = '';
         if (Id == 0) {
             url = "/CommonLookup/Create";
+            IsCheck = false;
         }
         else {
             url = "/CommonLookup/Create?Id=" + Id;
+            IsCheck = true;
         }
 
 

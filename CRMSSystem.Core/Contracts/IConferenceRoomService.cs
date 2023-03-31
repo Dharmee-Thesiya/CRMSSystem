@@ -12,7 +12,7 @@ namespace CRMSSystem.Core.Contracts
     {
         List<ConferenceRoom> GetConferenceRooms();
         ConferenceRoomViewModel GetConferenceRoom(Guid Id);
-        void CreateConferenceRoom(ConferenceRoomViewModel model);
+        string CreateConferenceRoom(ConferenceRoomViewModel model);
         void EditConferenceRoom(ConferenceRoomViewModel model);
         void DeleteConferenceRoom(ConferenceRoomViewModel model);
     }

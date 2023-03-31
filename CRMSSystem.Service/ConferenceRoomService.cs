@@ -16,15 +16,20 @@ namespace CRMSSystem.Service
         {
             _conferenceRoomRepository = conferenceRoomRepository;
         }
-        public void CreateConferenceRoom(ConferenceRoomViewModel model)
+        public string CreateConferenceRoom(ConferenceRoomViewModel model)
         {
-            
+            if (_conferenceRoomRepository.Collection().Where(r => r.Name == model.Name && !r.IsDeleted).Any())
+            {
+                return "ConferenceRoom Already Exist";
+            }
+
             ConferenceRoom conferenceRoom = new ConferenceRoom();
             conferenceRoom.Capacity = model.Capacity;
             conferenceRoom.Name = model.Name;
 
             _conferenceRoomRepository.Insert(conferenceRoom);
             _conferenceRoomRepository.Commit();
+            return null;
         }
 
         public void DeleteConferenceRoom(ConferenceRoomViewModel model)

@@ -2,6 +2,8 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +22,10 @@ namespace CRMSSystem.Controllers
         }
         // GET: ConferenceRoom
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<ConferenceRoom> conferenceRooms = _conferenceRoomService.GetConferenceRooms().ToList();
-            return View(conferenceRooms);
+            return View(conferenceRooms.ToDataSourceResult(request));
         }
         public ActionResult Create()
         {
@@ -33,7 +35,13 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Create(ConferenceRoomViewModel model)
         {
-            _conferenceRoomService.CreateConferenceRoom(model);
+            var ConferenceRoom = _conferenceRoomService.CreateConferenceRoom(model);
+            if (ConferenceRoom != null)
+            {
+                ViewBag.Message = ConferenceRoom;
+                return View(model);
+            }
+            
             return RedirectToAction("Index");
         }
         public ActionResult Edit(Guid Id)
@@ -73,6 +81,10 @@ namespace CRMSSystem.Controllers
             _conferenceRoomService.DeleteConferenceRoom(model);
             return RedirectToAction("Index");
         }
-
+        public ActionResult GetConferenceRoom([DataSourceRequest] DataSourceRequest request)
+        {
+            List<ConferenceRoomViewModel> conferenceRoomViewModels = _conferenceRoomService.GetConferenceRooms().Select(x => new ConferenceRoomViewModel() { Id = x.Id, Name = x.Name, Capacity = x.Capacity }).ToList();
+            return Json(conferenceRoomViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
     }
 }

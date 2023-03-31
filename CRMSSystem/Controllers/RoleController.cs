@@ -2,6 +2,8 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +22,10 @@ namespace CRMSSystem.Controllers
             _roleService = roleService;
         }
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoles().ToList();
-            return View(roles);
+            return View(roles.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -88,7 +90,12 @@ namespace CRMSSystem.Controllers
             _roleService.DeleteRole(model);
             return RedirectToAction("Index");
         }
-        
+        public ActionResult GetRoles([DataSourceRequest] DataSourceRequest request)
+        {
+            List<RoleViewModel> roleViewModels = _roleService.GetRoles().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
+            return Json(roleViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
     }   
 }
 

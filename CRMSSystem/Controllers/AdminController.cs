@@ -10,7 +10,6 @@ namespace CRMSSystem.Controllers
     [CustomAuthentication]
     public class AdminController : Controller
     {
-       
         public ActionResult Index()
         {
             return View();

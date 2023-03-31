@@ -1,43 +1,84 @@
-﻿@model IEnumerable<CRMSSystem.Core.Models.ConferenceRoom>
-
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
 
 @{
-    ViewBag.Title = "ConferenceRoomIndex";
+    ViewBag.Title = "Index";
 }
 
-<h2>ConferenceRoom</h2>
-
+<h1 align="center" style="margin-bottom:50px;color:black"><b>ConferenceRoom Index</b></h1>
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table table-bordered">
-    <tr class="bg-primary">
-        
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Capacity)
-        </th>
-        <th>Action</th>
-    </tr>
 
-    @foreach (var item in Model)
+@(Html.Kendo().Grid<ConferenceRoomViewModel>().Name("grid").Columns(columns =>
+{
+    columns.Bound(c => c.Name);
+    columns.Bound(c => c.Capacity);
+    columns.Template(c => { }).Title(string.Empty)
+            .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "ConferenceRoom") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "ConferenceRoom") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
     {
-        <tr>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacity)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
+        s.Field(t => t.Name);
+        s.Field(o => o.Capacity);
+    })
 
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetConferenceRoom", "ConferenceRoom"))
+    .Update(update => update.Action("Edit", "ConferenceRoom"))
+    .Destroy(destroy => destroy.Action("Delete", "ConferenceRoom"))
+    .Create(create => create.Action("Create", "ConferenceRoom"))
+    .PageSize(5))
+
+)
+@*@model IEnumerable<CRMSSystem.Core.Models.ConferenceRoom>
+
+    @{
+        ViewBag.Title = "ConferenceRoomIndex";
     }
 
-</table>
+    <h2>ConferenceRoom</h2>
+
+
+    <table class="table table-bordered">
+        <tr class="bg-primary">
+
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Capacity)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Capacity)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>*@

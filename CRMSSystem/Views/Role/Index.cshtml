@@ -1,76 +1,87 @@
-﻿@model IEnumerable<CRMSSystem.Core.Models.Role>
-
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
 
 @{
-    ViewBag.Title = "RoleIndex";
+    ViewBag.Title = "Index";
 }
-<h2>Role</h2>
+
+<h1 align="center" style="margin-bottom:50px;color:black"><b>Role Index</b></h1>
+
 <p>
-    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<br/>
-<table class="table table-bordered" >
-    <tr class="bg-primary">
-        @*<th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th>Action</th>
-    </tr>
 
-    @foreach (var item in Model)
+@(Html.Kendo().Grid<RoleViewModel>().Name("grid").Columns(columns =>
+{
+    columns.Bound(c => c.Name);
+    columns.Bound(c => c.Code);
+    columns.Template(c => { }).Title(string.Empty)
+            .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
     {
-        <tr>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.CreatedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UpdatedOn)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Code)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
-                
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
-    }
+        s.Field(t => t.Name);
+        s.Field(t => t.Code);
+    })
 
-</table>
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetRoles", "Role"))
+    .Update(update => update.Action("Edit", "Role"))
+    .Destroy(destroy => destroy.Action("Delete", "Role"))
+    .Create(create => create.Action("Create", "Role"))
+    .PageSize(5))
+
+)
+@*@model IEnumerable<CRMSSystem.Core.Models.Role>
+
+
+    @{
+        ViewBag.Title = "RoleIndex";
+    }
+    <h2>Role</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+    </p>
+    <br/>
+    <table class="table table-bordered" >
+        <tr class="bg-primary">
+
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Code)
+            </th>
+            <th>Action</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+
+    </table>*@
