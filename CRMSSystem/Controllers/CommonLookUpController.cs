@@ -2,6 +2,8 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +23,12 @@ namespace CRMSSystem.Controllers
         }
         // GET: CommonLookUp
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
 
         {
             List<CommonLookUp> commonLookUps = _commonLookUpService.GetCommonLookUp().ToList();
-            ViewBag.CommonLookUps = commonLookUps;
-            return View();
+            //ViewBag.CommonLookUps = commonLookUps;
+            return View(commonLookUps.ToDataSourceResult(request));
         }
 
         //Create Get: CommonLookUp
@@ -85,7 +87,11 @@ namespace CRMSSystem.Controllers
             _commonLookUpService.DeleteCommonLookUp(Id);
             return RedirectToAction("Index");
         }
-
+        public ActionResult GetCommonLookUp([DataSourceRequest] DataSourceRequest request)
+        {
+            List<CommonLookUpViewModel> commonLookUpViewModels = _commonLookUpService.GetCommonLookUp().Select(x => new CommonLookUpViewModel() { Id = x.Id, ConfigName = x.ConfigName, ConfigKey = x.ConfigKey, ConfigValue=x.ConfigValue, Description=x.Description, DisplayOrder=x.DisplayOrder }).ToList();
+            return Json(commonLookUpViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
     }
 
 }

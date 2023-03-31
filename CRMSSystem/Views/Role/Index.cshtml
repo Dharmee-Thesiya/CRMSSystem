@@ -28,7 +28,10 @@
     })
 
     .Editable(editable => editable.Mode(GridEditMode.InLine))
-    .Pageable()
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
     .Scrollable()
     .HtmlAttributes(new { style = "height:550px;" })
     .Sortable()
@@ -43,6 +46,10 @@
     .PageSize(5))
 
 )
+
+<div>
+    @Html.ActionLink("Back to List", "Index","Admin")
+</div>
 @*@model IEnumerable<CRMSSystem.Core.Models.Role>
 
 

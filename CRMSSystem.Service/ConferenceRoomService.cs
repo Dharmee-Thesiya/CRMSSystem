@@ -64,7 +64,7 @@ namespace CRMSSystem.Service
 
         public List<ConferenceRoom> GetConferenceRooms()
         {
-            return _conferenceRoomRepository.Collection().Where(cr => !cr.IsDeleted).ToList();
+            return _conferenceRoomRepository.Collection().Where(cr => !cr.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
         }
     }
 }

@@ -74,7 +74,7 @@ namespace CRMSSystem.Service
 
         public List<CommonLookUp> GetCommonLookUp()
         {
-            return _commonLookUpRepository.Collection().Where(cl => !cl.IsDeleted).ToList();
+            return _commonLookUpRepository.Collection().Where(cl => !cl.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
 
         }
 
