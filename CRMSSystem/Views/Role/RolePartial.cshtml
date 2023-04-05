@@ -1,0 +1,42 @@
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
+
+@(Html.Kendo().Grid<RoleViewModel>().Name("Rolegrid").Columns(columns =>
+{
+    columns.Bound(c => c.Name);
+    columns.Bound(c => c.Code);
+    columns.Template(c => { }).Title(string.Empty)
+            .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+    {
+        s.Field(t => t.Name);
+        s.Field(t => t.Code);
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+     .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetRoles", "Role"))
+    .Update(update => update.Action("Edit", "Role"))
+    .Destroy(destroy => destroy.Action("Delete", "Role"))
+    .Create(create => create.Action("Create", "Role"))
+    .PageSize(5))
+
+)
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Admin")
+</div>

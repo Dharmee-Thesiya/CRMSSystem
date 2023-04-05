@@ -1,54 +1,58 @@
-﻿@model CRMSSystem.Models.LoginViewModel
+﻿@model CRMSSystem.Core.Models.AccountViewModel
 
 @{
     ViewBag.Title = "Login";
+    Layout = null;
 }
-
-<h2>Login</h2>
-
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @*<h4>LoginViewModel</h4>*@
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <!DOCTYPE html>
+    <html lang="en-us">
+    <head>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.RememberMe)
-                    @Html.ValidationMessageFor(model => model.RememberMe, "", new { @class = "text-danger" })
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CRB Login</title>
+        <link rel="stylesheet" href="~/Style/login.css">
+
+    </head>
+    <body>
+        <div class="loginDiv">
+            <div class="loginBox">
+                <div class="loginLogo">
+                    <img src="~/image/logo.svg" alt="CRB Logo">
+                </div>
+
+                <div class="formSection">
+                    <div class="inputBox">
+                        @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errorMsg" })
+                        <p class="errorMsg"></p>
+
+                    </div>
+
+                    <div class="inputBox">
+
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errorMsg" })
+
+                    </div>
+
+                    <div class="inputBox btnInput">
+                        <button type="submit" class="loginBtn">Login</button>
+                    </div>
+
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+    </body>
+</html>
 }
 
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

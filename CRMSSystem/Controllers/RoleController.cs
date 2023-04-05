@@ -21,6 +21,7 @@ namespace CRMSSystem.Controllers
         {
             _roleService = roleService;
         }
+
         [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
@@ -42,10 +43,12 @@ namespace CRMSSystem.Controllers
                 ViewBag.Message = Role;
                 return View(model);
             }
-            
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Admin");
+            }
         }
-
         public ActionResult Edit(Guid Id)
         {
             RoleViewModel role = _roleService.GetRole(Id);
@@ -68,9 +71,11 @@ namespace CRMSSystem.Controllers
                 ViewBag.Message = Role;
                 return View(model);
             }
-
-            
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                return RedirectToAction("Index", "Admin");
+            }
         }
         public ActionResult Delete(Guid Id)
         {
@@ -88,7 +93,8 @@ namespace CRMSSystem.Controllers
         public ActionResult Delete(RoleViewModel model)
         {
             _roleService.DeleteRole(model);
-            return RedirectToAction("Index");
+            TempData["PageSelected"] = "RoleManagement";
+            return RedirectToAction("Index", "Admin");
         }
         public ActionResult GetRoles([DataSourceRequest] DataSourceRequest request)
         {

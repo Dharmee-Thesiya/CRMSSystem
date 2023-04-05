@@ -12,6 +12,7 @@ namespace CRMSSystem.Controllers
     {
         public ActionResult Index()
         {
+            string res = TempData["PageSelected"] as string;
             return View();
         }
     }

@@ -26,10 +26,10 @@ namespace CRMSSystem.Controllers
 
         }
         [AllowAnonymous]
-        
+
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
-           
+
             List<UserViewModel> users = _userService.GetUsers().ToList();
             return View(users.ToDataSourceResult(request));
         }
@@ -52,8 +52,11 @@ namespace CRMSSystem.Controllers
                 model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
                 return View(model);
             }
-            
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "UserManagement";
+                return RedirectToAction("Index", "Admin");
+            } 
         }
 
         public ActionResult Edit(Guid Id)
@@ -73,8 +76,11 @@ namespace CRMSSystem.Controllers
                 model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
                 return View(model);
             }
-
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "UserManagement";
+                return RedirectToAction("Index", "Admin");
+            }
         }
         public ActionResult Delete(Guid Id)
         {
@@ -94,7 +100,8 @@ namespace CRMSSystem.Controllers
         public ActionResult ConfirmDelete(Guid Id)
         {
             _userService.DeleteUser(Id);
-            return RedirectToAction("Index");
+             TempData["PageSelected"] = "UserManagement";
+             return RedirectToAction("Index", "Admin");
         }
         public ActionResult GetUsers([DataSourceRequest] DataSourceRequest request)
         {

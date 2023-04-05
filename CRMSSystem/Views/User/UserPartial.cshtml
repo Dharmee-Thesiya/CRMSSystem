@@ -1,0 +1,63 @@
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
+
+@*@{
+    ViewBag.Title = "Index";
+}*@
+
+@*<h1 align="center" style="margin-bottom:50px;color:black"><b>User Index</b></h1>
+
+<p>
+    @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
+</p>*@
+
+@(Html.Kendo().Grid<UserViewModel>().Name("Usergrid").Columns(columns =>
+{
+    columns.Bound(c => c.Name);
+    columns.Bound(c => c.Email);
+    columns.Bound(c => c.UserName);
+    columns.Bound(c => c.RoleName);
+    columns.Bound(c => c.Gender);
+    columns.Bound(c => c.MobileNumber);
+
+    columns.Template(c => { }).Title(string.Empty)
+            .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
+    {
+        s.Field(t => t.Name);
+        s.Field(t => t.Email);
+        s.Field(t => t.UserName);
+        s.Field(t => t.Gender);
+        s.Field(t => t.RoleName);
+        s.Field(t => t.MobileNumber);
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable(pageable=>
+    {
+        pageable.Refresh(true);
+    })
+    .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetUsers", "User"))
+    .Update(update => update.Action("Edit", "User"))
+    .Destroy(destroy => destroy.Action("Delete", "User"))
+    .Create(create => create.Action("Create", "User"))
+    .PageSize(5))
+
+)
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Admin")
+</div>

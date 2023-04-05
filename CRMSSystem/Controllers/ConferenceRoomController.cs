@@ -41,8 +41,11 @@ namespace CRMSSystem.Controllers
                 ViewBag.Message = ConferenceRoom;
                 return View(model);
             }
-            
-            return RedirectToAction("Index");
+            else
+            {
+                TempData["PageSelected"] = "ConferenceRoom";
+                return RedirectToAction("Index", "Admin");
+            }
         }
         public ActionResult Edit(Guid Id)
         {
@@ -61,7 +64,8 @@ namespace CRMSSystem.Controllers
         public ActionResult Edit(ConferenceRoomViewModel model)
         {
             _conferenceRoomService.EditConferenceRoom(model);
-            return RedirectToAction("Index");
+            TempData["PageSelected"] = "ConferenceRoom";
+            return RedirectToAction("Index", "Admin");
         }
         public ActionResult Delete(Guid Id)
         {
@@ -79,7 +83,8 @@ namespace CRMSSystem.Controllers
         public ActionResult Delete(ConferenceRoomViewModel model)
         {
             _conferenceRoomService.DeleteConferenceRoom(model);
-            return RedirectToAction("Index");
+            TempData["PageSelected"] = "ConferenceRoom";
+            return RedirectToAction("Index", "Admin");
         }
         public ActionResult GetConferenceRoom([DataSourceRequest] DataSourceRequest request)
         {

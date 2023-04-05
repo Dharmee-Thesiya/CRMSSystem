@@ -1,44 +1,57 @@
 ﻿@model CRMSSystem.Core.View.RoleViewModel
 
-@{
-    ViewBag.Title = "Create";
-}
-
-@using (Html.BeginForm("Create", "Role", FormMethod.Post, new { encType = "multipart/formData" }))
+@using (Html.BeginForm("Create", "Role", FormMethod.Post))
 {
-    <div class="form-horizontal">
-        <h2>Create Role</h2>
-        <hr />
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="text text-danger">@ViewBag.Message</div>
+    @Html.AntiForgeryToken()
 
+    <!DOCTYPE html>
+    <html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>CRB Form</title>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Name" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+    <body>
+        <div class="mainDiv">
+            <!----- Form ---->
+            <div class="formDiv">
+                <div class="topTitleHead pb20">
+                    <h1> Add New Role</h1>
+                </div>
+                <div class="formSection">
+                    <div class="inputBox">
+                        @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
+                        <div class="text text-danger">@ViewBag.Message</div>
+
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Name" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
+
+                        @*<p class="errorMsg">This field is required</p>*@
+                    </div>
+                    <div class="inputBox">
+                        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", @style="text-transform:uppercase" , @placeholder = "ENTER CODE" } })
+                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "errorMsg" })
+
+                    </div>
+                </div>
+                <div class="inputBox">
+                    <button class="btnDiv">Create</button>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" , @style="text-transform: uppercase", @placeholder = "Enter Code" } })
-                @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-            </div>
         </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
+        <!----- END Form ---->
+    </body>
+</html>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "Admin")
 </div>
+

@@ -1,4 +1,4 @@
-﻿@using Kendo.Mvc.UI
+﻿@*@using Kendo.Mvc.UI
 @using CRMSSystem.Core.View
 
 @{
@@ -36,6 +36,7 @@
      {
          pageable.Refresh(true);
      })
+     .NoRecords("No Record Found")
     .Scrollable()
     .HtmlAttributes(new { style = "height:550px;" })
     .Sortable()
@@ -138,5 +139,5 @@
             }
         });
     }
-</script>
+</script>*@
 

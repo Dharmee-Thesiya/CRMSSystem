@@ -1,17 +1,17 @@
-﻿@using Kendo.Mvc.UI
+﻿@*@using Kendo.Mvc.UI
 @using CRMSSystem.Core.View
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h1 align="center" style="margin-bottom:50px;color:black"><b>Role Index</b></h1>
+<h1 align="center" style="margin-bottom:50px;color:black"><b>Role Index</b></h1>*@
 
-<p>
+@*<p>
     @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
-</p>
+</p>*@
 
-@(Html.Kendo().Grid<RoleViewModel>().Name("grid").Columns(columns =>
+@*@(Html.Kendo().Grid<RoleViewModel>().Name("grid").Columns(columns =>
 {
     columns.Bound(c => c.Name);
     columns.Bound(c => c.Code);
@@ -21,7 +21,6 @@
 })
     .ToolBar(t => t.Search())
     .Search(s=>
-
     {
         s.Field(t => t.Name);
         s.Field(t => t.Code);
@@ -32,6 +31,7 @@
      {
          pageable.Refresh(true);
      })
+     .NoRecords("No Record Found")
     .Scrollable()
     .HtmlAttributes(new { style = "height:550px;" })
     .Sortable()
@@ -49,7 +49,7 @@
 
 <div>
     @Html.ActionLink("Back to List", "Index","Admin")
-</div>
+</div>*@
 @*@model IEnumerable<CRMSSystem.Core.Models.Role>
 
 

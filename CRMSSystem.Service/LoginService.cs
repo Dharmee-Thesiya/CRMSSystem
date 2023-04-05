@@ -20,11 +20,15 @@ namespace CRMSSystem.Service
         public User Login(AccountViewModel model)
         {
             User user = _loginRepository.Login(model);
-            string hash = HashPasword(model.Password, user.Passwordsalt);
-            if (hash.SequenceEqual(user.Password))
+            if(user!=null)
             {
-                return user;
+                string hash = HashPasword(model.Password, user.Passwordsalt);
+                if (hash.SequenceEqual(user.Password))
+                {
+                    return user;
+                }
             }
+            
             return null;
 
         }

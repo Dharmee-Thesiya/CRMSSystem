@@ -1,0 +1,151 @@
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="align-center align-between pb20">
+    <h2>CommonLookUp</h2>
+    <div class="btnDiv" onclick="Create()">
+        + Add New CommonLookUp
+    </div>
+</div>
+                           
+<div class="tableDiv">
+    @(Html.Kendo().Grid<CommonLookUpViewModel>().Name("grid").Columns(columns =>
+{
+    columns.Bound(c => c.ConfigName);
+    columns.Bound(c => c.ConfigKey);
+    columns.Bound(c => c.ConfigValue);
+    columns.Bound(c => c.DisplayOrder);
+    columns.Command(command => { command.Custom("Edit").Click("Create"); command.Custom("Delete").Click("confirm"); }).Width(200);
+
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
+    {
+        s.Field(t => t.ConfigName);
+        s.Field(o => o.ConfigKey);
+        s.Field(t => t.ConfigValue);
+        s.Field(t => t.DisplayOrder);
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+     .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetCommonLookUp", "CommonLookUp"))
+    .Update(update => update.Action("Edit", "CommonLookUp"))
+    .Destroy(destroy => destroy.Action("Delete", "CommonLookUp"))
+    .Create(create => create.Action("Create", "CommonLookUp"))
+    .PageSize(5))
+
+)
+    </div>
+    <div class="modal fade" id="CommonLookUpModal">
+        <div class="modal-dialog">
+            <div class="modal-content" id="CommonLookUpForm">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="deletemodal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h2 class="modal-title">Confirm</h2>
+                </div>
+                <div class="modal-body">
+                    <h3> Are You Sure You Want To Delete?</h3>
+                </div>
+                <input type="hidden" id="hdnDeleteId" />
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <a id="btnDelete" class="btn btn-primary" onclick="deleteCommonLookup()">Delete</a>
+                    </div>
+                    <div class="btn-group">
+                        <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index", "Admin")
+    </div>
+
+
+    @Styles.Render("~/Content/StyleSheet1.css")
+
+    <script>
+        var IsCheck = false;
+        function Create(e) {
+            if (e === undefined) {
+                Id = 0;
+            }
+            else {
+                e.preventDefault();
+                var d = this.dataItem($(e.currentTarget).closest("tr"));
+                Id = d.Id;
+            }
+
+            debugger;
+
+            var url = '';
+            if (Id == 0) {
+                url = "/CommonLookup/Create";
+                IsCheck = false;
+            }
+            else {
+                url = "/CommonLookup/Create?Id=" + Id;
+                IsCheck = true;
+            }
+
+            $("#CommonLookUpForm").load(url, function () {
+                $("#CommonLookUpModal").modal("show");
+
+
+            });
+        }
+
+        var confirm = function (e) {
+            e.preventDefault();
+            var d = this.dataItem($(e.currentTarget).closest("tr"));
+            Id = d.Id;
+            $("#deletemodal").modal('show');
+            $("#hdnDeleteId").val(Id);
+        }
+
+        function deleteCommonLookup(Id) {
+
+            var Id = $("#hdnDeleteId").val()
+            $.ajax({
+
+                type: "POST",
+                url: "/CommonLookup/Delete/" + Id,
+                success: function () {
+                    $("#deletemodal").modal('hide');
+                    location.reload()
+                }
+            });
+        }
+    </script>
+
+

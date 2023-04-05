@@ -1,0 +1,53 @@
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h1 align="center" style="margin-bottom:50px;color:black"><b>ConferenceRoom Index</b></h1>
+<p>
+    @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
+</p>*@
+
+@(Html.Kendo().Grid<ConferenceRoomViewModel>().Name("ConferenceRoomgrid").Columns(columns =>
+{
+    columns.Bound(c => c.Name);
+    columns.Bound(c => c.Capacity);
+    columns.Template(c => { }).Title(string.Empty)
+            .ClientTemplate(
+               "<a href='" + Url.Action("Edit", "ConferenceRoom") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "ConferenceRoom") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
+    {
+        s.Field(t => t.Name);
+        s.Field(o => o.Capacity,"eq");
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+     .Pageable(pageable =>
+     {
+         pageable.Refresh(true);
+     })
+     .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetConferenceRoom", "ConferenceRoom"))
+    .Update(update => update.Action("Edit", "ConferenceRoom"))
+    .Destroy(destroy => destroy.Action("Delete", "ConferenceRoom"))
+    .Create(create => create.Action("Create", "ConferenceRoom"))
+    .PageSize(5))
+
+)
+
+<div>
+    @Html.ActionLink("Back to List", "Index", "Admin")
+</div>
+

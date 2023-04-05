@@ -30,6 +30,8 @@ namespace CRMSSystem.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -60,8 +62,6 @@ namespace CRMSSystem.Controllers
         }
         public ActionResult Logout()
         {
-            Session.Abandon();
-            FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
     }

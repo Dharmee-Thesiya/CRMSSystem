@@ -343,7 +343,7 @@
     <Compile Include="Controllers\ConferenceRoomController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="filter\CustomAuthentication.cs" />
+    <Compile Include="Filter\CustomAuthentication.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -356,10 +356,17 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\create.png" />
+    <Content Include="image\down-arrow.svg" />
+    <Content Include="image\edit.svg" />
+    <Content Include="image\eye.svg" />
+    <Content Include="image\key.svg" />
+    <Content Include="image\login-bg.jpg" />
+    <Content Include="image\logo.svg" />
+    <Content Include="image\search.svg" />
+    <Content Include="image\trash.svg" />
     <Content Include="Content\StyleSheet1.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Kendo\js\angular.min.js" />
@@ -2714,6 +2721,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Style\login.css" />
+    <Content Include="Style\style.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2725,7 +2734,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
@@ -2744,15 +2752,20 @@
     <Content Include="Views\CommonLookUp\PartialView.cshtml" />
     <Content Include="Views\CommonLookUp\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Role\RolePartial.cshtml" />
+    <Content Include="Views\User\UserPartial.cshtml" />
+    <Content Include="Views\ConferenceRoom\ConferenceRoomPartial.cshtml" />
+    <Content Include="Views\CommonLookUp\CommonLookUpPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
