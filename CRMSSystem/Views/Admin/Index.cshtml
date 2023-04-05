@@ -8,76 +8,73 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @*<title> Systems </title>*@
-
     <link rel="stylesheet" href="~/Style/login.css">
-
 </head>
 <body>
     <!-- Section -->
-        <div class="section">
-            <div class="container">
-                <div class="topTitleHead pb20">
-                    <h1>Systems</h1>
-                </div>
-
-                <!----- Tabs ---->
-                <div class="tab">
-                    <ul class="align-center">
-                        <li> <a class="tablinks active" id="UserManagementTab" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
-                        <li> <a class="tablinks" id="RoleManagementTab" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
-                        <li> <a class="tablinks" id="ConferenceRoomTab" onclick="openSystems(event, 'ConferenceRoom')">ConferenceRoom </a> </li>
-                        <li> <a class="tablinks" id="CommonLookUpTab" onclick="openSystems(event, 'CommonLookUp')">CommonLookUp </a> </li>
-                        @*<li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>*@
-                    </ul>
-                </div>
-
-                <div class="tabContentDetails">
-                    <div id="UserManagement" class="tabcontent" style="display: block">
-                        <div class="align-center align-between pb20">
-                            <h2>User Management</h2>
-                            <div class="btnDiv">
-                                <a href="#">@Html.ActionLink(" + Add New User", "Create", "User")</a>
-                            </div>
-                        </div>
-                        <div class="tableDiv">
-                            @Html.Partial("~/Views/User/UserPartial.cshtml")
-                        </div>
-                    </div>
-                    <div id="RoleManagement" class="tabcontent">
-                        <div class="align-center align-between pb20">
-                            <h2>Role Management</h2>
-                            <div class="btnDiv">
-                                <a href="#">@Html.ActionLink(" + Add New Role", "Create", "Role")</a>
-                                
-                            </div>
-                        </div>
-                        <div class="tableDiv">
-                           @Html.Partial("~/Views/Role/RolePartial.cshtml")
-                        </div>
-                    </div>
-                    <div id="ConferenceRoom" class="tabcontent">
-                        <div class="align-center align-between pb20">
-                            <h2>ConferenceRoom</h2>
-                            <div class="btnDiv">
-                                <a href="#">@Html.ActionLink(" + Add New ConferenceRoom", "Create", "ConferenceRoom")</a>
-                            </div>
-                        </div>
-                        <div class="tableDiv">
-                            @Html.Partial("~/Views/ConferenceRoom/ConferenceRoomPartial.cshtml")
-                        </div>
-                    </div>
-                    <div id="CommonLookUp" class="tabcontent">
-                            @Html.Partial("~/Views/CommonLookUp/CommonLookUpPartial.cshtml")
-                    </div>
-                </div>
-                <!----- END Tabs ---->
-
+    <div class="section">
+        <div class="container">
+            <div class="topTitleHead pb20">
+                <h1>Systems</h1>
             </div>
+
+            <!----- Tabs ---->
+            <div class="tab">
+                <ul class="align-center">
+                    <li> <a class="tablinks active" id="UserManagementTab" onclick="openSystems(event, 'UserManagement')"> User Management </a></li>
+                    <li> <a class="tablinks" id="RoleManagementTab" onclick="openSystems(event, 'RoleManagement')"> Role Management</a> </li>
+                    <li> <a class="tablinks" id="ConferenceRoomTab" onclick="openSystems(event, 'ConferenceRoom')">ConferenceRoom </a> </li>
+                    <li> <a class="tablinks" id="CommonLookUpTab" onclick="openSystems(event, 'CommonLookUp')">CommonLookUp </a> </li>
+                    <li> <a class="tablinks" onclick="openSystems(event, 'Errorlogs')">Error logs </a> </li>
+                </ul>
+            </div>
+
+            <div class="tabContentDetails">
+                <div id="UserManagement" class="tabcontent" style="display: block">
+                    <div class="align-center align-between pb20">
+                        <h2>User Management</h2>
+                        <div class="btnDiv">
+                            <a href="#">@Html.ActionLink(" + Add New User", "Create", "User")</a>
+                        </div>
+                    </div>
+                    <div class="tableDiv">
+                        @Html.Partial("~/Views/User/UserPartial.cshtml")
+                    </div>
+                </div>
+                <div id="RoleManagement" class="tabcontent">
+                    <div class="align-center align-between pb20">
+                        <h2>Role Management</h2>
+                        <div class="btnDiv">
+                            <a href="#">@Html.ActionLink(" + Add New Role", "Create", "Role")</a>
+
+                        </div>
+                    </div>
+                    <div class="tableDiv">
+                        @Html.Partial("~/Views/Role/RolePartial.cshtml")
+                    </div>
+                </div>
+                <div id="ConferenceRoom" class="tabcontent">
+                    <div class="align-center align-between pb20">
+                        <h2>ConferenceRoom</h2>
+                        <div class="btnDiv">
+                            <a href="#">@Html.ActionLink(" + Add New ConferenceRoom", "Create", "ConferenceRoom")</a>
+                        </div>
+                    </div>
+                    <div class="tableDiv">
+                        @Html.Partial("~/Views/ConferenceRoom/ConferenceRoomPartial.cshtml")
+                    </div>
+                </div>
+                <div id="CommonLookUp" class="tabcontent" >
+                    <div id="CommonLookupTable">
+                        @Html.Partial("~/Views/CommonLookUp/CommonLookUpPartial.cshtml")
+                    </div>
+                </div>
+            </div>
+            <!----- END Tabs ---->
+
         </div>
-        <!-- END Section -->
-
-
-   
+    </div>
+    <!-- END Section -->
 </body>
 </html>
 
@@ -110,48 +107,5 @@
         else {
             document.getElementById(SystemsName + "Tab").className += " active";
         }
-      //document.getElementById(SystemsName).style.display = "block";
-      //evt.currentTarget.className += " active";
     }
 </script>
-
-
-
-
-
-
-
-
-@*@{
-        ViewBag.Title = "Admin";
-    }
-    <h2> Admin Page</h2>
-
-    <div class="col-md-6">
-        <h4> Role </h4>
-        <div class="list-group">
-            @Html.ActionLink("Role", "Index", "Role", null, new { @class = "list-group-item" })
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h4> User </h4>
-        <div class="list-group">
-            @Html.ActionLink("User", "Index", "User", null, new { @class = "list-group-item" })
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h4> ConferenceRoom </h4>
-        <div class="list-group">
-            @Html.ActionLink("ConferenceRoom", "Index", "ConferenceRoom", null, new { @class = "list-group-item" })
-        </div>
-    </div>
-    <div class="col-md-6">
-        <h4> CommonLook Up </h4>
-        <div class="list-group">
-            @Html.ActionLink("CommonLookUp", "Index", "CommonLookUp", null, new { @class = "list-group-item" })
-        </div>
-    </div>
-    <div>
-        @Html.ActionLink("Back to List", "Login", "Account")
-    </div>*@
-

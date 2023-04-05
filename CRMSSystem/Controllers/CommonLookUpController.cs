@@ -28,7 +28,7 @@ namespace CRMSSystem.Controllers
         {
             List<CommonLookUp> commonLookUps = _commonLookUpService.GetCommonLookUp().ToList();
             //ViewBag.CommonLookUps = commonLookUps;
-            return View(commonLookUps.ToDataSourceResult(request));
+            return PartialView("CommonLookUpPartial", commonLookUps.ToDataSourceResult(request));
         }
 
         //Create Get: CommonLookUp
@@ -54,14 +54,17 @@ namespace CRMSSystem.Controllers
         {
             
             CommonLookUp commonLookUp =_commonLookUpService.CreateCommonLookUp(model);
-            if(commonLookUp!=null)
+            TempData["PageSelected"] = "CommonLookUp";
+            if (commonLookUp!=null)
             {
+               
                 return Content("True");
             }
             else
-            {
+            { 
                 return Content("False");
             }
+
             //return RedirectToAction("Index");
         }
         //Edit Get: CommonLookUp
@@ -70,6 +73,7 @@ namespace CRMSSystem.Controllers
         {
 
             CommonLookUp commonLookUp = _commonLookUpService.EditCommonLookUp(model);
+            TempData["PageSelected"] = "CommonLookUp";
             if (commonLookUp != null)
             {
                 return Content("True");
@@ -84,6 +88,7 @@ namespace CRMSSystem.Controllers
         [HttpPost]                     
         public ActionResult Delete(Guid Id)
         {
+            TempData["PageSelected"] = "CommonLookUp";
             _commonLookUpService.DeleteCommonLookUp(Id);
             return RedirectToAction("Index");
         }
