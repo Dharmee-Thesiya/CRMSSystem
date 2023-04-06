@@ -11,7 +11,7 @@
         + Add New CommonLookUp
     </div>
 </div>
-                           
+
 <div class="tableDiv">
     @(Html.Kendo().Grid<CommonLookUpViewModel>().Name("grid").Columns(columns =>
 {
@@ -53,108 +53,109 @@
     .PageSize(5))
 
 )
+</div>
+<div class="modal fade" id="CommonLookUpModal">
+    <div class="modal-dialog">
+        <div class="modal-content" id="CommonLookUpForm">
+        </div>
     </div>
-    <div class="modal fade" id="CommonLookUpModal">
-        <div class="modal-dialog">
-            <div class="modal-content" id="CommonLookUpForm">
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deletemodal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h2 class="modal-title">Confirm</h2>
+            </div>
+            <div class="modal-body">
+                <h3> Are You Sure You Want To Delete?</h3>
+            </div>
+            <input type="hidden" id="hdnDeleteId" />
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a id="btnDelete" class="btn btn-primary" onclick="deleteCommonLookup()">Delete</a>
+                </div>
+                <div class="btn-group">
+                    <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<br />
+<button class="btn btn-default">
+    @Html.ActionLink("Back to List", "Index", "Admin")
+</button>
 
 
-    <div class="modal fade" tabindex="-1" role="dialog" id="deletemodal">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h2 class="modal-title">Confirm</h2>
-                </div>
-                <div class="modal-body">
-                    <h3> Are You Sure You Want To Delete?</h3>
-                </div>
-                <input type="hidden" id="hdnDeleteId" />
-                <div class="modal-footer">
-                    <div class="btn-group">
-                        <a id="btnDelete" class="btn btn-primary" onclick="deleteCommonLookup()">Delete</a>
-                    </div>
-                    <div class="btn-group">
-                        <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+@Styles.Render("~/Content/StyleSheet1.css")
 
-    <div>
-        @Html.ActionLink("Back to List", "Index", "Admin")
-    </div>
-
-
-    @Styles.Render("~/Content/StyleSheet1.css")
-
-    <script>
-        var IsCheck = false;
-        function Create(e) {
-            if (e === undefined) {
-                Id = 0;
-            }
-            else {
-                e.preventDefault();
-                var d = this.dataItem($(e.currentTarget).closest("tr"));
-                Id = d.Id;
-            }
-
-            debugger;
-
-            var url = '';
-            if (Id == 0) {
-                url = "/CommonLookup/Create";
-                IsCheck = false;
-            }
-            else {
-                url = "/CommonLookup/Create?Id=" + Id;
-                IsCheck = true;
-            }
-
-            $("#CommonLookUpForm").load(url, function () {
-                $("#CommonLookUpModal").modal("show");
-
-
-            });
+<script>
+    var IsCheck = false;
+    function Create(e) {
+        if (e === undefined) {
+            Id = 0;
         }
-
-        var confirm = function (e) {
+        else {
             e.preventDefault();
             var d = this.dataItem($(e.currentTarget).closest("tr"));
             Id = d.Id;
-            $("#deletemodal").modal('show');
-            $("#hdnDeleteId").val(Id);
         }
 
-        function deleteCommonLookup(Id) {
+        debugger;
 
-            var Id = $("#hdnDeleteId").val()
-            $.ajax({
-
-                type: "POST",
-                url: "/CommonLookup/Delete/" + Id,
-                success: function () {
-                    $("#deletemodal").modal('hide');
-                    $.ajax({
-                        type: 'GET',
-                        url: "/CommonLookup/Index",
-                        success: function () {
-                        }
-                    }).done(function (partialViewResult) {
-                        $("#CommonLookupTable").html(partialViewResult);
-                        $('.modal-backdrop').remove();
-                    });
-                   /* location.reload()*/
-                }
-            });
+        var url = '';
+        if (Id == 0) {
+            url = "/CommonLookup/Create";
+            IsCheck = false;
         }
-    </script>
+        else {
+            url = "/CommonLookup/Create?Id=" + Id;
+            IsCheck = true;
+        }
+
+        $("#CommonLookUpForm").load(url, function () {
+            $("#CommonLookUpModal").modal("show");
+
+
+        });
+    }
+
+    var confirm = function (e) {
+        e.preventDefault();
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        Id = d.Id;
+        $("#deletemodal").modal('show');
+        $("#hdnDeleteId").val(Id);
+    }
+
+    function deleteCommonLookup(Id) {
+
+        var Id = $("#hdnDeleteId").val()
+        $.ajax({
+
+            type: "POST",
+            url: "/CommonLookup/Delete/" + Id,
+            success: function () {
+                $("#deletemodal").modal('hide');
+                $.ajax({
+                    type: 'GET',
+                    url: "/CommonLookup/Index",
+                    success: function () {
+                    }
+                }).done(function (partialViewResult) {
+                    $("#CommonLookupTable").html(partialViewResult);
+                    $('.modal-backdrop').remove();
+                });
+                /* location.reload()*/
+            }
+        });
+    }
+</script>
 
 

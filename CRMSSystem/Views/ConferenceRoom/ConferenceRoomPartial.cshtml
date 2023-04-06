@@ -6,9 +6,9 @@
 }
 
 @*<h1 align="center" style="margin-bottom:50px;color:black"><b>ConferenceRoom Index</b></h1>
-<p>
-    @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
-</p>*@
+    <p>
+        @Html.ActionLink("Create new", "Create", null, new { @class = "btn btn-primary" })
+    </p>*@
 
 @(Html.Kendo().Grid<ConferenceRoomViewModel>().Name("ConferenceRoomgrid").Columns(columns =>
 {
@@ -47,7 +47,8 @@
 
 )
 
-<div>
+<br />
+<button class="btn btn-default">
     @Html.ActionLink("Back to List", "Index", "Admin")
-</div>
+</button>
 

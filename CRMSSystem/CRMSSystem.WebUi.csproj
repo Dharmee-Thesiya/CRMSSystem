@@ -2740,7 +2740,6 @@
     <Content Include="Views\Role\Delete.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
-    <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\ConferenceRoom\Index.cshtml" />
     <Content Include="Views\ConferenceRoom\Create.cshtml" />
@@ -2757,6 +2756,7 @@
     <Content Include="Views\User\UserPartial.cshtml" />
     <Content Include="Views\ConferenceRoom\ConferenceRoomPartial.cshtml" />
     <Content Include="Views\CommonLookUp\CommonLookUpPartial.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
