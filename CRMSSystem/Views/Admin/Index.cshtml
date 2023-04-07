@@ -37,7 +37,7 @@
                             <a href="#">@Html.ActionLink(" + Add New User", "Create", "User")</a>
                         </div>
                     </div>
-                    <div class="tableDiv">
+                    <div class="tableDiv" id="userdiv">
                         @Html.Partial("~/Views/User/UserPartial.cshtml")
                     </div>
                 </div>
@@ -49,7 +49,7 @@
 
                         </div>
                     </div>
-                    <div class="tableDiv">
+                    <div class="tableDiv" id="rolediv">
                         @Html.Partial("~/Views/Role/RolePartial.cshtml")
                     </div>
                 </div>
@@ -60,11 +60,11 @@
                             <a href="#">@Html.ActionLink(" + Add New ConferenceRoom", "Create", "ConferenceRoom")</a>
                         </div>
                     </div>
-                    <div class="tableDiv">
+                    <div class="tableDiv" id="conferenceroomdiv">
                         @Html.Partial("~/Views/ConferenceRoom/ConferenceRoomPartial.cshtml")
                     </div>
                 </div>
-                <div id="CommonLookUp" class="tabcontent" >
+                <div id="CommonLookUp" class="tabcontent">
                     <div id="CommonLookupTable">
                         @Html.Partial("~/Views/CommonLookUp/CommonLookUpPartial.cshtml")
                     </div>
@@ -82,12 +82,14 @@
 <script>
 
     $(document).ready(function () {
-        
         var data = '@TempData["PageSelected"]';
         if (data != '') {
             openSystems(null, data);
         }
+    });
 
+    $(document).ready(function () {
+        $('#userdiv').load('@Url.Action("Index","User")');
     });
 
     function openSystems(evt, SystemsName) {
@@ -107,5 +109,17 @@
         else {
             document.getElementById(SystemsName + "Tab").className += " active";
         }
+
+        if (SystemsName == "UserManagement") {
+            $('#userdiv').load('@Url.Action("Index","User")');
+        }
+        else if (SystemsName == "RoleManagement") {
+            $('#rolediv').load('@Url.Action("Index","Role")');
+        }
+        else if (SystemsName == "ConferenceRoom") {
+            $('#conferenceroomdiv').load('@Url.Action("Index","ConferenceRoom")');
+        }
+        else if (SystemsName == "CommonLookUp")
+            $('#CommonLookupTable').load('@Url.Action("Index","CommonLookUp")');
     }
 </script>

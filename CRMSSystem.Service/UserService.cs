@@ -86,7 +86,7 @@ namespace CRMSSystem.Services
             user.UserName = model.UserName;
             user.MobileNumber = model.MobileNumber;
             user.Gender = model.Gender;
-            user.Password = model.Password;
+         
 
             _userRepository.Update(user);
             _userRepository.Commit();

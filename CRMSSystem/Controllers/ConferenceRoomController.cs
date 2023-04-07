@@ -25,7 +25,7 @@ namespace CRMSSystem.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<ConferenceRoom> conferenceRooms = _conferenceRoomService.GetConferenceRooms().ToList();
-            return View(conferenceRooms.ToDataSourceResult(request));
+            return PartialView("ConferenceRoomPartial",conferenceRooms.ToDataSourceResult(request));
         }
         public ActionResult Create()
         {

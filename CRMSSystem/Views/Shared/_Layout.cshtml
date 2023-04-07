@@ -48,7 +48,8 @@
                                     <div class="userInfoBox">
                                         <a href="#">Profile</a>
                                         <a href="#">Settings</a>
-                                        <a href="login.html">logout</a>
+                                        
+                                        @Html.ActionLink("Logout","Logout","Account")
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +61,6 @@
         </div>
         <div class="container body-content">
             @RenderBody()
-            <hr />
         </div> 
     </div>
 </body>

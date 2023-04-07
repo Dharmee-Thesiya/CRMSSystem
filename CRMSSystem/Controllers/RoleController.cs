@@ -26,7 +26,7 @@ namespace CRMSSystem.Controllers
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoles().ToList();
-            return View(roles.ToDataSourceResult(request));
+            return PartialView("RolePartial",roles.ToDataSourceResult(request));
         }
 
         public ActionResult Create()

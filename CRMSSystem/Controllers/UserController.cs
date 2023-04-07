@@ -33,11 +33,11 @@ namespace CRMSSystem.Controllers
         {
 
             List<UserViewModel> users = _userService.GetUsers().ToList();
-            return View(users.ToDataSourceResult(request));
+            return PartialView("UserPartial",users.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
-        {
+        { 
 
             UserViewModel user = new UserViewModel();
             user.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
@@ -56,6 +56,7 @@ namespace CRMSSystem.Controllers
             }
             else
             {
+               
                 TempData["PageSelected"] = "UserManagement";
                 return RedirectToAction("Index", "Admin");
             } 

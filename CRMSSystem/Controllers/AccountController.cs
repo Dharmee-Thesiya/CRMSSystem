@@ -62,6 +62,8 @@ namespace CRMSSystem.Controllers
         }
         public ActionResult Logout()
         {
+            Session.Abandon();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
     }
