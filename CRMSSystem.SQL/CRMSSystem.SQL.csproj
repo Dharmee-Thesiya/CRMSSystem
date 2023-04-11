@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
+    <Compile Include="FormsRepository.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Migrations\202303090536109_Initial.cs" />
     <Compile Include="Migrations\202303090536109_Initial.designer.cs">
@@ -97,6 +98,18 @@
     <Compile Include="Migrations\202303281019549_addsalt.cs" />
     <Compile Include="Migrations\202303281019549_addsalt.designer.cs">
       <DependentUpon>202303281019549_addsalt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304070838093_Formdata.cs" />
+    <Compile Include="Migrations\202304070838093_Formdata.designer.cs">
+      <DependentUpon>202304070838093_Formdata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304071320499_parentformid.cs" />
+    <Compile Include="Migrations\202304071320499_parentformid.designer.cs">
+      <DependentUpon>202304071320499_parentformid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202304100419326_ParentId.cs" />
+    <Compile Include="Migrations\202304100419326_ParentId.designer.cs">
+      <DependentUpon>202304100419326_ParentId.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,6 +154,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202303281019549_addsalt.resx">
       <DependentUpon>202303281019549_addsalt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304070838093_Formdata.resx">
+      <DependentUpon>202304070838093_Formdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304071320499_parentformid.resx">
+      <DependentUpon>202304071320499_parentformid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304100419326_ParentId.resx">
+      <DependentUpon>202304100419326_ParentId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

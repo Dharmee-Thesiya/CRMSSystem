@@ -48,7 +48,7 @@ namespace CRMSSystem.Controllers
         public ActionResult Create(UserViewModel model)
         {
             var User = _userService.CreateUser(model);
-            if (User!=null)
+            if (User != null)
             {
                 ViewBag.Message= User;
                 model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
@@ -56,7 +56,6 @@ namespace CRMSSystem.Controllers
             }
             else
             {
-               
                 TempData["PageSelected"] = "UserManagement";
                 return RedirectToAction("Index", "Admin");
             } 

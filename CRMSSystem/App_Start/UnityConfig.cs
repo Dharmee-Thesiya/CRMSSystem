@@ -60,6 +60,9 @@ namespace CRMSSystem
             container.RegisterType<IConferenceRoomService, ConferenceRoomService>();
             container.RegisterType<IMRepository<CommonLookUp>, SQLRepository<CommonLookUp>>();
             container.RegisterType<ICommonLookUpService, CommonLookUpService>();
+            container.RegisterType<IMRepository<Forms>, SQLRepository<Forms>>();
+            container.RegisterType<IFormService, FormsService>();
+            container.RegisterType<IFormRepository, FormsRepository>();
 
 
         }

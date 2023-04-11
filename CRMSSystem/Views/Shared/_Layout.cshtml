@@ -15,8 +15,6 @@
     @Scripts.Render("~/Kendo")
     @RenderSection("scripts", required: false)
 
-
-    <link href="https://cdn.datatables.net/v/dt/dt-1.13.4/datatables.min.css" rel="stylesheet" />
 </head>
 <body>
     <div class="mainDiv">
@@ -29,9 +27,10 @@
 
                         <div class="menuDiv">
                             <ul class="align-center">
-                                <li> <a href="#"> Home </a> </li>
-                                <li> <a href="#"> Conference </a> </li>
-                                <li class="active">@Html.ActionLink("Systems","Index","Admin") <a href="#"></a> </li>
+                                <li>@Html.ActionLink("Home", "Index", "Home")<a href="#"></a> </li>
+                                <li>@Html.ActionLink("ConferenceRoom", "Index", "Admin")<a href="#"> </a> </li>
+                                <li>@Html.ActionLink("Systems", "Index", "Admin") <a href="#"></a> </li>
+                                <li>@Html.ActionLink("Forms", "Index", "Forms") <a href="#"></a> </li>
                             </ul>
                         </div>
                     </div>

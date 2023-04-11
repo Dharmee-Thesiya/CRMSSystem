@@ -19,6 +19,7 @@ namespace CRMSSystem.SQL
             public DbSet<User> User { get; set; }
             public DbSet<ConferenceRoom> ConferenceRooms { get; set; }
             public DbSet<CommonLookUp> CommonLookUps { get; set; }
+            public DbSet<Forms> Form { get; set; }
 
 
 

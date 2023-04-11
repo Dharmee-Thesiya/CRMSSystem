@@ -1,0 +1,69 @@
+﻿@model CRMSSystem.Core.View.FormsViewModel
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>FormsViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.NavigateURL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NavigateURL)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.FormAccessCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormAccessCode)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.DisplayIndex)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DisplayIndex)
+        </dd>
+        <br />
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentFormName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentFormName)
+        </dd>
+        <br />
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="inputBox">
+            <button class="btnDiv">Delete</button>
+        </div>
+    }
+</div>
+<br />
+<button id="backToList">Back to List</button>
+
+<script>
+    $(document).ready(function () {
+        $('#backToList').click(function () {
+            history.back();
+        });
+    });
+</script>

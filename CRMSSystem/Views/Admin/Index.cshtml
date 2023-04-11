@@ -37,7 +37,8 @@
                             <a href="#">@Html.ActionLink(" + Add New User", "Create", "User")</a>
                         </div>
                     </div>
-                    <div class="tableDiv" id="userdiv">  
+                    <div class="tableDiv" id="userdiv">
+
                     </div>
                 </div>
                 <div id="RoleManagement" class="tabcontent">
@@ -45,11 +46,10 @@
                         <h2>Role Management</h2>
                         <div class="btnDiv">
                             <a href="#">@Html.ActionLink(" + Add New Role", "Create", "Role")</a>
-
                         </div>
                     </div>
                     <div class="tableDiv" id="rolediv">
-              
+
                     </div>
                 </div>
                 <div id="ConferenceRoom" class="tabcontent">
@@ -60,13 +60,11 @@
                         </div>
                     </div>
                     <div class="tableDiv" id="conferenceroomdiv">
-                       
+
                     </div>
                 </div>
                 <div id="CommonLookUp" class="tabcontent">
-                    <div id="CommonLookupTable">
-                      
-                    </div>
+                  
                 </div>
             </div>
             <!----- END Tabs ---->
@@ -124,6 +122,7 @@
 
     }
 </script>
+
 <script>
     var IsCheck = false;
     function Create(e) {
@@ -181,7 +180,7 @@
                     $("#CommonLookUp").html(partialViewResult);
                     $('.modal-backdrop').remove();
                 });
-                /* location.reload()*/
+               
             }
         });
     }

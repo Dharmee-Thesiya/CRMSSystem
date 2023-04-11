@@ -1,77 +1,76 @@
 ﻿@model CRMSSystem.Core.View.UserViewModel
 
-    <h2 style="text-align:center; padding-top:30px;margin-bottom:40px" >Are You Sure You Want To Delete This User?</h2>
-    <div>
-       
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+<h2 style="text-align:center; padding-top:30px;margin-bottom:40px">Are You Sure You Want To Delete This User?</h2>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <br />
-            <dt>
-                @Html.DisplayNameFor(model => model.Email)
-            </dt>
+<dl class="dl-horizontal">
 
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-            <br />
-            <dt>
-                @Html.DisplayNameFor(model => model.MobileNumber)
-            </dt>
+    <dt>
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.MobileNumber)
-            </dd>
-            <br />
-            <dt>
-                @Html.DisplayNameFor(model => model.UserName)
-            </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <br />
+    <dt>
+        @Html.DisplayNameFor(model => model.Email)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.UserName)
-            </dd>
-            <br />
-            <dt>
-                @Html.DisplayNameFor(model => model.Gender)
-            </dt>
+    <dd>
+        @Html.DisplayFor(model => model.Email)
+    </dd>
+    <br />
+    <dt>
+        @Html.DisplayNameFor(model => model.UserName)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Gender)
-            </dd>
-            <br />
-            
-            <dt>
-                @Html.DisplayNameFor(model => model.RoleName)
-            </dt>
+    <dd>
+        @Html.DisplayFor(model => model.UserName)
+    </dd>
+    <br />
+    <dt>
+        @Html.DisplayNameFor(model => model.Gender)
+    </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.RoleName)
-            </dd>
-            <br />
-        </dl>
+    <dd>
+        @Html.DisplayFor(model => model.Gender)
+    </dd>
+    <br />
+    <dt>
+        @Html.DisplayNameFor(model => model.MobileNumber)
+    </dt>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+    <dd>
+        @Html.DisplayFor(model => model.MobileNumber)
+    </dd>
+    <br />
+    <dt>
+        @Html.DisplayNameFor(model => model.RoleName)
+    </dt>
 
-            <div class="inputBox">
-                <button class="btnDiv">Delete</button>
-            </div>
-        }
+    <dd>
+        @Html.DisplayFor(model => model.RoleName)
+    </dd>
+    <br />
+</dl>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="inputBox">
+        <button class="btnDiv">Delete</button>
     </div>
-<br/>
+}
+
+<br />
 
 <button id="backToList">Back to List</button>
 
 <script>
-    $(document).ready(function() {
-    $('#backToList').click(function() {
-      history.back();
+    $(document).ready(function () {
+        $('#backToList').click(function () {
+            history.back();
+        });
     });
-  });
 </script>

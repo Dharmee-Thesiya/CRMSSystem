@@ -39,7 +39,6 @@ namespace CRMSSystem.Services
             user.MobileNumber = model.MobileNumber;
             user.Passwordsalt = salt;
             user.UserName = model.UserName;
-            
             user.Gender = model.Gender;
 
             _userRepository.Insert(user);
@@ -107,17 +106,15 @@ namespace CRMSSystem.Services
         }
         public List<UserViewModel> GetUsers()
         {
-            //return _userRepository.Collection().Where(x => !x.IsDeleted).ToList();
-            return _userRepository.GetUsers();
+            return _userRepository.GetUsers().OrderByDescending(x => x.CreatedOn).ToList();
         }
         private static string CreateSalt(int size)
         {
-            // Generate a cryptographic random number using the cryptographic 
-            // service provider
+            
             RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
             byte[] buff = new byte[size];
             rng.GetBytes(buff);
-            // Return a Base64 string representation of the random number
+          
             return Convert.ToBase64String(buff);
         }
 

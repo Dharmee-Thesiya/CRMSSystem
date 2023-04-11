@@ -3,63 +3,46 @@
 @using (Html.BeginForm("Create", "ConferenceRoom", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
-    <!DOCTYPE html>
-    <html lang="en-us">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>CRB Form</title>
-
-        <link rel="stylesheet" href="css/style.css">
-
-    </head>
-    <body>
-        <div class="mainDiv">
-            <!----- Form ---->
-            <div class="formDiv">
-                <div class="topTitleHead pb20">
-                    <h1> Add New ConferenceRoom</h1>
-                </div>
-                <div class="formSection">
-                    <div class="inputBox">
-                        @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
-                        <div class="text text-danger">@ViewBag.Message</div>
-
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Name" } })
-                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
-
-                        @*<p class="errorMsg">This field is required</p>*@
-                    </div>
-                    <div class="inputBox">
-                        @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
-
-                        @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @placeholder = "0" } })
-                        @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "errorMsg" })
-
-                    </div>
-                </div>
-                <div class="inputBox">
-                    <button class="btnDiv">Create</button>
-                </div>
-            </div>
-
+    <!----- Form ---->
+    <div class="formDiv">
+        <div class="topTitleHead pb20">
+            <h1> Add New ConferenceRoom</h1>
         </div>
-        <!----- END Form ---->
-    </body>
-</html>
+        <div class="formSection">
+            <div class="inputBox">
+                @Html.ValidationSummary(true, "", new { @class = "errorMsg" })
+                <div class="text text-danger">@ViewBag.Message</div>
+
+                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Name" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "errorMsg" })
+
+                @*<p class="errorMsg">This field is required</p>*@
+            </div>
+            <div class="inputBox">
+                @Html.LabelFor(model => model.Capacity, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.Capacity, new { htmlAttributes = new { @class = "form-control", @placeholder = "0" } })
+                @Html.ValidationMessageFor(model => model.Capacity, "", new { @class = "errorMsg" })
+
+            </div>
+        </div>
+        <div class="inputBox">
+            <button class="btnDiv">Create</button>
+        </div>
+    </div>
+    <!----- END Form ---->
+
 }
 
 <button id="backToList">Back to List</button>
 
 <script>
-    $(document).ready(function() {
-    $('#backToList').click(function() {
-      history.back();
+    $(document).ready(function () {
+        $('#backToList').click(function () {
+            history.back();
+        });
     });
-  });
 </script>
 
 
