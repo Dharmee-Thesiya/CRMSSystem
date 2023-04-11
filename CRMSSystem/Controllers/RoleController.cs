@@ -101,7 +101,7 @@ namespace CRMSSystem.Controllers
             List<RoleViewModel> roleViewModels = _roleService.GetRoles().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
             return Json(roleViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
-
+       
     }   
 }
 

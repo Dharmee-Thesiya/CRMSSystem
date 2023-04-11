@@ -19,10 +19,10 @@ namespace CRMSSystem.Controllers
             _formService = formService;
         }
         // GET: Forms
-        public ActionResult Index([DataSourceRequest] DataSourceRequest request)
+        public ActionResult Index()
         {
             List<FormsViewModel> formsViewModels = _formService.GetForm().ToList();
-            return View(formsViewModels.ToDataSourceResult(request));
+            return View(formsViewModels);
         }
         public ActionResult GetForms([DataSourceRequest] DataSourceRequest request)
         {
@@ -46,7 +46,6 @@ namespace CRMSSystem.Controllers
                 model.ParentIdDropDown = _formService.GetForm().Select(u => new DropDownParentId() { ParentFormID = u.Id, ParentFormName = u.Name }).ToList();
                 return View(model);
             }
-
             else
             {
                 return RedirectToAction("Index", "Forms");
@@ -74,9 +73,8 @@ namespace CRMSSystem.Controllers
         }
         public ActionResult Edit(Guid Id)
         {
-           
             FormsViewModel formsViewModel = _formService.GetForms(Id);
-            formsViewModel.ParentIdDropDown = _formService.GetForm().Select(u => new DropDownParentId() { ParentFormID = u.Id, ParentFormName = u.Name }).ToList();
+            formsViewModel.ParentIdDropDown = _formService.GetForm().Where(x=> x.Id != Id).Select(u => new DropDownParentId() { ParentFormID = u.Id, ParentFormName = u.Name }).ToList();
             return View(formsViewModel);
         }
 

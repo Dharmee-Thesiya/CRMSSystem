@@ -20,7 +20,7 @@ namespace CRMSSystem.SQL
             public DbSet<ConferenceRoom> ConferenceRooms { get; set; }
             public DbSet<CommonLookUp> CommonLookUps { get; set; }
             public DbSet<Forms> Form { get; set; }
-
+            public DbSet<Permission> Permissions { get; set; }
 
 
     }

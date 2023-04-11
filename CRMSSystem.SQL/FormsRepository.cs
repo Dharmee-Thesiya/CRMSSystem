@@ -22,13 +22,11 @@ namespace CRMSSystem.SQL
         }
         public IQueryable<Forms> Collection()
         {
-            
             return dbSet;
         }
 
         public void Commit()
         {
-            
             context.SaveChanges();
         }
 
@@ -80,7 +78,7 @@ namespace CRMSSystem.SQL
                          {
                              Id = f.Id,
                              ParentFormID = f.ParentFormID,
-                             ParentFormName = pf.Name,
+                             ParentFormName = f.Name,
                              FormAccessCode = f.FormAccessCode,
                              DisplayIndex = f.DisplayIndex,
                              Name = f.Name,

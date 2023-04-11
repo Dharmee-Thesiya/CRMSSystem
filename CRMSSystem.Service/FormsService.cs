@@ -59,7 +59,7 @@ namespace CRMSSystem.Service
             forms.FormAccessCode = model.FormAccessCode;
             forms.DisplayIndex = model.DisplayIndex;
             forms.ParentFormID = model.ParentFormID;
-           
+            
             _formRepository.Update(forms);
             _formRepository.Commit();
             return null;
@@ -67,6 +67,7 @@ namespace CRMSSystem.Service
 
         public List<FormsViewModel> GetForm()
         {
+
             return _formRepository.GetForm().OrderByDescending(x => x.CreatedOn).ToList();
         }
 

@@ -73,6 +73,7 @@
     <Compile Include="Models\CommonLookUp.cs" />
     <Compile Include="Models\ConferenceRoom.cs" />
     <Compile Include="Models\Forms.cs" />
+    <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRole.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="View\CommonLookUpViewModel.cs" />
     <Compile Include="View\ConferenceRoomViewModel.cs" />
     <Compile Include="View\FormsViewModel.cs" />
+    <Compile Include="View\PermissionViewModel.cs" />
     <Compile Include="View\RoleViewModel.cs" />
     <Compile Include="View\UserViewModel.cs" />
   </ItemGroup>
