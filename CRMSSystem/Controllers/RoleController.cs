@@ -17,16 +17,18 @@ namespace CRMSSystem.Controllers
     public class RoleController : Controller
     {
         IRoleService _roleService;
-        public RoleController(IRoleService roleService)
+        IPermissionService _permissionService;
+        public RoleController(IRoleService roleService, IPermissionService permissionService)
         {
             _roleService = roleService;
+            _permissionService = permissionService;
         }
 
         [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoles().ToList();
-            return PartialView("RolePartial",roles.ToDataSourceResult(request));
+            return PartialView("RolePartial", roles.ToDataSourceResult(request));
         }
 
         public ActionResult Create()
@@ -37,7 +39,7 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Create(RoleViewModel model)
         {
-            var Role= _roleService.CreateRole(model);
+            var Role = _roleService.CreateRole(model);
             if (Role != null)
             {
                 ViewBag.Message = Role;
@@ -101,8 +103,19 @@ namespace CRMSSystem.Controllers
             List<RoleViewModel> roleViewModels = _roleService.GetRoles().Select(x => new RoleViewModel() { Id = x.Id, Name = x.Name, Code = x.Code }).ToList();
             return Json(roleViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
-       
-    }   
+        public ActionResult GivePermission(Guid Id)
+        {
+            IEnumerable<PermissionViewModel> GetPermission = _permissionService.GetPermissionList(Id).ToList();
+            ViewBag.RoleId = Id;
+            return View(GetPermission);
+        }
+        [HttpPost]
+        public ActionResult GetPermissionJson([DataSourceRequest] DataSourceRequest request, Guid Id)
+        {
+            IEnumerable<PermissionViewModel> permissionViewModels = _permissionService.GetPermissionList(Id).ToList();
+            return Json(permissionViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+    }
 }
 
-        
+

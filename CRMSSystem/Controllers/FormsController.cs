@@ -1,6 +1,7 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using CRMSSystem.filter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
+    [CustomAuthentication]
     public class FormsController : Controller
     {
         IFormService _formService;

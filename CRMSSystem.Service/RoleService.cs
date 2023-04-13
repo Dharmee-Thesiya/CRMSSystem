@@ -1,4 +1,4 @@
-﻿using CRMSSystem.Core.Contracts;
+﻿ using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.SQL;

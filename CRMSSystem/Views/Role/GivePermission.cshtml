@@ -1,0 +1,65 @@
+﻿@using Kendo.Mvc.UI
+
+@using CRMSSystem.Core.View
+
+<div class="section">
+    <div class="topTitleHead k-pb-1">
+        <h2>Manage Permissions</h2>
+    </div>
+</div>
+
+
+@(Html.Kendo().Grid<PermissionViewModel>().Name("Rolegrid").Columns(columns =>
+{
+    columns.Select().Width(40);
+    columns.Bound(c => c.FormName);
+    columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
+    columns.Bound(c => c.Update).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
+    columns.Bound(c => c.Delete).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
+    columns.Bound(c => c.View).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
+
+})
+    .ToolBar(t => t.Search())
+    
+    .Search(s=>
+     {
+         s.Field(t => t.FormName);
+
+     })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+     .Pageable(pageable =>
+     {
+
+         pageable.Refresh(true);
+
+     })
+     .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.RoleId))
+    .Read(read => read.Action("GetPermissionJson", "Role",new { Id=ViewBag.RoleId}))
+    .PageSize(5))
+
+)
+<div>
+    <button id="save" style="text-align:right">Save</button>
+</div>
+
+<br/>
+<br />
+
+<button id="backToList">Back to List</button>
+
+<script>
+    $(document).ready(function() {
+    $('#backToList').click(function() {
+      history.back();
+    });
+  });
+</script>

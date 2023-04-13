@@ -1,4 +1,4 @@
-﻿              @using Kendo.Mvc.UI
+﻿@using Kendo.Mvc.UI
 @using CRMSSystem.Core.View
 
 @(Html.Kendo().Grid<RoleViewModel>().Name("Rolegrid").Columns(columns =>
@@ -7,7 +7,7 @@
     columns.Bound(c => c.Code);
     columns.Template(c => { }).Title(string.Empty)
             .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>" + " | " + "<a href='" + Url.Action("Permission", "Role") + "/#=Id#' class='btn btn-default'>Give Permission</a>").Width(350);
+               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>" + " | " + "<a href='" + Url.Action("GivePermission", "Role") + "/#=Id#' class='btn btn-default'>Give Permission</a>").Width(350);
 })
     .ToolBar(t => t.Search())
     .Search(s=>

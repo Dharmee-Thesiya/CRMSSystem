@@ -15,8 +15,6 @@ namespace CRMSSystem.Core.Contracts
         string CreateRole(RoleViewModel model);
         string EditRole(RoleViewModel model);
         void DeleteRole(RoleViewModel model);
-        
-        
 
     }
 }

@@ -2764,6 +2764,7 @@
     <Content Include="Views\Forms\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\Forms\Delete.cshtml" />
+    <Content Include="Views\Role\GivePermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

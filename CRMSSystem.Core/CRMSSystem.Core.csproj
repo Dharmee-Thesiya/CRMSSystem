@@ -64,6 +64,8 @@
     <Compile Include="Contracts\ILoginRepository.cs" />
     <Compile Include="Contracts\ILoginService.cs" />
     <Compile Include="Contracts\IMRepository.cs" />
+    <Compile Include="Contracts\IPermissionRepository.cs" />
+    <Compile Include="Contracts\IPermissionService.cs" />
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IRoleService.cs" />
     <Compile Include="Contracts\IUserRepository.cs" />

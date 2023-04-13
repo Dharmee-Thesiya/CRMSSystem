@@ -37,7 +37,7 @@ namespace CRMSSystem.SQL
 
         public User Find(Guid Id)
         {
-            return dbSet.Find(Id)
+            return dbSet.Find(Id);
 ;
         }
 
@@ -48,8 +48,8 @@ namespace CRMSSystem.SQL
         }
         public void Delete(Guid Id)
         {
-            var user = Find(Id)
-;
+            var user = Find(Id);
+
             if (context.Entry(user).State == EntityState.Detached)
                 dbSet.Attach(user);
             dbSet.Remove(user);

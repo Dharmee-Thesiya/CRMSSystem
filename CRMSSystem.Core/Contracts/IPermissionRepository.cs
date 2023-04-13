@@ -8,14 +8,16 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Contracts
 {
-    public interface IRoleRepository
+    public interface IPermissionRepository
     {
-        IQueryable<Role> Collection();
+        IQueryable<Permission> Collection();
+        void Insert(Permission permission);
         void Commit();
+        Permission Find(Guid Id);
+        void Update(Permission permission);
         void Delete(Guid Id);
-        Role Find(Guid Id);
-        void Insert(Role role);
-        void Update(Role role);
-        
+        List<PermissionViewModel> GetPermission(Guid RoleId);
+       
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
+using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -13,14 +14,14 @@ namespace CRMSSystem.SQL
     {
         internal DataContext context;
         internal DbSet<Role> DbSet;
+        
 
         public RoleRepository(DataContext context)
         {
             this.context = context;
             this.DbSet = context.Set<Role>();
+           
         }
-
-
 
         public IQueryable<Role> GetRoles()
         {

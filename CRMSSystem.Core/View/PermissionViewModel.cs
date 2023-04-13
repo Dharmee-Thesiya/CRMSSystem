@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRMSSystem.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.View
 {
-    public class PermissionViewModel
+    public class PermissionViewModel : BaseEntity
     {
         [Required]
         public bool View { get; set; }
@@ -18,8 +19,10 @@ namespace CRMSSystem.Core.View
         [Required]
         public bool Delete { get; set; }
         [Required]
-        public Guid RoleId { get; set; }
+        public Guid? RoleId { get; set; }
         [Required]
-        public Guid FormId { get; set; }
+        public Guid? FormId { get; set; }
+        public string FormName { get; set; }
+       
     }
 }

@@ -63,6 +63,8 @@ namespace CRMSSystem
             container.RegisterType<IMRepository<Forms>, SQLRepository<Forms>>();
             container.RegisterType<IFormService, FormsService>();
             container.RegisterType<IFormRepository, FormsRepository>();
+            container.RegisterType<IPermissionRepository, PermissionRepository>();
+            container.RegisterType<IPermissionService, PermissionService>();
 
 
         }
