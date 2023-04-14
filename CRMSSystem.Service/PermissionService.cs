@@ -21,8 +21,11 @@ namespace CRMSSystem.Service
         public List<PermissionViewModel> GetPermissionList(Guid RoleId)
         {
             return _permissionRepository.GetPermission(RoleId).ToList();
-
         }
 
+        public void UpdatePermission(List<Permission> model)
+        {
+            _permissionRepository.InsertRange(model);
+        }
     }
 }

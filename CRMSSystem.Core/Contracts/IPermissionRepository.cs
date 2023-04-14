@@ -11,7 +11,7 @@ namespace CRMSSystem.Core.Contracts
     public interface IPermissionRepository
     {
         IQueryable<Permission> Collection();
-        void Insert(Permission permission);
+        void InsertRange(List<Permission> permission);
         void Commit();
         Permission Find(Guid Id);
         void Update(Permission permission);

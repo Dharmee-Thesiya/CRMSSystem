@@ -11,6 +11,8 @@ namespace CRMSSystem.Core.Contracts
     public interface IPermissionService
     {
         List<PermissionViewModel> GetPermissionList(Guid RoleId);
-        
+        void UpdatePermission(List<Permission> model);
+
+
     }
 }

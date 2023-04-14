@@ -1,5 +1,4 @@
 ﻿@using Kendo.Mvc.UI
-
 @using CRMSSystem.Core.View
 
 <div class="section">
@@ -8,33 +7,30 @@
     </div>
 </div>
 
-
-@(Html.Kendo().Grid<PermissionViewModel>().Name("Rolegrid").Columns(columns =>
+@(Html.Kendo().Grid<PermissionViewModel>().Name("Permissiongrid").Columns(columns =>
 {
-    columns.Select().Width(40);
+
+    columns.Template(c => { })
+            .Title("<b>All</b><br/> <input type='checkbox' id='allView_Checkbox' name='allView'/>")
+            .ClientTemplate("<input type='checkbox' id='All_Checkbox' name='row'/>")
+                  .Width(50);
     columns.Bound(c => c.FormName);
-    columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-    columns.Bound(c => c.Update).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-    columns.Bound(c => c.Delete).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
-    columns.Bound(c => c.View).ClientTemplate("<input type='checkbox' #= status == true ? checked='checked' : '' # />");
+    columns.Bound(p => p.View).ClientTemplate("<input type='checkbox' id='view_#=FormId#'/>");
+    columns.Bound(c => c.Update).ClientTemplate("<input type='checkbox' id='update_#=FormId#'/>");
+    columns.Bound(c => c.Delete).ClientTemplate("<input type='checkbox' id='delete_#=FormId#'/>");
+    columns.Bound(c => c.Insert).ClientTemplate("<input type='checkbox' id='insert_#=FormId#'/>");
 
 })
     .ToolBar(t => t.Search())
-    
+
     .Search(s=>
-     {
-         s.Field(t => t.FormName);
+    {
+        s.Field(t => t.FormName);
 
-     })
+    })
 
-    .Editable(editable => editable.Mode(GridEditMode.InLine))
-     .Pageable(pageable =>
-     {
-
-         pageable.Refresh(true);
-
-     })
-     .NoRecords("No Record Found")
+    .Editable(editable => editable.Mode(GridEditMode.InLine)) 
+    .NoRecords("No Record Found")
     .Scrollable()
     .HtmlAttributes(new { style = "height:550px;" })
     .Sortable()
@@ -44,22 +40,65 @@
     .Ajax()
     .Model(model => model.Id(p => p.RoleId))
     .Read(read => read.Action("GetPermissionJson", "Role",new { Id=ViewBag.RoleId}))
-    .PageSize(5))
-
+    .PageSize(10))
 )
-<div>
-    <button id="save" style="text-align:right">Save</button>
-</div>
+
 
 <br/>
+
+<div>
+    <button class="btnDiv" onclick="savepermission()">Save Changes</button>
+</div>
 <br />
 
 <button id="backToList">Back to List</button>
+<script>
+    $(document).ready(function () {
+        $('#backToList').click(function () {
+            history.back();
+        });
+    });
+    
+</script>
+
 
 <script>
-    $(document).ready(function() {
-    $('#backToList').click(function() {
-      history.back();
-    });
-  });
+    function savepermission() {
+        debugger;
+        var grid = $("#Permissiongrid").data("kendoGrid");
+        var ds = grid.dataSource.view();
+        if (ds.length > 0) {
+            const data = [];
+            for (var i = 0; i < ds.length; i++) {
+
+                FormId = ds[i].FormId;
+                RoleId = ds[i].RoleId;
+                Id = ds[i].Id;
+                FormName = ds[i].FormName;
+                View = document.getElementById("view_" + FormId).checked;
+                Insert = document.getElementById("insert_" + FormId).checked;
+                Update = document.getElementById("update_" + FormId).checked;
+                Delete = document.getElementById("delete_" + FormId).checked;
+
+                var jsonData = { FormId: FormId, FormName: FormName, RoleId: RoleId, View: View, Insert: Insert, Update: Update, Delete: Delete };
+                data.push(jsonData);
+
+            }
+            
+            $.ajax({
+                type: 'POST',
+                url: '/Role/UpdatePermission',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                success: function (data) {
+                    debugger;
+                    if (data == "true") {
+                        alert("");
+                    }
+                }
+            });
+
+        }
+    }
 </script>

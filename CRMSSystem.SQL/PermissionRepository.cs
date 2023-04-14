@@ -106,11 +106,10 @@ namespace CRMSSystem.SQL
             
         }
 
-        
-
-        public void Insert(Permission permission)
+        public void InsertRange(List<Permission> permission)
         {
-            dbSet.Add(permission);
+            dbSet.AddRange(permission);
+            Commit();
         }
 
         public void Update(Permission permission)

@@ -115,6 +115,10 @@
     <Compile Include="Migrations\202304110931148_Permission.designer.cs">
       <DependentUpon>202304110931148_Permission.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304140935090_PermissionModel.cs" />
+    <Compile Include="Migrations\202304140935090_PermissionModel.designer.cs">
+      <DependentUpon>202304140935090_PermissionModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304110931148_Permission.resx">
       <DependentUpon>202304110931148_Permission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304140935090_PermissionModel.resx">
+      <DependentUpon>202304140935090_PermissionModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
