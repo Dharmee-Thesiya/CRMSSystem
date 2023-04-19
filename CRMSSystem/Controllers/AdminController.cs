@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    [CustomAuthentication]
+    [CustomAuthentication(Roles ="Admin")]
     public class AdminController : Controller
     {
         public ActionResult Index()

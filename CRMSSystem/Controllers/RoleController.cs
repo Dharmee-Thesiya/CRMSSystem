@@ -14,6 +14,7 @@ using System.Web.Security;
 namespace CRMSSystem.Controllers
 {
     [CustomAuthentication]
+   
     public class RoleController : Controller
     {
         IRoleService _roleService;
