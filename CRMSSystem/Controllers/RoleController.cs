@@ -105,26 +105,32 @@ namespace CRMSSystem.Controllers
         }
         public ActionResult GivePermission(Guid Id)
         {
-            List<PermissionViewModel> GetPermission = _permissionService.GetPermissionList(Id).ToList();
             ViewBag.RoleId = Id;
-            return View(GetPermission);
+            List<PermissionViewModel> permissionViewModels = _permissionService.GetPermissionList(Id).ToList();
+            return View();
         }
-        
         public ActionResult GetPermissionJson([DataSourceRequest] DataSourceRequest request, Guid Id)
         {
             List<PermissionViewModel> permissionViewModels = _permissionService.GetPermissionList(Id).ToList();
             return Json(permissionViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Save()
-        {
-            return View();
-        }
+       
         [HttpPost]
         public ActionResult UpdatePermission(List<Permission> model)
         {
-            Permission permission=_permissionService.UpdatePermission(model)
-            return (model);  
+            if (ModelState.IsValid)
+            {
+                TempData["PageSelected"] = "RoleManagement";
+                _permissionService.UpdatePermission(model);
+                return Content("true");
+            }
+            else
+            {
+                return View(model);
+            }
+
         }
+       
     }
 }
 

@@ -32,11 +32,7 @@ namespace CRMSSystem.SQL
 
         public void Delete(Guid Id)
         {
-            var permission = Find(Id);
-
-            if (context.Entry(permission).State == EntityState.Detached)
-                dbSet.Attach(permission);
-            dbSet.Remove(permission);
+            
         }
 
         public Permission Find(Guid Id)
@@ -46,69 +42,47 @@ namespace CRMSSystem.SQL
 
         public List<PermissionViewModel> GetPermission(Guid RoleId)
         {
-            var permission = context.Permissions.Where(x=>x.RoleId==RoleId).FirstOrDefault();
-            if(permission==null)
+            int count = 0;
+            var permissions = (from f in context.Form.Where(x => !x.IsDeleted).AsEnumerable()
+                               join p in context.Permissions.Where(x => x.RoleId == RoleId) on f.Id equals p.FormId into fdata
+                               from fp in fdata.DefaultIfEmpty()
+                               select new PermissionViewModel
+                               {
+                                   RoleId = RoleId,
+                                   FormId = f.Id,
+                                   FormName = f.Name,
+                                   View = fp != null ? fp.View : false,
+                                   Update = fp != null ? fp.Update : false,
+                                   Delete = fp != null ? fp.Delete : false,
+                                   Insert = fp != null ? fp.Insert : false
+                                   //All = fp.Delete && fp.View && fp.Update && fp.Insert ? true:false
+                               }).ToList();
+
+            foreach (var mod in permissions)
             {
-                var permissions = (from f in context.Form
-                             where !f.IsDeleted 
-                             orderby f.CreatedOn descending
-                             select new PermissionViewModel
-                             {
-
-                                 FormId = f.Id,
-                                 FormName = f.Name,
-                                 RoleId = RoleId,
-                                 View = false,
-                                 Insert = false,
-                                 Update = false,
-                                 Delete = false
-
-                             }).ToList();
-                return permissions;
+                if (mod.View && mod.Insert && mod.Update && mod.Delete)
+                {
+                    count += 1;
+                }
+            }
+            if (count == permissions.Count())
+            {
+                Constants.All = true;
             }
             else
             {
-                var result = (from f in context.Form
-                                   join p in context.Permissions on f.Id equals p.FormId
-                                   where !f.IsDeleted && p.RoleId == RoleId
-                                   orderby f.Name ascending
-                                   select new PermissionViewModel
-                                   {
-                                       FormId = f.Id,
-                                       FormName = f.Name,
-                                       RoleId = RoleId,
-                                       View = p.View,
-                                       Insert = p.Insert,
-                                       Update = p.Update,
-                                       Delete = p.Delete
-                                   }).ToList();
-
-
-                var forms = (from f in context.Form
-                             where !f.IsDeleted
-                             orderby f.Name ascending
-                             select new PermissionViewModel
-                             {
-                                 FormId = f.Id,
-                                 FormName = f.Name,
-                                 RoleId = RoleId,
-                                 View = false,
-                                 Insert = false,
-                                 Update = false,
-                                 Delete = false
-                             }).ToList();
-
-                var getpermission = forms.Except(result).ToList();
-                var managepermission = result.Union(getpermission).ToList();
-                return managepermission;
+                Constants.All = false;
             }
-            
-            
+            return permissions;
+ 
         }
 
-        public void InsertRange(List<Permission> permission)
+        public void InsertRange(List<Permission> model)
         {
-            dbSet.AddRange(permission);
+            var permissions = Collection().ToList().Where(x => x.RoleId == model.FirstOrDefault().RoleId);
+            dbSet.RemoveRange(permissions);
+            Commit();
+            dbSet.AddRange(model);
             Commit();
         }
 

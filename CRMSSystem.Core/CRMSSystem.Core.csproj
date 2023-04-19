@@ -74,6 +74,7 @@
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CommonLookUp.cs" />
     <Compile Include="Models\ConferenceRoom.cs" />
+    <Compile Include="Models\Constants.cs" />
     <Compile Include="Models\Forms.cs" />
     <Compile Include="Models\Permission.cs" />
     <Compile Include="Models\Role.cs" />

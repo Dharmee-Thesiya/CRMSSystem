@@ -23,6 +23,8 @@ namespace CRMSSystem.Core.View
         [Required]
         public Guid? FormId { get; set; }
         public string FormName { get; set; }
+
+        public bool All { get; set; }
        
     }
 }

@@ -98,8 +98,12 @@
         if (e === undefined) {
             Id = 0;
         }
-        else {            e.preventDefault();            var d = this.dataItem($(e.currentTarget).closest("tr"));            Id = d.Id;
-        }
+        else {
+            e.preventDefault();
+            var d = this.dataItem($(e.currentTarget).closest("tr"));
+            Id = d.Id;
+        }
+
         debugger;
 
         var url = '';
@@ -120,7 +124,8 @@
     }
 
     var confirm = function (e) {
-        e.preventDefault();        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        e.preventDefault();
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
         Id = d.Id;
         $("#deletemodal").modal('show');
         $("#hdnDeleteId").val(Id);

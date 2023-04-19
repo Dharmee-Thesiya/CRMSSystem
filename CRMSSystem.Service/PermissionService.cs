@@ -25,7 +25,10 @@ namespace CRMSSystem.Service
 
         public void UpdatePermission(List<Permission> model)
         {
+           
             _permissionRepository.InsertRange(model);
-        }
+            
+
+        } 
     }
 }

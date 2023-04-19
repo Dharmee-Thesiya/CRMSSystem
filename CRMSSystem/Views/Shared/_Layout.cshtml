@@ -4,16 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My CRMSSystem</title>
-    <link href="~/style/login.css" rel="stylesheet" />
+    @*<link href="~/style/login.css" rel="stylesheet" />*@
     <link href="~/style/style.css" rel="stylesheet" />
 
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
     @Scripts.Render("~/bundles/jquery")
+
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
 
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/Kendo")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/bootstrap.js"></script>
 
 </head>
 <body>
@@ -41,16 +50,20 @@
 
                             </div>
                             <div class="userName align-center">
-                                <span>Admin </span>
-                                <i> <img src="~/image/down-arrow.svg" alt="Dropdown Icon"> </i>
-                                <div class="userInfoDiv">
-                                    <div class="userInfoBox">
-                                        <a href="#">Profile</a>
-                                        <a href="#">Settings</a>
-                                        
-                                        @Html.ActionLink("Logout","Logout","Account")
+                                @if (Session["UserName"] != null)
+                                {
+                                    <span>@Session["UserName"]</span>
+                                    <i> <img src="~/image/down-arrow.svg" alt="Dropdown Icon"> </i>
+                                    <div class="userInfoDiv">
+                                        <div class="userInfoBox">
+                                            <a href="#">Profile</a>
+                                            <a href="#">Settings</a>
+
+                                            @Html.ActionLink("Logout", "Logout", "Account")
+                                        </div>
                                     </div>
-                                </div>
+                                }
+
                             </div>
                         </div>
 
