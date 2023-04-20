@@ -42,15 +42,14 @@ namespace CRMSSystem.SQL
 
         public Forms Find(Guid Id)
         {
-          
             return dbSet.Find(Id);
         }
-
+        
         public List<FormsViewModel> GetForm()
-        {
+         {
             var forms = (from f in context.Form.Where(x => !x.IsDeleted).AsEnumerable()
                          join p in context.Form on f.ParentFormID equals p.Id into fdata
-                         from pf in fdata.DefaultIfEmpty()   
+                         from pf in fdata.DefaultIfEmpty()
                          select new FormsViewModel
                          {
                              Id = f.Id,
@@ -60,13 +59,12 @@ namespace CRMSSystem.SQL
                              DisplayIndex = f.DisplayIndex,
                              Name = f.Name,
                              NavigateURL = f.NavigateURL
-
                          }).Distinct()
                          .ToList();
             return forms;
-        
-        }
 
+        }
+      
         public FormsViewModel GetFormsById(Guid Id)
         {
             var forms = (from f in context.Form
@@ -97,7 +95,6 @@ namespace CRMSSystem.SQL
 
         public void Update(Forms forms)
         {
-           
             dbSet.Attach(forms);
             context.Entry(forms).State = EntityState.Modified;
         }

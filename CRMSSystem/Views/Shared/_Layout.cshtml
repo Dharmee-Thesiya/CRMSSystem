@@ -33,7 +33,7 @@
                 <div class="align-center align-between">
                     <div class="align-center">
                         <div class="logoDiv"> <a href="#"> <img src="~/image/logo.svg" alt="CRB Logo"> </a> </div>
-
+                       
                         <div class="menuDiv">
                             <ul class="align-center">
                                 <li>@Html.ActionLink("Home", "Index", "Home")<a href="#"></a> </li>
@@ -42,8 +42,8 @@
                                 <li>@Html.ActionLink("Forms", "Index", "Forms") <a href="#"></a> </li>
                             </ul>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="userInfo">
                         <div class="align-center">
                             <div class="userProfile">
@@ -51,7 +51,7 @@
                             </div>
                             <div class="userName align-center">
                                 @if (Session["UserName"] != null)
-                                {
+                                 {
                                     <span>@Session["UserName"]</span>
                                     <i> <img src="~/image/down-arrow.svg" alt="Dropdown Icon"> </i>
                                     <div class="userInfoDiv">
@@ -62,11 +62,10 @@
                                             @Html.ActionLink("Logout", "Logout", "Account")
                                         </div>
                                     </div>
-                                }
+                                 }
 
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

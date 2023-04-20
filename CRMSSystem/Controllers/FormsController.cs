@@ -23,8 +23,7 @@ namespace CRMSSystem.Controllers
         // GET: Forms
         public ActionResult Index()
         {
-            List<FormsViewModel> formsViewModels = _formService.GetForm().ToList();
-            return View(formsViewModels);
+            return View();
         }
         public ActionResult GetForms([DataSourceRequest] DataSourceRequest request)
         {
@@ -90,12 +89,10 @@ namespace CRMSSystem.Controllers
                 model.ParentIdDropDown = _formService.GetForm().Select(u => new DropDownParentId() { ParentFormID = u.Id, ParentFormName = u.Name }).ToList();
                 return View(model);
             }
-
             else
             {
                 return RedirectToAction("Index", "Forms");
             }
-
         }
     }
 }

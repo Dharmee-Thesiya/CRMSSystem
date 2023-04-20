@@ -23,18 +23,22 @@ namespace CRMSSystem.Service
             {
                 return "FormAccessCode Already Exist";
             }
-            Forms forms = new Forms();
-            forms.Name = model.Name;
-            forms.NavigateURL = model.NavigateURL;
-            if(model.ParentFormID != null)
+            if (_formRepository.Collection().Where(r => r.ParentFormID == null).Any())
             {
-                forms.ParentFormID = model.ParentFormID;
-            }            
-            forms.FormAccessCode = model.FormAccessCode.ToUpper();
-            forms.DisplayIndex = model.DisplayIndex;
+                Forms forms = new Forms();
+                forms.Name = model.Name;
+                forms.NavigateURL = model.NavigateURL;
+                if (model.ParentFormID != null)
+                {
+                    forms.ParentFormID = model.ParentFormID;
+                }
+                forms.FormAccessCode = model.FormAccessCode.ToUpper();
+                forms.DisplayIndex = model.DisplayIndex;
 
-            _formRepository.Insert(forms);
-            _formRepository.Commit();
+                _formRepository.Insert(forms);
+                _formRepository.Commit();
+               
+            }
             return null;
         }
 

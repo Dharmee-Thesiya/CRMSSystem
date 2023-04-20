@@ -59,7 +59,6 @@ namespace CRMSSystem.SQL
         {
             dbSet.Attach(user);
             context.Entry(user).State = EntityState.Modified;
-
         }
         public void UpdateUserRole(UserRole userRole)
         {

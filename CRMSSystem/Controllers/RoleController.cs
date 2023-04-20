@@ -121,6 +121,7 @@ namespace CRMSSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 TempData["PageSelected"] = "RoleManagement";
                 _permissionService.UpdatePermission(model);
                 return Content("true");

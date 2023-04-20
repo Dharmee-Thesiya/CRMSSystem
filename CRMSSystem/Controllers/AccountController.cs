@@ -1,5 +1,6 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
+using CRMSSystem.Core.View;
 using CRMSSystem.filter;
 using CRMSSystem.SQL;
 using Intercom.Data;
@@ -14,18 +15,16 @@ using System.Web.Security;
 
 namespace CRMSSystem.Controllers
 {
-    
     public class AccountController : Controller
     {
-
         private ILoginService _loginService;
-        
+        private IMRepository<UserRole> _userRoleRepository;
 
-        public AccountController(ILoginService loginService)
+        public AccountController(ILoginService loginService, IMRepository<UserRole> userRoleRepository)
         {
             _loginService = loginService;
+            _userRoleRepository = userRoleRepository;
         }
-
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -41,7 +40,6 @@ namespace CRMSSystem.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
-
             }
             else
             {
@@ -49,7 +47,7 @@ namespace CRMSSystem.Controllers
                 if (user != null)
                 {
                     Session["Id"] = user.Id;
-                    Session["UserName"] = user.UserName;
+                    Session["UserName"] = user.UserName;  
                     return RedirectToAction("Index","Admin"); 
                 }
                 else
@@ -57,7 +55,6 @@ namespace CRMSSystem.Controllers
                     ModelState.AddModelError("", " Email or password Is Incorrect.");
                     return View();
                 }
-
             } 
         }
         public ActionResult Logout()
