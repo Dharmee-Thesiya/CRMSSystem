@@ -1,4 +1,5 @@
 ﻿using CRMSSystem.filter;
+using CRMSSystem.Filter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    [CustomAuthentication(Roles ="Admin")]
+    [CustomAuthentication]
+    [CustomActionFilter]
     public class AdminController : Controller
     {
         public ActionResult Index()

@@ -19,11 +19,13 @@ namespace CRMSSystem.Controllers
     {
         private ILoginService _loginService;
         private IMRepository<UserRole> _userRoleRepository;
+        private IPermissionService _permissionService;
 
-        public AccountController(ILoginService loginService, IMRepository<UserRole> userRoleRepository)
+        public AccountController(ILoginService loginService, IMRepository<UserRole> userRoleRepository, IPermissionService permissionService)
         {
             _loginService = loginService;
             _userRoleRepository = userRoleRepository;
+            _permissionService = permissionService;
         }
 
         [AllowAnonymous]
@@ -47,15 +49,19 @@ namespace CRMSSystem.Controllers
                 if (user != null)
                 {
                     Session["Id"] = user.Id;
-                    Session["UserName"] = user.UserName;  
-                    return RedirectToAction("Index","Admin"); 
+                    Session["UserName"] = user.UserName;
+                    Guid RoleID = _userRoleRepository.Collection().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
+                    Session["RoleId"] = RoleID;
+                    var permission = _permissionService.GetPermissionList(RoleID).ToList();
+                    Session["Permission"] = permission;
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     ModelState.AddModelError("", " Email or password Is Incorrect.");
                     return View();
                 }
-            } 
+            }
         }
         public ActionResult Logout()
         {
@@ -63,7 +69,6 @@ namespace CRMSSystem.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
-        
+
     }
 }
-        

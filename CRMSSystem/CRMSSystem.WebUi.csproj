@@ -345,6 +345,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filter\CustomActionFilter.cs" />
     <Compile Include="Filter\CustomAuthentication.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -358,6 +359,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="image\conference.jpg" />
     <Content Include="image\down-arrow.svg" />
     <Content Include="image\edit.svg" />
     <Content Include="image\eye.svg" />

@@ -19,12 +19,13 @@ namespace CRMSSystem.Core.View
         [Required]
         public bool Delete { get; set; }
         [Required]
-        public Guid? RoleId { get; set; }
+        public Guid RoleId { get; set; }
         [Required]
-        public Guid? FormId { get; set; }
+        public Guid FormId { get; set; }
         public string FormName { get; set; }
 
         public bool All { get; set; }
-       
+        public string NavigateURL { get; set; }
+
     }
 }

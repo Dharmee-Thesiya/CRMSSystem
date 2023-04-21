@@ -51,11 +51,11 @@ namespace CRMSSystem.SQL
                                    RoleId = RoleId,
                                    FormId = f.Id,
                                    FormName = f.Name,
+                                   NavigateURL=f.NavigateURL,
                                    View = fp != null ? fp.View : false,
                                    Update = fp != null ? fp.Update : false,
                                    Delete = fp != null ? fp.Delete : false,
-                                   Insert = fp != null ? fp.Insert : false
-                                   //All = fp.Delete && fp.View && fp.Update && fp.Insert ? true:false
+                                   Insert = fp != null ? fp.Insert : false  
                                }).ToList();
 
             foreach (var mod in permissions)

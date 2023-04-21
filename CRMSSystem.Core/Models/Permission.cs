@@ -18,8 +18,8 @@ namespace CRMSSystem.Core.Models
         [Required]
         public bool Delete { get; set; }
         [Required]
-        public Guid? RoleId { get; set; }
+        public Guid RoleId { get; set; }
         [Required]
-        public Guid? FormId { get; set; }
+        public Guid FormId { get; set; }
     }
 }

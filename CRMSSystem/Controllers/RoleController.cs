@@ -19,10 +19,12 @@ namespace CRMSSystem.Controllers
     {
         IRoleService _roleService;
         IPermissionService _permissionService;
-        public RoleController(IRoleService roleService, IPermissionService permissionService)
+        IMRepository<UserRole> _userRoleRepository;
+        public RoleController(IRoleService roleService, IPermissionService permissionService, IMRepository<UserRole> userRoleRepository)
         {
             _roleService = roleService;
             _permissionService = permissionService;
+            _userRoleRepository = userRoleRepository;
         }
 
         [AllowAnonymous]
@@ -121,9 +123,11 @@ namespace CRMSSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+              
                 TempData["PageSelected"] = "RoleManagement";
                 _permissionService.UpdatePermission(model);
+                var permission = _permissionService.GetPermissionList((Guid)Session["RoleId"]).ToList();
+                Session["Permission"] = permission;
                 return Content("true");
             }
             else
