@@ -21,6 +21,7 @@ namespace CRMSSystem.Core.View
         public int DisplayIndex { get; set; }
         [Required]
         public string ParentFormName { get; set; }
+       
         public List<DropDownParentId> ParentIdDropDown { get; set; }
         
        

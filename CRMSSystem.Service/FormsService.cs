@@ -23,8 +23,6 @@ namespace CRMSSystem.Service
             {
                 return "FormAccessCode Already Exist";
             }
-            if (_formRepository.Collection().Where(r => r.ParentFormID == null).Any())
-            {
                 Forms forms = new Forms();
                 forms.Name = model.Name;
                 forms.NavigateURL = model.NavigateURL;
@@ -34,11 +32,8 @@ namespace CRMSSystem.Service
                 }
                 forms.FormAccessCode = model.FormAccessCode.ToUpper();
                 forms.DisplayIndex = model.DisplayIndex;
-
                 _formRepository.Insert(forms);
                 _formRepository.Commit();
-               
-            }
             return null;
         }
 
@@ -66,6 +61,7 @@ namespace CRMSSystem.Service
             
             _formRepository.Update(forms);
             _formRepository.Commit();
+
             return null;
         }
 

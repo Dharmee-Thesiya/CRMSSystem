@@ -33,10 +33,8 @@ namespace CRMSSystem.SQL
         public void Delete(Guid Id)
         {
             
-            var forms = Find(Id)
-;
+            var forms = Find(Id);
             if (context.Entry(forms).State == EntityState.Detached)
-                dbSet.Attach(forms);
             dbSet.Remove(forms);
         }
 

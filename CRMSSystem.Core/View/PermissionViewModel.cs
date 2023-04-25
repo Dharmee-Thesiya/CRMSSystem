@@ -26,6 +26,7 @@ namespace CRMSSystem.Core.View
 
         public bool All { get; set; }
         public string NavigateURL { get; set; }
+        public Guid? ParentFormId { get; set; }
 
     }
 }

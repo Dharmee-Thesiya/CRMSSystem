@@ -2,6 +2,7 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using CRMSSystem.Filter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -16,7 +17,7 @@ using System.Web.Mvc;
 namespace CRMSSystem.Controllers
 {
     [CustomAuthentication]
-    
+    [CustomActionFilter]
     public class UserController : Controller
     {
         IUserService _userService;

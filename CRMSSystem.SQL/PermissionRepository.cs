@@ -52,6 +52,7 @@ namespace CRMSSystem.SQL
                                    FormId = f.Id,
                                    FormName = f.Name,
                                    NavigateURL=f.NavigateURL,
+                                   ParentFormId=f.ParentFormID,
                                    View = fp != null ? fp.View : false,
                                    Update = fp != null ? fp.Update : false,
                                    Delete = fp != null ? fp.Delete : false,

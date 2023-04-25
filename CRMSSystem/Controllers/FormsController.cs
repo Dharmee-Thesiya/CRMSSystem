@@ -2,6 +2,7 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using CRMSSystem.Filter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -13,12 +14,15 @@ using System.Web.Mvc;
 namespace CRMSSystem.Controllers
 {
     [CustomAuthentication]
+    [CustomActionFilter]
     public class FormsController : Controller
     {
         IFormService _formService;
-        public FormsController(IFormService formService)
+        IPermissionService _permissionService;
+        public FormsController(IFormService formService, IPermissionService permissionService)
         {
             _formService = formService;
+            _permissionService = permissionService;
         }
         // GET: Forms
         public ActionResult Index()
@@ -70,6 +74,8 @@ namespace CRMSSystem.Controllers
         public ActionResult ConfirmDelete(Guid Id)
         {
             _formService.DeleteForms(Id);
+            var permission = _permissionService.GetPermissionList((Guid)Session["RoleId"]).ToList();
+            Session["Permission"] = permission;
             return RedirectToAction("Index", "Forms");
         }
         public ActionResult Edit(Guid Id)
@@ -83,6 +89,8 @@ namespace CRMSSystem.Controllers
         public ActionResult Edit(FormsViewModel model)
         {
             var forms = _formService.EditForms(model);
+            var permission = _permissionService.GetPermissionList((Guid)Session["RoleId"]).ToList();
+            Session["Permission"] = permission;
             if (forms != null)
             {
                 ViewBag.Message = forms;
