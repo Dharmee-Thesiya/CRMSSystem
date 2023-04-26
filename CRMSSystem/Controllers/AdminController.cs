@@ -9,7 +9,7 @@ using System.Web.Mvc;
 namespace CRMSSystem.Controllers
 {
     [CustomAuthentication]
-    [CustomActionFilter]
+    
     public class AdminController : Controller
     {
         public ActionResult Index()

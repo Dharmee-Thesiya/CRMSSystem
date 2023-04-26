@@ -14,7 +14,7 @@ using System.Web.Mvc;
 namespace CRMSSystem.Controllers
 {
     [CustomAuthentication]
-    [CustomActionFilter]
+    
     public class FormsController : Controller
     {
         IFormService _formService;
@@ -25,6 +25,8 @@ namespace CRMSSystem.Controllers
             _permissionService = permissionService;
         }
         // GET: Forms
+
+        [CustomActionFilter("FORM", AccessPermission.PermissionOrder.IsView)]
         public ActionResult Index()
         {
             return View();
@@ -34,6 +36,7 @@ namespace CRMSSystem.Controllers
             List<FormsViewModel> formsViewModels = _formService.GetForm().ToList();
             return Json(formsViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
+        [CustomActionFilter("FORM", AccessPermission.PermissionOrder.IsInsert)]
         public ActionResult Create()
         {
             FormsViewModel forms = new FormsViewModel();

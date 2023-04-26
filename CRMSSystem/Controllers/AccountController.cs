@@ -69,6 +69,5 @@ namespace CRMSSystem.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
-
     }
 }

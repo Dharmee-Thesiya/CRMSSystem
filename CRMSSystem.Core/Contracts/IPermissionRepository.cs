@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Contracts
 {
+    //interface for PermissionRepository//
     public interface IPermissionRepository
     {
         IQueryable<Permission> Collection();

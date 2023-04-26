@@ -11,7 +11,7 @@ namespace CRMSSystem.SQL
     {
         internal DataContext context;
         internal DbSet<T> DbSet;
-        internal DbSet<ConferenceRoom> conferenceRoomsDbSet;
+        
         internal DbSet<CommonLookUp> commonLookUpDbSet;
        
         
@@ -19,7 +19,7 @@ namespace CRMSSystem.SQL
         {
             this.context = context;
             this.DbSet = context.Set<T>();
-            this.conferenceRoomsDbSet = context.Set<ConferenceRoom>();
+           
             this.commonLookUpDbSet = context.Set<CommonLookUp>();
             
         }

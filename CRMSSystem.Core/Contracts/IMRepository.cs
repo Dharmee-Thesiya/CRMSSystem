@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace CRMSSystem.Core.Contracts
 {
+    //interface for main repository, we can use it also as generic//
     public interface IMRepository<T> where T : BaseEntity
     {
         IQueryable<T> Collection();

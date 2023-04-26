@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Contracts
 {
+    //interface for FormService//
     public interface IFormService
     {
         List<FormsViewModel> GetForm();

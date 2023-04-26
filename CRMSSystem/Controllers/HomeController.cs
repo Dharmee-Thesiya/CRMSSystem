@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    [CustomActionFilter]
+   
     public class HomeController : Controller
     {
         // GET: Home

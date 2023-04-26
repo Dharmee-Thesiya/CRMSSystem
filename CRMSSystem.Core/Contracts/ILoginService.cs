@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Contracts
 {
+    //interface for Loginservice//
     public interface ILoginService
     {
         User Login(AccountViewModel model);

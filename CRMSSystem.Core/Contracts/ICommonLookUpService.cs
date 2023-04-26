@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Contracts
 {
+    //interface for commonlookupService//
     public interface ICommonLookUpService
     {
         List<CommonLookUp> GetCommonLookUp();

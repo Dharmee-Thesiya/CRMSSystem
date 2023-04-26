@@ -9,22 +9,28 @@ namespace CRMSSystem.Filter
 {
     public class CustomActionFilter : ActionFilterAttribute
     {
-        public CustomActionFilter()
+        public string FormName;
+        public readonly AccessPermission.PermissionOrder actionCode;
+
+        public CustomActionFilter(string form, AccessPermission.PermissionOrder action)
         {
-         
+            FormName = form;
+            actionCode = action;
         }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session["Permission"]==null || filterContext.HttpContext.Session["RoleId"]==null)
+            bool accessCode = AccessCode.CheckAccess(FormName, actionCode.ToString());
+            if (accessCode == false)
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
-                    {"Controller","Home" },
-                    {"action","Index" }
+                    {"controller", "Home" },
+                    {"action", "Index" },
+                   
                 });
-
-                base.OnActionExecuting(filterContext);
             }
+            base.OnActionExecuting(filterContext);
         }
     }
 }

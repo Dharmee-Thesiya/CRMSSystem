@@ -123,6 +123,10 @@
     <Compile Include="Migrations\202304210629421_permissionupdated.designer.cs">
       <DependentUpon>202304210629421_permissionupdated.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304260543052_ConferenceRoom Remove.cs" />
+    <Compile Include="Migrations\202304260543052_ConferenceRoom Remove.designer.cs">
+      <DependentUpon>202304260543052_ConferenceRoom Remove.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +189,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304210629421_permissionupdated.resx">
       <DependentUpon>202304210629421_permissionupdated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304260543052_ConferenceRoom Remove.resx">
+      <DependentUpon>202304260543052_ConferenceRoom Remove.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -56,8 +56,7 @@ namespace CRMSSystem
             container.RegisterType<IUserService,UserService>();
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IMRepository<UserRole>, SQLRepository<UserRole>>();
-            container.RegisterType<IMRepository<ConferenceRoom>, SQLRepository<ConferenceRoom>>();
-            container.RegisterType<IConferenceRoomService, ConferenceRoomService>();
+           
             container.RegisterType<IMRepository<CommonLookUp>, SQLRepository<CommonLookUp>>();
             container.RegisterType<ICommonLookUpService, CommonLookUpService>();
             container.RegisterType<IMRepository<Forms>, SQLRepository<Forms>>();

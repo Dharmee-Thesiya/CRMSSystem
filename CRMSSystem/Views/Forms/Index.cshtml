@@ -1,5 +1,6 @@
 ﻿@using Kendo.Mvc.UI
 @using CRMSSystem.Core.View
+@using CRMSSystem.Filter
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
@@ -14,50 +15,59 @@
     <div class="section">
         <div class="container">
             <div class="topTitleHead pb20">
-               
+
             </div>
             <!----- Tabs ---->
             <div class="tabcontentdetails">
                 <div id="FormsManagement" class="tabcontent" style="display: block">
                     <div class="align-center align-between pb20">
                         <h2>Forms Management</h2>
-                        <div class="btnDiv">
-                            <a href="#">@Html.ActionLink(" + Add New Form", "Create", "Forms")</a>
-                        </div>
+
+                        @if (CRMSSystem.Filter.AccessPermission.Insert == true)
+                        {
+                            <div class="btnDiv">
+                                <a href="#">@Html.ActionLink(" + Add New Form", "Create", "Forms")</a>
+                            </div>
+                        }
                     </div>
-                    <div class="tableDiv" >
+                    <div class="tableDiv">
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>            
-
+</body>
 </html>
 
-@(Html.Kendo().Grid<FormsViewModel>().Name("Formsgrid").Columns(columns =>
-{
-    columns.Bound(c => c.Name);
-    columns.Bound(c => c.ParentFormName);
-    columns.Bound(c => c.NavigateURL);
-    columns.Bound(c => c.DisplayIndex);
-    columns.Bound(c => c.FormAccessCode);
-
-    columns.Template(c => { }).Title(string.Empty)
+@(Html.Kendo().Grid<FormsViewModel>
+    ().Name("Formsgrid").Columns(columns =>
+    {
+        columns.Bound(c => c.Name);
+        columns.Bound(c => c.ParentFormName);
+        columns.Bound(c => c.NavigateURL);
+        columns.Bound(c => c.DisplayIndex);
+        columns.Bound(c => c.FormAccessCode);
+    
+    if (AccessPermission.Update || AccessPermission.Delete)
+        {
+            columns.Template(c => c.Id).Title("Action")
             .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "Forms") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "Forms") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
-})
+            "#if ('" + AccessPermission.Update + "'=='True') {#"
+            + " <a href='" + Url.Action("Edit", "Form") + "/#=Id#' )'><img src='/image/edit.svg'></a>"
+            + "#}#"
+            + "#if ('" + AccessPermission.Delete + "'=='True') {#"
+            + " | <a href='" + Url.Action("Delete", "Form") + "/#=Id#' ><img src='/image/trash.svg'></a>"
+            + "#}#").Width(200);
+        }
+    })
     .ToolBar(t => t.Search())
     .Search(s=>
-
     {
         s.Field(t => t.Name);
         s.Field(t => t.ParentFormName);
         s.Field(t => t.NavigateURL);
         s.Field(t => t.DisplayIndex);
         s.Field(t => t.FormAccessCode);
-
-
     })
 
     .Editable(editable => editable.Mode(GridEditMode.InLine))
@@ -79,4 +89,4 @@
     .Create(create => create.Action("Create", "Forms"))
     .PageSize(5))
 
-)
+    )

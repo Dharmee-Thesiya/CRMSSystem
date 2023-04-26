@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.Contracts
 {
+    //interface for FormRepository//
     public interface IFormRepository
     {
         IQueryable<Forms> Collection();

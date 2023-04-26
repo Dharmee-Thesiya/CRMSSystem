@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonLookUpService.cs" />
-    <Compile Include="ConferenceRoomService.cs" />
     <Compile Include="FormsService.cs" />
     <Compile Include="LoginService.cs" />
     <Compile Include="PermissionService.cs" />
