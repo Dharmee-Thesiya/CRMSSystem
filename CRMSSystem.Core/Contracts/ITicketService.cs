@@ -14,7 +14,6 @@ namespace CRMSSystem.Core.Contracts
         Ticket CreateTicket(TicketViewModel model);
         
         List<DropDown> SetDropDownValues(string configName);
-        List<TicketViewModel> GetTicket();
-        TicketViewModel GetTicketById(Guid Id);
+       
     }
 }

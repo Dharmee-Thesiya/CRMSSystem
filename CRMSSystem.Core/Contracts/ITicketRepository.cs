@@ -11,10 +11,10 @@ namespace CRMSSystem.Core.Contracts
     public interface ITicketRepository
     {
         IQueryable<Ticket> Collection();
-        void Insert(Ticket ticket);
         void Commit();
+        void Delete(Guid Id);
         Ticket Find(Guid Id);
-        List<TicketViewModel> GetTicket();
-        TicketViewModel GetTicketById(Guid Id);
+        void Insert(Ticket ticket);
+        void Update(Ticket ticket);
     }
 }

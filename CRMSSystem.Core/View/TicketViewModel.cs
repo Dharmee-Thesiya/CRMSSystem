@@ -10,28 +10,20 @@ namespace CRMSSystem.Core.View
 {
     public class TicketViewModel :BaseEntity
     {
+        [Required(ErrorMessage ="Title Is Required")]
         public string Title { get; set; }
         public string Description { get; set; }
-        [Required]
-        public Guid AssignToId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Assigned Is Required")]
+        public Guid AssignTo { get; set; }
+        [Required(ErrorMessage = "Type Is Required")]
         public Guid TypeId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Priority Is Required")]
         public Guid PriorityId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Status Is Required")]
         public Guid StatusId { get; set; }
-        [Required]
-        public string AssignTo { get; set; }
-        [Required]
-        public string Type { get; set; }
-        [Required]
-        public string Priority { get; set; }
-        [Required]
-        public string Status { get; set; }
         public string Image { get; set; }
         public List<DropDown> AssignDropDown { get; set; }
         public List<DropDown> PriorityDropDown { get; set; }
-
         public List<DropDown> StatusDropDown { get; set; }
         public List<DropDown> TypeDropDown { get; set; }
     }

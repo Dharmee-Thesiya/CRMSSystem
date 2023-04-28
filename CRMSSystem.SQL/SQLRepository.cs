@@ -11,16 +11,16 @@ namespace CRMSSystem.SQL
     {
         internal DataContext context;
         internal DbSet<T> DbSet;
-        
         internal DbSet<CommonLookUp> commonLookUpDbSet;
+        internal DbSet<TicketAttachment> ticketAttachmentDbSet;
        
         
         public SQLRepository(DataContext context)
         {
             this.context = context;
             this.DbSet = context.Set<T>();
-           
             this.commonLookUpDbSet = context.Set<CommonLookUp>();
+            this.ticketAttachmentDbSet = context.Set<TicketAttachment>();
             
         }
 

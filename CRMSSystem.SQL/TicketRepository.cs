@@ -29,51 +29,33 @@ namespace CRMSSystem.SQL
             context.SaveChanges();
         }
 
+        public void Delete(Guid Id)
+        {
+            var ticket = Find(Id);
+
+            if (context.Entry(ticket).State == EntityState.Detached)
+                DbSet.Attach(ticket);
+            DbSet.Remove(ticket);
+        }
+
         public Ticket Find(Guid Id)
         {
             return DbSet.Find(Id);
         }
 
-        public List<TicketViewModel> GetTicket()
-        {
-            var ticket = (from t in context.Ticket
-                          join c in context.Ticket on t.Id equals c.Id
-                          join u in context.User on t.Id equals u.Id
-                          where !u.IsDeleted && !t.IsDeleted && !c.IsDeleted
-                          select new TicketViewModel
-                          {
-                              Id = t.Id,
-                              AssignToId = t.AssignTo,
-                              PriorityId = t.PriorityId,
-                              TypeId = t.TypeId,
-                              StatusId = t.StatusId,
-                              Title=t.Title,
-                              Description=t.Description
-                          }).ToList();
-            return ticket;
-        }
+        
         public void Insert(Ticket ticket)
         {
             DbSet.Add(ticket);
         }
 
-        TicketViewModel ITicketRepository.GetTicketById(Guid Id)
+        public void Update(Ticket ticket)
         {
-            var ticket = (from t in context.Ticket
-                          join c in context.Ticket on t.Id equals c.Id
-                          join u in context.User on t.Id equals u.Id
-                          where !t.IsDeleted && !c.IsDeleted && t.Id == Id
-                          select new TicketViewModel
-                          {
-                              Id = t.Id,
-                              AssignToId = t.AssignTo,
-                              PriorityId = t.PriorityId,
-                              TypeId = t.TypeId,
-                              StatusId = t.StatusId,
-                              Title = t.Title,
-                              Description = t.Description
-                          }).FirstOrDefault();
-            return ticket;
+            DbSet.Attach(ticket);
+            context.Entry(ticket).State = EntityState.Modified;
         }
+
+        
     }
 }
+
