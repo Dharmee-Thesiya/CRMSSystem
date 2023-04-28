@@ -20,9 +20,7 @@ namespace CRMSSystem.SQL
         {
             this.context = context;
             this.DbSet = context.Set<Role>();
-           
         }
-
         public IQueryable<Role> GetRoles()
         {
             return DbSet;

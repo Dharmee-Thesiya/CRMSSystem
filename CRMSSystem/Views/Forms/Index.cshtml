@@ -53,10 +53,10 @@
             columns.Template(c => c.Id).Title("Action")
             .ClientTemplate(
             "#if ('" + AccessPermission.Update + "'=='True') {#"
-            + " <a href='" + Url.Action("Edit", "Form") + "/#=Id#' )'><img src='/image/edit.svg'></a>"
+            + " <a href='" + Url.Action("Edit", "Forms") + "/#=Id#' )'><img src='/image/edit.svg'></a>"
             + "#}#"
             + "#if ('" + AccessPermission.Delete + "'=='True') {#"
-            + " | <a href='" + Url.Action("Delete", "Form") + "/#=Id#' ><img src='/image/trash.svg'></a>"
+            + " | <a href='" + Url.Action("Delete", "Forms") + "/#=Id#' ><img src='/image/trash.svg'></a>"
             + "#}#").Width(200);
         }
     })

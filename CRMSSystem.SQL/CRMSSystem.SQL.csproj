@@ -127,11 +127,16 @@
     <Compile Include="Migrations\202304260543052_ConferenceRoom Remove.designer.cs">
       <DependentUpon>202304260543052_ConferenceRoom Remove.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202304261214453_Ticket.cs" />
+    <Compile Include="Migrations\202304261214453_Ticket.designer.cs">
+      <DependentUpon>202304261214453_Ticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleRepository.cs" />
     <Compile Include="SQLRepository.cs" />
+    <Compile Include="TicketRepository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304260543052_ConferenceRoom Remove.resx">
       <DependentUpon>202304260543052_ConferenceRoom Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202304261214453_Ticket.resx">
+      <DependentUpon>202304261214453_Ticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -48,23 +48,31 @@ namespace CRMSSystem
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IMRepository<User>, SQLRepository<User>>();
+
             container.RegisterType<ILoginRepository, LoginRepository>();
             container.RegisterType<ILoginService, LoginService>();
+
             container.RegisterType<IMRepository<Role>, SQLRepository<Role>>();
             container.RegisterType<IRoleService, RoleService>();
             container.RegisterType<IRoleRepository, RoleRepository>();
+
             container.RegisterType<IUserService,UserService>();
             container.RegisterType<IUserRepository, UserRepository>();
+
             container.RegisterType<IMRepository<UserRole>, SQLRepository<UserRole>>();
            
             container.RegisterType<IMRepository<CommonLookUp>, SQLRepository<CommonLookUp>>();
             container.RegisterType<ICommonLookUpService, CommonLookUpService>();
+
             container.RegisterType<IMRepository<Forms>, SQLRepository<Forms>>();
             container.RegisterType<IFormService, FormsService>();
             container.RegisterType<IFormRepository, FormsRepository>();
+
             container.RegisterType<IPermissionRepository, PermissionRepository>();
             container.RegisterType<IPermissionService, PermissionService>();
 
+            container.RegisterType<ITicketRepository, TicketRepository>();
+            container.RegisterType<ITicketService, TicketService>();
 
         }
     }

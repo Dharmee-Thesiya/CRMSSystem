@@ -59,6 +59,7 @@ namespace CRMSSystem.Controllers
                 return RedirectToAction("Index", "Forms");
             }
         }
+        [CustomActionFilter("FORM", AccessPermission.PermissionOrder.IsDelete)]
         public ActionResult Delete(Guid Id)
         {
             FormsViewModel forms = _formService.GetForms(Id);
@@ -81,6 +82,7 @@ namespace CRMSSystem.Controllers
             Session["Permission"] = permission;
             return RedirectToAction("Index", "Forms");
         }
+        [CustomActionFilter("FORM", AccessPermission.PermissionOrder.IsUpdate)]
         public ActionResult Edit(Guid Id)
         {
             FormsViewModel formsViewModel = _formService.GetForms(Id);

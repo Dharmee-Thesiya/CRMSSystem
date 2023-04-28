@@ -75,7 +75,6 @@ namespace CRMSSystem.Service
         public List<CommonLookUp> GetCommonLookUp()
         {
             return _commonLookUpRepository.Collection().Where(cl => !cl.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
-
         }
 
         public CommonLookUp GetCommonLookUp(Guid Id)
@@ -85,6 +84,9 @@ namespace CRMSSystem.Service
             return commonLookUp;
             
         }
- 
+        public List<CommonLookUp> GetCommonLookUpByName(string name)
+        {
+            return _commonLookUpRepository.Collection().Where(cl => cl.ConfigName == name && !cl.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
+        }
     }
 }

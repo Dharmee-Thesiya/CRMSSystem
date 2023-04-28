@@ -1,0 +1,75 @@
+﻿@model IEnumerable<CRMSSystem.Core.View.TicketViewModel>
+
+    <div class="section">
+        <div class="container">
+            <div class="topTitleHead pb20">
+
+            </div>
+            <!----- Tabs ---->
+            <div class="tabcontentdetails">
+                <div id="FormsManagement" class="tabcontent" style="display: block">
+                    <div class="align-center align-between pb20">
+                        <h2>Ticket Management</h2>
+                            <div class="btnDiv">
+                                <a href="#">@Html.ActionLink(" + Add New Ticket", "Create", "Ticket")</a>
+                            </div>
+                    </div>
+                    <div class="tableDiv">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@*<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignTo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priority)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignTo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+
+</table>*@

@@ -34,10 +34,6 @@ namespace CRMSSystem.Core.View
         public List<DropDown> RoleDropDown { get; set; }
 
     }
-    public class DropDown
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-    }
+    
 }
 

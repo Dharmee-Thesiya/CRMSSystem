@@ -16,7 +16,7 @@ namespace CRMSSystem.Core.Contracts
         CommonLookUp EditCommonLookUp(CommonLookUp model);
         CommonLookUp CreateCommonLookUp(CommonLookUp model);
         void DeleteCommonLookUp(Guid id);
-       
+        List<CommonLookUp> GetCommonLookUpByName(string name);
 
     }
 }
