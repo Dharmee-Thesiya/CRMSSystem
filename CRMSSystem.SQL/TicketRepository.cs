@@ -43,7 +43,31 @@ namespace CRMSSystem.SQL
             return DbSet.Find(Id);
         }
 
-        
+        public List<TicketViewModel> GetTicket()
+        {
+            //throw new NotImplementedException();
+            var ticket = (from t in context.Ticket
+                          join ct in context.CommonLookUps on t.TypeId equals ct.Id
+                          join cs in context.CommonLookUps on t.StatusId equals cs.Id
+                          join cp in context.CommonLookUps on t.PriorityId equals cp.Id
+                          join u in context.User on t.AssignId equals u.Id
+                          join ta in context.TicketAttachment on t.Id equals ta.TicketId
+                          where !t.IsDeleted
+                          orderby t.CreatedOn descending
+                          select new TicketViewModel
+                          { 
+                                AssignTo=u.Name,
+                                Type=ct.ConfigKey,
+                                Status=cs.ConfigKey,
+                                Priority=cp.ConfigKey,
+                                Title=t.Title,
+                                Description=t.Description,
+                                Attachment= ta.FileName
+
+                          }).ToList();
+            return ticket;
+        }
+
         public void Insert(Ticket ticket)
         {
             DbSet.Add(ticket);
@@ -54,8 +78,6 @@ namespace CRMSSystem.SQL
             DbSet.Attach(ticket);
             context.Entry(ticket).State = EntityState.Modified;
         }
-
-        
     }
 }
 

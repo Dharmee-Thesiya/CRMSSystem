@@ -11,9 +11,9 @@
     columns.Bound(c => c.Gender);
     columns.Bound(c => c.MobileNumber);
 
-    columns.Template(c => { }).Title(string.Empty)
-            .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "User") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "User") + "/#=Id#' class='btn btn-danger'>Delete</a>").Width(200);
+    columns.Template(c => c.Id).Title("Action")
+                     .ClientTemplate(
+                         " <a href='" + Url.Action("Edit", "User") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " + "<a href='" + Url.Action("Delete", "User") + "/#=Id#'><img src='/image/trash.svg'></a>").Width(200);
 })
     .ToolBar(t => t.Search())
     .Search(s=>

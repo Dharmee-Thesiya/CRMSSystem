@@ -28,7 +28,7 @@ namespace CRMSSystem.Service
             ticket.StatusId = model.StatusId;
             ticket.PriorityId = model.PriorityId;
             ticket.TypeId = model.TypeId;
-            ticket.AssignTo = model.AssignTo;
+            ticket.AssignId = model.AssignId;
             ticket.Description = model.Description;
             ticket.Id = model.Id; 
 
@@ -44,6 +44,12 @@ namespace CRMSSystem.Service
             _ticketAttachmentRepository.Commit();
             return ticket;
         }
+
+        public List<TicketViewModel> GetTicket()
+        {
+            return _ticketRepository.GetTicket().OrderByDescending(x => x.CreatedOn).ToList(); ;
+        }
+
         public List<DropDown> SetDropDownValues(string configName)
         {
             return _commonLookUpService.GetCommonLookUpByName(configName).Select(x => new DropDown { Id = x.Id, Name = x.ConfigKey }).ToList();

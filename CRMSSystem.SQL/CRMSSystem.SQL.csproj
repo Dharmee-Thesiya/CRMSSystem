@@ -131,6 +131,14 @@
     <Compile Include="Migrations\202304261214453_Ticket.designer.cs">
       <DependentUpon>202304261214453_Ticket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202305010637076_updateTicket.cs" />
+    <Compile Include="Migrations\202305010637076_updateTicket.designer.cs">
+      <DependentUpon>202305010637076_updateTicket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202305010645457_updateTicket1.cs" />
+    <Compile Include="Migrations\202305010645457_updateTicket1.designer.cs">
+      <DependentUpon>202305010645457_updateTicket1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PermissionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -200,6 +208,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202304261214453_Ticket.resx">
       <DependentUpon>202304261214453_Ticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305010637076_updateTicket.resx">
+      <DependentUpon>202305010637076_updateTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202305010645457_updateTicket1.resx">
+      <DependentUpon>202305010645457_updateTicket1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

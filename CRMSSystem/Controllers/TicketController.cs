@@ -1,6 +1,8 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using Kendo.Mvc.Extensions;
+using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,12 +21,17 @@ namespace CRMSSystem.Controllers
             _ticketService = ticketService;
             _userService = userService;
         }
-        // GET: Ticket
-        //public ActionResult Index()
-        //{
-        //    List<TicketViewModel> ticketViewModels = _ticketService.GetTicket().ToList();
-        //    return View(ticketViewModels);
-        //}
+        //GET: Ticket
+        public ActionResult Index()
+        {
+            List<TicketViewModel> ticket = _ticketService.GetTicket().OrderByDescending(x => x.CreatedOn).ToList();
+            return View(ticket);
+        }
+        public ActionResult GetTicket([DataSourceRequest] DataSourceRequest request)
+        {
+            List<TicketViewModel> ticketViewModels = _ticketService.GetTicket().ToList();
+            return Json(ticketViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
         public ActionResult Create()
         {
             TicketViewModel ticket = new TicketViewModel();
@@ -48,7 +55,7 @@ namespace CRMSSystem.Controllers
             model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
             model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
             var ticket = _ticketService.CreateTicket(model);
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Ticket");
         }
     }
 }

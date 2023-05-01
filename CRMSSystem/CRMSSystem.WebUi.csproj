@@ -363,6 +363,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="image\conference.jpg" />
     <Content Include="image\down-arrow.svg" />
+    <Content Include="image\download.svg" />
     <Content Include="image\edit.svg" />
     <Content Include="image\eye.svg" />
     <Content Include="image\key.svg" />
@@ -2716,7 +2717,6 @@
     <Content Include="Kendo\js\messages\kendo.messages.zh-HK.min.js.map" />
     <Content Include="Kendo\js\messages\kendo.messages.zh-TW.min.js.map" />
     <Content Include="Kendo\js\kendo.aspnetmvc.min.js.map" />
-    <Content Include="wwwroot\Screenshot %28160%29.png" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2765,8 +2765,8 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\Forms\Delete.cshtml" />
     <Content Include="Views\Role\GivePermission.cshtml" />
-    <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

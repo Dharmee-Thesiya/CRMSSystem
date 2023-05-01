@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Core.View
 {
-    public class TicketViewModel :BaseEntity
+    public class TicketViewModel : BaseEntity
     {
-        [Required(ErrorMessage ="Title Is Required")]
+        [Required(ErrorMessage = "Title Is Required")]
         public string Title { get; set; }
         public string Description { get; set; }
         [Required(ErrorMessage = "Assigned Is Required")]
-        public Guid AssignTo { get; set; }
+        public Guid AssignId { get; set; }
         [Required(ErrorMessage = "Type Is Required")]
         public Guid TypeId { get; set; }
         [Required(ErrorMessage = "Priority Is Required")]
@@ -26,6 +26,13 @@ namespace CRMSSystem.Core.View
         public List<DropDown> PriorityDropDown { get; set; }
         public List<DropDown> StatusDropDown { get; set; }
         public List<DropDown> TypeDropDown { get; set; }
+        public string AssignTo { get; set; }
+        public string Type { get; set; }
+        public string Status { get; set; }
+        public string Priority { get; set; }
+        public string Attachment { get; set; }
+        public string FileName { get; set; }
+       
     }
    
 }

@@ -5,9 +5,9 @@
 {
     columns.Bound(c => c.Name);
     columns.Bound(c => c.Code);
-    columns.Template(c => { }).Title(string.Empty)
+    columns.Template(c => c.Id).Title("Action")
             .ClientTemplate(
-               "<a href='" + Url.Action("Edit", "Role") + "/#=Id#' class='btn btn-success'>Edit</a>" + " | " +  "<a href='" + Url.Action("Delete", "Role") + "/#=Id#' class='btn btn-danger'>Delete</a>" + " | " + "<a href='" + Url.Action("GivePermission", "Role") + "/#=Id#' class='btn btn-default'>Give Permission</a>").Width(350);
+            " <a href='" + Url.Action("Edit", "Role") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " + "<a href='" + Url.Action("Delete", "Role") + "/#=Id#'><img src='/image/trash.svg'></a>" + " | " + "<a href='" + Url.Action("GivePermission", "Role") + "/#=Id#'><img src='/image/key.svg'></a>").Width(200);
 })
     .ToolBar(t => t.Search())
     .Search(s=>

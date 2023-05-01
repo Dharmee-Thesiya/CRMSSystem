@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    [CustomAuthentication]
+    //[CustomAuthentication]
     
     public class CommonLookUpController : Controller
     {

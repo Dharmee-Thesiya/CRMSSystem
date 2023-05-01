@@ -1,4 +1,15 @@
-﻿@model IEnumerable<CRMSSystem.Core.View.TicketViewModel>
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> Systems </title>
+    <link rel="stylesheet" href="~/Style/login.css">
+</head>
+<body>
 
     <div class="section">
         <div class="container">
@@ -20,56 +31,59 @@
             </div>
         </div>
     </div>
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AssignTo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Priority)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+</body>
+</html>
 
-    @foreach (var item in Model)
+
+@(Html.Kendo().Grid<TicketViewModel>
+    ().Name("TicketGrid").Columns(columns =>
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignTo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Priority)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
+        columns.Bound(c => c.Title);
+        columns.Bound(c => c.Type);
+        columns.Bound(c => c.Status);
+        columns.Bound(c => c.Priority);
+        columns.Bound(c => c.AssignTo);
+        columns.Bound(c => c.Attachment).ClientTemplate("<a href='/Content/TicketAttachment/#=Attachment#' download><i class='glyphicon glyphicon-download'></i></a>");
 
-</table>*@
+        columns.Template(c => c.Id).Title("Action")
+                     .ClientTemplate(
+                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " +  "<a href='" + Url.Action("Delete", "Forms") + "/#=Id#'><img src='/image/trash.svg'></a>").Width(200);
+    })
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
+    {
+        s.Field(t => t.Title);
+        s.Field(t => t.TypeId);
+        s.Field(t => t.StatusId);
+        s.Field(t => t.PriorityId);
+        s.Field(t => t.AssignId);
+
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable(pageable=>
+    {
+        pageable.Refresh(true);
+    })
+    .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetTicket", "Ticket"))
+    .Update(update => update.Action("Edit", "Ticket"))
+    .Destroy(destroy => destroy.Action("Delete", "Ticket"))
+    .Create(create => create.Action("Create", "Ticket"))
+    .PageSize(5))
+
+    )
+
+    <br />
+    <button class="btn btn-default">
+        @Html.ActionLink("Previous", "Index", "Admin")
+    </button>

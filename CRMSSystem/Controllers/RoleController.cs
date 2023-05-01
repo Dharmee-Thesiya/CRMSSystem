@@ -13,7 +13,7 @@ using System.Web.Security;
 
 namespace CRMSSystem.Controllers
 {
-    [CustomAuthentication]
+    //[CustomAuthentication]
    
     public class RoleController : Controller
     {

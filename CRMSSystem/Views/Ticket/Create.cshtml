@@ -20,9 +20,9 @@
             </div>
 
             <div class="inputBox selectBox">
-                <label class="form-label">Assigned<strong style="color: red; font-size: 20px">*</strong></label>
-                @Html.DropDownListFor(model => model.AssignTo, new SelectList(Model.AssignDropDown, "Id", "Name"), "Select AssignTo", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "errorMsg" })
+                <label class="form-label">Assign To<strong style="color: red; font-size: 20px">*</strong></label>
+                @Html.DropDownListFor(model => model.AssignId, new SelectList(Model.AssignDropDown, "Id", "Name"), "Select AssignTo", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.AssignId, "", new { @class = "errorMsg" })
             </div>
 
             <div class="inputBox selectBox">

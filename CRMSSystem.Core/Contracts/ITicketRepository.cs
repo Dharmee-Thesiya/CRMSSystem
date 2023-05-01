@@ -16,5 +16,6 @@ namespace CRMSSystem.Core.Contracts
         Ticket Find(Guid Id);
         void Insert(Ticket ticket);
         void Update(Ticket ticket);
+        List<TicketViewModel> GetTicket();
     }
 }
