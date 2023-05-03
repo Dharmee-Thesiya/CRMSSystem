@@ -32,7 +32,10 @@ namespace CRMSSystem.Core.View
         public string Priority { get; set; }
         public string Attachment { get; set; }
         public string FileName { get; set; }
-       
+        public List<TicketAttachment> AttachmentList { get; set; }
+
+        public int AttachmentCount { get; set; }
+
     }
    
 }

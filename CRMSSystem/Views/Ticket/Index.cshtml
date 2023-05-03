@@ -18,7 +18,7 @@
             </div>
             <!----- Tabs ---->
             <div class="tabcontentdetails">
-                <div id="FormsManagement" class="tabcontent" style="display: block">
+                <div id="TicketManagement" class="tabcontent" style="display: block">
                     <div class="align-center align-between pb20">
                         <h2>Ticket Management</h2>
                             <div class="btnDiv">
@@ -43,7 +43,8 @@
         columns.Bound(c => c.Status);
         columns.Bound(c => c.Priority);
         columns.Bound(c => c.AssignTo);
-        columns.Bound(c => c.Attachment).ClientTemplate("<a href='/Content/TicketAttachment/#=Attachment#' download><i class='glyphicon glyphicon-download'></i></a>");
+        columns.Bound(c => c.Attachment)
+            .ClientTemplate("#if (AttachmentCount != 0)" + "{##=AttachmentCount##}#");
 
         columns.Template(c => c.Id).Title("Action")
                      .ClientTemplate(

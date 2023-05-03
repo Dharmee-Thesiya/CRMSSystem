@@ -1,5 +1,5 @@
 ﻿@model CRMSSystem.Core.View.TicketViewModel
-@using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -7,7 +7,7 @@
     <!----- Form ---->
     <div class="formDiv">
         <div class="topTitleHead pb20">
-            <h1> Add New Ticket</h1>
+            <h1>Edit Ticket</h1>
         </div>
         <div class="formSection">
 
@@ -53,13 +53,24 @@
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Description" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "errorMsg" })
             </div>
+            @if (Model.AttachmentList!=null)
+            {
+                @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-10" })
+
+                foreach (var item in Model.AttachmentList)
+                {
+                    <div class="attachmentBox">
+                        @Html.LabelFor(model => model.Attachment, item.FileName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Description" } })
+                        <a href='/Content/TicketAttachment/@item.FileName' download><i class='glyphicon glyphicon-download'></i></a>
+                    </div>
+                }
+            }
+
         </div>
         <div class="inputBox">
-            <button class="btnDiv" id="Savebtn">Create</button>
+            <button class="btnDiv" id="Savebtn">Edit</button>
         </div>
     </div>
-
-
     <!----- END Form ---->
 
 }

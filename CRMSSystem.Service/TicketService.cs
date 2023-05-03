@@ -53,6 +53,35 @@ namespace CRMSSystem.Service
         public List<DropDown> SetDropDownValues(string configName)
         {
             return _commonLookUpService.GetCommonLookUpByName(configName).Select(x => new DropDown { Id = x.Id, Name = x.ConfigKey }).ToList();
-        } 
+        }
+        public TicketViewModel GetTickets(Guid Id)
+        {
+            return _ticketRepository.GetTicketById(Id);   
+        }
+        public Ticket EditTicket(TicketViewModel model)
+        {
+            Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            ticket.Title = model.Title;
+            ticket.StatusId = model.StatusId;
+            ticket.PriorityId = model.PriorityId;
+            ticket.TypeId = model.TypeId;
+            ticket.AssignId = model.AssignId;
+            ticket.Description = model.Description;
+            ticket.Id = model.Id;
+            ticket.UpdatedOn = DateTime.Now;
+            _ticketRepository.Update(ticket);
+            _ticketRepository.Commit();
+
+            TicketAttachment ticketAttachment = new TicketAttachment();
+            {
+                ticketAttachment.TicketId = ticket.Id;
+                ticketAttachment.FileName = model.Image;
+                ticketAttachment.Id =  Guid.NewGuid();
+            }
+            _ticketAttachmentRepository.Insert(ticketAttachment);
+            _ticketAttachmentRepository.Commit();
+            
+            return ticket;
+        }
     } 
 }

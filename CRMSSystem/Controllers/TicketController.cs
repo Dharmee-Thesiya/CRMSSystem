@@ -49,12 +49,38 @@ namespace CRMSSystem.Controllers
             {
                 model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
                 file.SaveAs(Server.MapPath("//Content//TicketAttachment//") + model.Image);
+                model.PriorityDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Priority);
+                model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
+                model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
+                model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                var ticket = _ticketService.CreateTicket(model);
             }
-            model.PriorityDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Priority);
-            model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
-            model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
-            model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-            var ticket = _ticketService.CreateTicket(model);
+            
+            return RedirectToAction("Index", "Ticket");
+        }
+        public ActionResult Edit(Guid Id)
+        {
+            TicketViewModel ticket = _ticketService.GetTickets(Id);
+            ticket.PriorityDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Priority);
+            ticket.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
+            ticket.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
+            ticket.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+            return View(ticket);
+        }
+        [HttpPost]
+        public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file)
+        {
+            if (file != null)
+            {
+                model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
+                file.SaveAs(Server.MapPath("//Content//TicketAttachment//") + model.Image);
+                model.PriorityDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Priority);
+                model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
+                model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
+                model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+                var ticket = _ticketService.EditTicket(model);
+            }
+           
             return RedirectToAction("Index", "Ticket");
         }
     }
