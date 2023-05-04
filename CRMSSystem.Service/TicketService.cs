@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CRMSSystem.Service
 {
-    public class TicketService:ITicketService
+    public class TicketService : ITicketService
     {
         ITicketRepository _ticketRepository;
         ICommonLookUpService _commonLookUpService;
@@ -30,18 +30,22 @@ namespace CRMSSystem.Service
             ticket.TypeId = model.TypeId;
             ticket.AssignId = model.AssignId;
             ticket.Description = model.Description;
-            ticket.Id = model.Id; 
+            ticket.Id = model.Id;
 
             _ticketRepository.Insert(ticket);
             _ticketRepository.Commit();
 
-            TicketAttachment ticketAttachment = new TicketAttachment();
+            if (model.Image != null)
             {
-                ticketAttachment.TicketId = ticket.Id;
-                ticketAttachment.FileName = model.Image;
+                TicketAttachment ticketAttachment = new TicketAttachment();
+                {
+                    ticketAttachment.TicketId = ticket.Id;
+
+                    ticketAttachment.FileName = model.Image;
+                }
+                _ticketAttachmentRepository.Insert(ticketAttachment);
+                _ticketAttachmentRepository.Commit();
             }
-            _ticketAttachmentRepository.Insert(ticketAttachment);
-            _ticketAttachmentRepository.Commit();
             return ticket;
         }
 
@@ -56,7 +60,7 @@ namespace CRMSSystem.Service
         }
         public TicketViewModel GetTickets(Guid Id)
         {
-            return _ticketRepository.GetTicketById(Id);   
+            return _ticketRepository.GetTicketById(Id);
         }
         public Ticket EditTicket(TicketViewModel model)
         {
@@ -72,16 +76,19 @@ namespace CRMSSystem.Service
             _ticketRepository.Update(ticket);
             _ticketRepository.Commit();
 
-            TicketAttachment ticketAttachment = new TicketAttachment();
+            if (model.Image != null)
             {
-                ticketAttachment.TicketId = ticket.Id;
-                ticketAttachment.FileName = model.Image;
-                ticketAttachment.Id =  Guid.NewGuid();
+                TicketAttachment ticketAttachment = new TicketAttachment();
+                {
+                    ticketAttachment.TicketId = ticket.Id;
+                    ticketAttachment.Id = Guid.NewGuid();
+                    ticketAttachment.FileName = model.Image;
+                }
+                _ticketAttachmentRepository.Insert(ticketAttachment);
+                _ticketAttachmentRepository.Commit();
             }
-            _ticketAttachmentRepository.Insert(ticketAttachment);
-            _ticketAttachmentRepository.Commit();
-            
+
             return ticket;
         }
-    } 
+    }
 }

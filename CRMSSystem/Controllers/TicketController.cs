@@ -53,9 +53,9 @@ namespace CRMSSystem.Controllers
                 model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
                 model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
                 model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                var ticket = _ticketService.CreateTicket(model);
+                
             }
-            
+            var ticket = _ticketService.CreateTicket(model);
             return RedirectToAction("Index", "Ticket");
         }
         public ActionResult Edit(Guid Id)
@@ -78,9 +78,9 @@ namespace CRMSSystem.Controllers
                 model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
                 model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
                 model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                var ticket = _ticketService.EditTicket(model);
+                
             }
-           
+            var ticket = _ticketService.EditTicket(model);
             return RedirectToAction("Index", "Ticket");
         }
     }

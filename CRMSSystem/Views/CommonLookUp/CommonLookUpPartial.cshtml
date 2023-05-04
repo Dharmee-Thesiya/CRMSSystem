@@ -20,10 +20,7 @@
     columns.Bound(c => c.ConfigKey);
     columns.Bound(c => c.ConfigValue);
     columns.Bound(c => c.DisplayOrder);
-    columns.Template(c => c.Id).Title("Action")
-            .ClientTemplate(
-              " <a href='" + Url.Action("Edit", "CommonLookUp") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " + "<a href='" + Url.Action("Delete", "CommonLookUp") + "/#=Id#'><img src='/image/trash.svg'></a>").Width(200);
-
+    columns.Command(command => { command.Custom("Edit").Click("Create"); command.Custom("Delete").Click("confirm"); }).Width(200);
 })
     .ToolBar(t => t.Search())
     .Search(s=>

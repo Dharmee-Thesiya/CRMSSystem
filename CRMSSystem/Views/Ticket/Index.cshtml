@@ -11,6 +11,52 @@
 </head>
 <body>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h2 class="modal-title">Download Attachment</h2>
+                </div>
+                <div class="modal-body">
+                    <div id="AttachmentModalContent">
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="deleteticket">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h2 class="modal-title">Confirm</h2>
+                </div>
+                <div class="modal-body">
+                    <h3> Are You Sure You Want To Delete?</h3>
+                </div>
+                <input type="hidden" id="hdnDeleteId" />
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <a id="btnDelete" class="btn btn-primary" onclick="deleteCommonLookup()">Delete</a>
+                    </div>
+                    <div class="btn-group">
+                        <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="section">
         <div class="container">
             <div class="topTitleHead pb20">
@@ -21,9 +67,9 @@
                 <div id="TicketManagement" class="tabcontent" style="display: block">
                     <div class="align-center align-between pb20">
                         <h2>Ticket Management</h2>
-                            <div class="btnDiv">
-                                <a href="#">@Html.ActionLink(" + Add New Ticket", "Create", "Ticket")</a>
-                            </div>
+                        <div class="btnDiv">
+                            <a href="#">@Html.ActionLink(" + Add New Ticket", "Create", "Ticket")</a>
+                        </div>
                     </div>
                     <div class="tableDiv">
                     </div>
@@ -43,12 +89,13 @@
         columns.Bound(c => c.Status);
         columns.Bound(c => c.Priority);
         columns.Bound(c => c.AssignTo);
+        columns.Bound(c => c.AttachmentList).Hidden().ClientTemplate("<input type='hidden' id='hdn_#=Id#' value='#=AttachmentList#' />");
         columns.Bound(c => c.Attachment)
-            .ClientTemplate("#if (AttachmentCount != 0)" + "{##=AttachmentCount##}#");
+            .ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#' >#=AttachmentCount#</a>#}# ");
 
         columns.Template(c => c.Id).Title("Action")
                      .ClientTemplate(
-                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " +  "<a href='" + Url.Action("Delete", "Forms") + "/#=Id#'><img src='/image/trash.svg'></a>").Width(200);
+                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " + "<a onclick='DeleteTicket(this)'" + Url.Action("Delete", "Forms") + "/#=Id#'><img src='/image/trash.svg'></a>").Width(200);
     })
     .ToolBar(t => t.Search())
     .Search(s=>
@@ -84,7 +131,33 @@
 
     )
 
-    <br />
-    <button class="btn btn-default">
-        @Html.ActionLink("Previous", "Index", "Admin")
-    </button>
+<br />
+<button class="btn btn-default">
+    @Html.ActionLink("Previous", "Index", "Admin")
+</button>
+
+
+<script>
+    function CheckValue(e) {
+        var grid = $("#TicketGrid").data("kendoGrid");
+        var row = $(e).closest("tr");
+        var item = grid.dataItem(row);
+        var list = item.AttachmentList;
+        if (list != null && list.length > 0) {
+            var htmlData = '';
+            for (let i = 0; i < list.length; i++) {
+                htmlData += "<a href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
+            }
+        }
+        $("#AttachmentModalContent").html(htmlData);
+        $("#AttachmentModal").modal('show')
+    }
+
+    function DeleteTicket(e) {
+        $("#deleteticket").modal('show')
+
+    }
+
+</script>
+
+@Styles.Render("~/Content/StyleSheet1.css")

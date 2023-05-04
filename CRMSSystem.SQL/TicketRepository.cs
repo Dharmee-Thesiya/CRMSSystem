@@ -85,8 +85,8 @@ namespace CRMSSystem.SQL
                             Priority = g.Key.Priority,
                             Title = g.Key.Title,
                             Description = g.Key.Description,
-                            AttachmentCount = g.Where(x => x.FileName != null).Any() ? g.Count(): 0,
-                            AttachmentList = g.Where(x => x.FileName != null).Any() ? g.ToList() : null
+                            AttachmentList = g.Where(x => x!= null && x.FileName != null).Any() ? g.ToList() : null,
+                            AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0,
 
                         }).ToList();
             return data;
@@ -133,7 +133,8 @@ namespace CRMSSystem.SQL
                             Priority = g.Key.Priority,
                             Title = g.Key.Title,
                             Description = g.Key.Description,
-                            AttachmentList = g.Where(x => x.FileName != null).Any() ? g.ToList():null
+                            AttachmentList = g.Where(x => x != null && x.FileName != null).Any() ? g.ToList():null,
+                            AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0,
                         }).FirstOrDefault();
             return edit;
 
