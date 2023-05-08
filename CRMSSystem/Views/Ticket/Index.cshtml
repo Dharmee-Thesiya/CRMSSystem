@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/Style/login.css">
 </head>
 <body>
-
+  
     <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -47,7 +47,7 @@
                 <input type="hidden" id="hdnDeleteId" />
                 <div class="modal-footer">
                     <div class="btn-group">
-                        <a id="btnDelete" class="btn btn-primary" onclick="deleteCommonLookup()">Delete</a>
+                        <a id="btnDelete" class="btn btn-primary" onclick="confirmdeleteticke()">Delete</a>
                     </div>
                     <div class="btn-group">
                         <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
@@ -95,20 +95,20 @@
 
         columns.Template(c => c.Id).Title("Action")
                      .ClientTemplate(
-                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " | " + "<a onclick='DeleteTicket(this)'" + Url.Action("Delete", "Forms") + "/#=Id#'><img src='/image/trash.svg'></a>").Width(200);
+                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>");
+        columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(200);
     })
-    .ToolBar(t => t.Search())
-    .Search(s=>
+    //.ToolBar(t => t.Search())
+    //.Search(s=>
 
-    {
-        s.Field(t => t.Title);
-        s.Field(t => t.TypeId);
-        s.Field(t => t.StatusId);
-        s.Field(t => t.PriorityId);
-        s.Field(t => t.AssignId);
+    //{
+    //    s.Field(t => t.Title);
+    //    s.Field(t => t.TypeId);
+    //    s.Field(t => t.StatusId);
+    //    s.Field(t => t.PriorityId);
+    //    s.Field(t => t.AssignId);
+    //})
 
-
-    })
 
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .Pageable(pageable=>
@@ -153,9 +153,34 @@
         $("#AttachmentModal").modal('show')
     }
 
-    function DeleteTicket(e) {
-        $("#deleteticket").modal('show')
+    var ticketdelete = function (e) {
+        debugger;
+        console.log(e)
+        e.preventDefault();
+        var d = this.dataItem($(e.currentTarget).closest("tr"));
+        Id = d.Id;
+        $("#deleteticket").modal('show');
+        $("#hdnDeleteId").val(Id);
+    }
 
+    function confirmdeleteticke(Id) {
+        debugger;
+        var Id = $("#hdnDeleteId").val()
+        $.ajax({
+
+            type: "POST",
+            url: "/Ticket/Delete/" + Id,
+            success: function () {
+                $("#deleteticket").modal('hide');
+                $.ajax({
+                    type: 'GET',
+                    url: "/Ticket/Index",
+                    success: function () {
+                        location.reload()
+                    }
+                });
+            }
+        });
     }
 
 </script>

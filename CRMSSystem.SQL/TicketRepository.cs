@@ -86,7 +86,7 @@ namespace CRMSSystem.SQL
                             Title = g.Key.Title,
                             Description = g.Key.Description,
                             AttachmentList = g.Where(x => x!= null && x.FileName != null).Any() ? g.ToList() : null,
-                            AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0,
+                            AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0
 
                         }).ToList();
             return data;

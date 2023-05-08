@@ -90,5 +90,26 @@ namespace CRMSSystem.Service
 
             return ticket;
         }
+        public Ticket DeleteTicket(Guid Id)
+        {
+            TicketViewModel model = new TicketViewModel();
+            Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == Id).FirstOrDefault();
+            ticket.IsDeleted = true;
+            _ticketRepository.Update(ticket);
+            _ticketRepository.Commit();
+
+            if (model.Image != null)
+            {
+                TicketAttachment ticketAttachment = new TicketAttachment();
+                {
+                    ticketAttachment.TicketId = ticket.Id;
+                    ticketAttachment.FileName = model.Image;
+                }
+                _ticketAttachmentRepository.Update(ticketAttachment);
+                _ticketAttachmentRepository.Commit();
+            }
+            return ticket;
+
+        }
     }
 }

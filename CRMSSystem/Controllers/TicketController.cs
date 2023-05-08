@@ -39,7 +39,6 @@ namespace CRMSSystem.Controllers
             ticket.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
             ticket.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
             ticket.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-
             return View(ticket);
         }
         [HttpPost]
@@ -81,6 +80,25 @@ namespace CRMSSystem.Controllers
                 
             }
             var ticket = _ticketService.EditTicket(model);
+            return RedirectToAction("Index", "Ticket");
+        }
+        public ActionResult Delete(Guid Id)
+        {
+            TicketViewModel ticket = _ticketService.GetTickets(Id);
+            if (ticket == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                return View(ticket);
+            }
+        }
+        [HttpPost]
+        [ActionName("Delete")]
+        public ActionResult ConfirmDelete(Guid Id)
+        {
+            _ticketService.DeleteTicket(Id);
             return RedirectToAction("Index", "Ticket");
         }
     }
