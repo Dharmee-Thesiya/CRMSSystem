@@ -35,6 +35,7 @@ namespace CRMSSystem.Core.View
         public List<TicketAttachment> AttachmentList { get; set; }
 
         public int AttachmentCount { get; set; }
+        public string deleteid { get; set; }
 
     }
    

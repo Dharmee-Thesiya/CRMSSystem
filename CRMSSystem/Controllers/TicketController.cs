@@ -79,7 +79,9 @@ namespace CRMSSystem.Controllers
                 model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
                 
             }
-            var ticket = _ticketService.EditTicket(model);
+            var deleteIds = Request.Params["hdnAttachmentDeleteId"];
+            var ticket = _ticketService.EditTicket(model, deleteIds);
+            
             return RedirectToAction("Index", "Ticket");
         }
         public ActionResult Delete(Guid Id)
@@ -100,6 +102,11 @@ namespace CRMSSystem.Controllers
         {
             _ticketService.DeleteTicket(Id);
             return RedirectToAction("Index", "Ticket");
+        }
+        public ActionResult StatusFilter()
+        {
+            var statusFilter = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
+            return Json(statusFilter, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="~/Style/login.css">
 </head>
 <body>
-  
+
     <div class="modal fade" tabindex="-1" role="dialog" id="AttachmentModal">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -30,6 +30,41 @@
             </div>
         </div>
     </div>
+
+
+    <div class="k-d-flex k-justify-content-center" style="margin-left:100%;">
+        <div class="k-w-300">
+            <label for="status" style="font-size:15px;color:coral">Status</label><br />
+            @(Html.Kendo().DropDownList()
+                      .Name("status")
+                      .HtmlAttributes(new { style = "width:100%" })
+                      .OptionLabel("Select Status")
+                      .DataTextField("Name")
+                      .DataValueField("Name")
+                      .Events(e=>e.Change("onChange"))
+                      .Filter("contains")
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("StatusFilter", "Ticket");
+                          });
+                      })
+                    )
+        </div>
+    </div>
+    <script>
+        function onChange(e) {
+            var value = $("#status").val();
+            grid = $("#TicketGrid").data("kendoGrid");
+            if (value) {
+                grid.dataSource.filter({ field: "status", operator: "contains", value: value });
+            }
+            else {
+                grid.dataSource.filter({});
+            }
+        }
+    </script>
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="deleteticket">
@@ -98,17 +133,7 @@
                          " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>");
         columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(200);
     })
-    //.ToolBar(t => t.Search())
-    //.Search(s=>
-
-    //{
-    //    s.Field(t => t.Title);
-    //    s.Field(t => t.TypeId);
-    //    s.Field(t => t.StatusId);
-    //    s.Field(t => t.PriorityId);
-    //    s.Field(t => t.AssignId);
-    //})
-
+   
 
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .Pageable(pageable=>
@@ -139,6 +164,7 @@
 
 <script>
     function CheckValue(e) {
+        debugger;
         var grid = $("#TicketGrid").data("kendoGrid");
         var row = $(e).closest("tr");
         var item = grid.dataItem(row);

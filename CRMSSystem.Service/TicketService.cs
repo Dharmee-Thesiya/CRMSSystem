@@ -40,7 +40,6 @@ namespace CRMSSystem.Service
                 TicketAttachment ticketAttachment = new TicketAttachment();
                 {
                     ticketAttachment.TicketId = ticket.Id;
-
                     ticketAttachment.FileName = model.Image;
                 }
                 _ticketAttachmentRepository.Insert(ticketAttachment);
@@ -62,7 +61,7 @@ namespace CRMSSystem.Service
         {
             return _ticketRepository.GetTicketById(Id);
         }
-        public Ticket EditTicket(TicketViewModel model)
+        public Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds)
         {
             Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
             ticket.Title = model.Title;
@@ -88,6 +87,25 @@ namespace CRMSSystem.Service
                 _ticketAttachmentRepository.Commit();
             }
 
+            if (!string.IsNullOrEmpty(deleteAttachmentIds))
+            {
+                string[] ticketAttachments = deleteAttachmentIds.Split(',');
+
+                if (ticketAttachments != null && ticketAttachments.Length > 0)
+                {
+                    foreach (var item in ticketAttachments)
+                    {
+                        var ticketToDelete = _ticketAttachmentRepository.Collection()
+                                                .Where(x => x.Id.ToString() == item)
+                                                .FirstOrDefault();
+
+                        ticketToDelete.IsDeleted = true;
+                        _ticketAttachmentRepository.Update(ticketToDelete);
+                        _ticketAttachmentRepository.Commit();
+                    }
+                }
+            }
+           
             return ticket;
         }
         public Ticket DeleteTicket(Guid Id)
@@ -98,18 +116,7 @@ namespace CRMSSystem.Service
             _ticketRepository.Update(ticket);
             _ticketRepository.Commit();
 
-            if (model.Image != null)
-            {
-                TicketAttachment ticketAttachment = new TicketAttachment();
-                {
-                    ticketAttachment.TicketId = ticket.Id;
-                    ticketAttachment.FileName = model.Image;
-                }
-                _ticketAttachmentRepository.Update(ticketAttachment);
-                _ticketAttachmentRepository.Commit();
-            }
             return ticket;
-
         }
     }
 }

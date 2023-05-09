@@ -53,15 +53,18 @@
                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Description" } })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "errorMsg" })
             </div>
-            @if (Model.AttachmentList!=null)
+            <input type="hidden" id="hdnAttachmentDeleteId"  name="hdnAttachmentDeleteId"/>
+            @if (Model.AttachmentList != null)
             {
                 @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label col-md-10" })
 
                 foreach (var item in Model.AttachmentList)
                 {
-                    <div class="attachmentBox">
+                    <div class="attachmentBox" id="@item.Id">
+
                         @Html.LabelFor(model => model.Attachment, item.FileName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Description" } })
                         <a href='/Content/TicketAttachment/@item.FileName' download><i class='glyphicon glyphicon-download'></i></a>
+                        <i class='glyphicon glyphicon-trash' onclick="deletemultipleticket('@item.Id')"></i>
                     </div>
                 }
             }
@@ -83,5 +86,19 @@
             history.back();
         });
     });
+
+    function deletemultipleticket(id) {
+        debugger;
+        let val = '';
+        var ele = document.getElementById(id);
+        ele.style.display = "none";
+        if ($("#hdnAttachmentDeleteId").val() != '') {
+             val = $("#hdnAttachmentDeleteId").val() + "," + id;
+        }
+        else {
+            val = id;
+        }
+        $("#hdnAttachmentDeleteId").val(val);
+    }
 
 </script>

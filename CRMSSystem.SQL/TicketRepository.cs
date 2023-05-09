@@ -46,7 +46,7 @@ namespace CRMSSystem.SQL
         public List<TicketViewModel> GetTicket()
         {
             //throw new NotImplementedException();
-            var ticket = (from t in context.Ticket
+            var ticket = (from t in context.Ticket.Where(x=>!x.IsDeleted)
                           join ct in context.CommonLookUps on t.TypeId equals ct.Id
                           join cs in context.CommonLookUps on t.StatusId equals cs.Id
                           join cp in context.CommonLookUps on t.PriorityId equals cp.Id
@@ -69,7 +69,7 @@ namespace CRMSSystem.SQL
                           }).AsEnumerable();
                           
             var data = (from t in ticket
-                        join ta in context.TicketAttachment on t.Id equals ta.TicketId into fdata
+                        join ta in context.TicketAttachment.Where(x => !x.IsDeleted) on t.Id equals ta.TicketId into fdata
                         from taf in fdata.DefaultIfEmpty()
                         group taf by t into g
                         select new TicketViewModel
@@ -114,10 +114,10 @@ namespace CRMSSystem.SQL
                               Title = t.Title,
                               Description = t.Description,
                              
-                          }).AsEnumerable();
+                          }).AsEnumerable().ToList();
 
             var edit = (from t in ticketedit
-                        join ta in context.TicketAttachment on t.Id equals ta.TicketId into fdata
+                        join ta in context.TicketAttachment.ToList().Where(x=>!x.IsDeleted) on t.Id equals ta.TicketId into fdata
                         from taf in fdata.DefaultIfEmpty()
                         group taf by t into g
                         select new TicketViewModel
@@ -150,6 +150,7 @@ namespace CRMSSystem.SQL
             DbSet.Attach(ticket);
             context.Entry(ticket).State = EntityState.Modified;
         }
+       
     }
 }
 
