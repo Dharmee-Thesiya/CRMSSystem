@@ -93,5 +93,10 @@
             history.back();
         });
     });
-    
+
+
+    $('#Savebtn').click(function () {
+        toastr.success('User Created successfully.');
+        document.location ='@Url.Action("Index", "Admin")';
+    });
 </script>

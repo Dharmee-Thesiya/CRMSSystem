@@ -18,6 +18,11 @@ namespace CRMSSystem.Core.Contracts
         TicketViewModel GetTickets(Guid Id);
         Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds);
         Ticket DeleteTicket(Guid Id);
+        TicketComment CommentTicket(TicketCommentViewModel model);
+        List<TicketCommentViewModel> GetCommentList(Guid Id);
+        TicketCommentViewModel UpdateComment(Guid Id);
+        TicketComment DeleteComment(TicketCommentViewModel model);
+        void EditComment(TicketCommentViewModel model);
 
     }
 }

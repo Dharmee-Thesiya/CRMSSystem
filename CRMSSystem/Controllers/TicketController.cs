@@ -1,6 +1,7 @@
-﻿using CRMSSystem.Core.Contracts;
+﻿ using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using CRMSSystem.Filter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -16,12 +17,15 @@ namespace CRMSSystem.Controllers
     {
         ITicketService _ticketService;
         IUserService _userService;
+        
         public TicketController(ITicketService ticketService, IUserService userService)
         {
             _ticketService = ticketService;
             _userService = userService;
+           
         }
         //GET: Ticket
+        [CustomActionFilter("TKT", AccessPermission.PermissionOrder.IsView)]
         public ActionResult Index()
         {
             List<TicketViewModel> ticket = _ticketService.GetTicket().OrderByDescending(x => x.CreatedOn).ToList();
@@ -32,6 +36,7 @@ namespace CRMSSystem.Controllers
             List<TicketViewModel> ticketViewModels = _ticketService.GetTicket().ToList();
             return Json(ticketViewModels.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
+        [CustomActionFilter("TKT", AccessPermission.PermissionOrder.IsInsert)]
         public ActionResult Create()
         {
             TicketViewModel ticket = new TicketViewModel();
@@ -45,18 +50,19 @@ namespace CRMSSystem.Controllers
         public ActionResult Create(TicketViewModel model,HttpPostedFileBase file)
         {
             if (file != null)
-            {
+            {           
                 model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
-                file.SaveAs(Server.MapPath("//Content//TicketAttachment//") + model.Image);
-                model.PriorityDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Priority);
-                model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
-                model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
-                model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
-                
+                file.SaveAs(Server.MapPath("//Content//TicketAttachment//") + model.Image);                        
             }
+            model.CreatedBy = (Guid)(Session["Id"]);
+            model.PriorityDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Priority);
+            model.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
+            model.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
+            model.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
             var ticket = _ticketService.CreateTicket(model);
             return RedirectToAction("Index", "Ticket");
         }
+        [CustomActionFilter("TKT", AccessPermission.PermissionOrder.IsUpdate)]
         public ActionResult Edit(Guid Id)
         {
             TicketViewModel ticket = _ticketService.GetTickets(Id);
@@ -108,5 +114,42 @@ namespace CRMSSystem.Controllers
             var statusFilter = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
             return Json(statusFilter, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult Detail(Guid Id)
+        {
+            TicketViewModel ticket = _ticketService.GetTickets(Id);
+            return View(ticket);
+        }
+    
+        public ActionResult Comment(TicketCommentViewModel model)
+        {
+            model.CreatedBy = (Guid)Session["Id"];
+            _ticketService.CommentTicket(model);
+            return Content("true");
+        }
+        public ActionResult IndexComment(Guid Id)
+        {
+            List<TicketCommentViewModel> commentViewModels = _ticketService.GetCommentList(Id).ToList();
+            return PartialView("commentpartialview", commentViewModels);
+        }
+        public ActionResult CommentEdit(TicketCommentViewModel model)
+        {
+            _ticketService.EditComment(model);
+            return Content("true");
+
+        }
+        public ActionResult DeleteComment(Guid Id)
+        {
+            var commitdelete = _ticketService.UpdateComment(Id);
+            _ticketService.DeleteComment(commitdelete);
+            return Content("true");
+        }
+        //public static MvcHtmlString Timeago(this HtmlHelper helper, DateTime dateTime)
+        //{
+        //    var tag = new TagBuilder("abbr");
+        //    tag.AddCssClass("timeago");
+        //    tag.Attributes.Add("title", dateTime.ToString("s") + "Z");
+        //    tag.SetInnerText(dateTime.ToString());
+        //    return MvcHtmlString.Create(tag.ToString());
+        //}
     }
 }

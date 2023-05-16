@@ -70,11 +70,11 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="deleteticket">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header"><img src="~/image/warning.png" style="height:60px;width:60px;margin-left:250px" />
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h2 class="modal-title">Confirm</h2>
+                   
                 </div>
                 <div class="modal-body">
                     <h3> Are You Sure You Want To Delete?</h3>
@@ -126,11 +126,11 @@
         columns.Bound(c => c.AssignTo);
         columns.Bound(c => c.AttachmentList).Hidden().ClientTemplate("<input type='hidden' id='hdn_#=Id#' value='#=AttachmentList#' />");
         columns.Bound(c => c.Attachment)
-            .ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#' >#=AttachmentCount#</a>#}# ");
+            .ClientTemplate("#if (AttachmentCount != 0)" + "{#" + "<a onclick='CheckValue(this)' id='#=Id#' ><button class='btn btn-primary'>#=AttachmentCount#</button></a>#}# ");
 
         columns.Template(c => c.Id).Title("Action")
                      .ClientTemplate(
-                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>");
+                         " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " <a href='" + Url.Action("Detail", "Ticket") + "/#=Id#' )'><img src='/image/eye.svg'></a>");
         columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(200);
     })
    
@@ -172,7 +172,7 @@
         if (list != null && list.length > 0) {
             var htmlData = '';
             for (let i = 0; i < list.length; i++) {
-                htmlData += "<a href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a><br/>"
+                htmlData += "<button class='btn btn-default'><a href='/Content/TicketAttachment/" + list[0].FileName + "' download>" + list[0].FileName + "</a></button><br/>"
             }
         }
         $("#AttachmentModalContent").html(htmlData);

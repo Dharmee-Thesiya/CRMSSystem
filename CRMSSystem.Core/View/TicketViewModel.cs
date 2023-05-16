@@ -33,10 +33,10 @@ namespace CRMSSystem.Core.View
         public string Attachment { get; set; }
         public string FileName { get; set; }
         public List<TicketAttachment> AttachmentList { get; set; }
-
+        public string CreatedbyName { get; set; }
         public int AttachmentCount { get; set; }
-        public string deleteid { get; set; }
-
+        public Guid TicketId { get; set; }
+        [Required]
+        public string Comment { get; set; }
     }
-   
 }

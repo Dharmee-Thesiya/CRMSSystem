@@ -73,4 +73,10 @@
         });
     });
 
+
+    $('#Savebtn').click(function () {
+        toastr.success('Ticket Created successfully.');
+        document.location ='@Url.Action("Index", "Admin")';
+    });
+
 </script>

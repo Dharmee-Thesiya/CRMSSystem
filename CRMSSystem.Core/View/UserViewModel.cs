@@ -21,7 +21,7 @@ namespace CRMSSystem.Core.View
         public string Password { get; set; }
         public string MobileNumber { get; set; }
         [Required(ErrorMessage = "UserName Is Required")]
-        [StringLength(10,MinimumLength =6)]
+        [StringLength(10,MinimumLength =6)] 
         public string UserName { get; set; }
         [Required(ErrorMessage = "Gender Is Required")]
         public string Gender { get; set; }

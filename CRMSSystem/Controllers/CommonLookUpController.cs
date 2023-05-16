@@ -27,7 +27,6 @@ namespace CRMSSystem.Controllers
 
         {
             List<CommonLookUp> commonLookUps = _commonLookUpService.GetCommonLookUp().ToList();
-            //ViewBag.CommonLookUps = commonLookUps;
             return PartialView("CommonLookUpPartial", commonLookUps.ToDataSourceResult(request));
         }
 

@@ -14,12 +14,14 @@ namespace CRMSSystem.Service
         ITicketRepository _ticketRepository;
         ICommonLookUpService _commonLookUpService;
         IMRepository<TicketAttachment> _ticketAttachmentRepository;
+        IMRepository<TicketComment> _ticketCommentRepository;
 
-        public TicketService(ITicketRepository ticketRepository, ICommonLookUpService commonLookUpService, IMRepository<TicketAttachment> ticketAttachmentRepository)
+        public TicketService(ITicketRepository ticketRepository, ICommonLookUpService commonLookUpService, IMRepository<TicketAttachment> ticketAttachmentRepository, IMRepository<TicketComment> ticketCommentRepository)
         {
             _ticketRepository = ticketRepository;
             _commonLookUpService = commonLookUpService;
             _ticketAttachmentRepository = ticketAttachmentRepository;
+            _ticketCommentRepository = ticketCommentRepository;
         }
         public Ticket CreateTicket(TicketViewModel model)
         {
@@ -31,6 +33,8 @@ namespace CRMSSystem.Service
             ticket.AssignId = model.AssignId;
             ticket.Description = model.Description;
             ticket.Id = model.Id;
+            ticket.CreatedBy = model.CreatedBy;
+           
 
             _ticketRepository.Insert(ticket);
             _ticketRepository.Commit();
@@ -41,6 +45,7 @@ namespace CRMSSystem.Service
                 {
                     ticketAttachment.TicketId = ticket.Id;
                     ticketAttachment.FileName = model.Image;
+                    ticketAttachment.CreatedBy = model.CreatedBy;
                 }
                 _ticketAttachmentRepository.Insert(ticketAttachment);
                 _ticketAttachmentRepository.Commit();
@@ -50,7 +55,7 @@ namespace CRMSSystem.Service
 
         public List<TicketViewModel> GetTicket()
         {
-            return _ticketRepository.GetTicket().OrderByDescending(x => x.CreatedOn).ToList(); ;
+            return _ticketRepository.GetTicket().OrderByDescending(x => x.CreatedOn).ToList();
         }
 
         public List<DropDown> SetDropDownValues(string configName)
@@ -117,6 +122,42 @@ namespace CRMSSystem.Service
             _ticketRepository.Commit();
 
             return ticket;
+        }
+        public TicketComment CommentTicket(TicketCommentViewModel model)
+        {
+            TicketComment ticketComment = new TicketComment();
+            ticketComment.TicketId = model.TicketId;
+            ticketComment.Comment = model.Comment;
+            ticketComment.CreatedBy = model.CreatedBy;
+            ticketComment.CreatedOn = DateTime.Now;
+            _ticketCommentRepository.Insert(ticketComment); 
+            _ticketCommentRepository.Commit();
+            return ticketComment;
+        }
+        public List<TicketCommentViewModel> GetCommentList(Guid Id)
+        {
+            return _ticketRepository.GetComments(Id).OrderByDescending(x => x.CreatedOn).ToList();
+        }
+        public TicketCommentViewModel UpdateComment(Guid Id)
+        {
+            return _ticketRepository.GetCommentById(Id);
+        }
+        public TicketComment DeleteComment(TicketCommentViewModel model)
+        {
+            TicketComment ticketComment = _ticketCommentRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            ticketComment.IsDeleted = true;
+            _ticketCommentRepository.Update(ticketComment);
+            _ticketCommentRepository.Commit();
+
+            return ticketComment;
+        }
+        public void EditComment(TicketCommentViewModel model)
+        {
+            var ticketComment = _ticketCommentRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            ticketComment.Comment = model.Comment;
+            _ticketCommentRepository.Update(ticketComment);
+            _ticketCommentRepository.Commit();
+           
         }
     }
 }

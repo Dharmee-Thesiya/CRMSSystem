@@ -352,6 +352,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\HelperExtension.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -361,7 +362,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="image\conference.jpg" />
+    <Content Include="image\cancel.png" />
     <Content Include="image\down-arrow.svg" />
     <Content Include="image\download.svg" />
     <Content Include="image\edit.svg" />
@@ -369,6 +370,7 @@
     <Content Include="image\key.svg" />
     <Content Include="image\login-bg.jpg" />
     <Content Include="image\logo.svg" />
+    <Content Include="image\save.png" />
     <Content Include="image\search.svg" />
     <Content Include="image\trash.svg" />
     <Content Include="Content\StyleSheet1.css" />
@@ -376,6 +378,7 @@
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\warning.png" />
     <Content Include="Kendo\js\angular.min.js" />
     <Content Include="Kendo\js\cultures\kendo.culture.aa-DJ.min.js" />
     <Content Include="Kendo\js\cultures\kendo.culture.aa-ER.min.js" />
@@ -2768,6 +2771,8 @@
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Ticket\Detail.cshtml" />
+    <Content Include="Views\Ticket\commentpartialview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

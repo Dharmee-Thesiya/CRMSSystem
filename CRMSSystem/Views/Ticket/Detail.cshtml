@@ -1,0 +1,196 @@
+﻿@model CRMSSystem.Core.View.TicketViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="col-sm-6">
+        <h2>Detail Table</h2>
+
+        <table>
+            <tr>
+                <th colspan="3" style="text-align:center;font-size:20px;background-color:dimgray;color:white">Ticket Details</th>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.CreatedbyName)</td>
+                <td>@Html.DisplayFor(model => model.CreatedbyName)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Title)</td>
+                <td> @Html.DisplayFor(model => model.Title)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Priority)</td>
+                <td> @Html.DisplayFor(model => model.Priority)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Status)</td>
+                <td> @Html.DisplayFor(model => model.Status)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.AssignTo)</td>
+                <td> @Html.DisplayFor(model => model.AssignTo)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Type)</td>
+                <td> @Html.DisplayFor(model => model.Type)</td>
+            </tr>
+            <tr>
+                <td>@Html.DisplayNameFor(model => model.Description)</td>
+                <td> @Html.DisplayFor(model => model.Description)</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+
+<div class="col-md-5">
+    <label style="font-size:40px;padding-right:30px">Comment</label>
+    <div class="inputBox">
+        <input class="form-control text-box single-line" data-val="true" data-val-required="Comment Is Required" id="TicketComment" placeholder="Enter Comment" type="text" value="" style=""><br />
+        <button class="btn btn-primary" onclick="saveComment()">Comment</button>
+    </div>
+    @Html.Hidden("TicketId", Model.Id)
+</div>
+<div id="CommentList">
+
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="deletecomment">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="~/image/warning.png" style="height:60px;width:60px;margin-left:250px" />
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+            <div class="modal-body">
+                <h3> Are You Sure You Want To Delete?</h3>
+            </div>
+            <input type="hidden" id="hdnDeleteId" />
+            <div class="modal-footer">
+                <div class="btn-group">
+                    <a id="btnDelete" class="btn btn-primary" onclick="confirmcommentdelete()">Delete</a>
+                </div>
+                <div class="btn-group">
+                    <a id="btncancelconfirm" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        getComment();
+    });
+    function saveComment(e) {
+
+        var comment = $("#TicketComment").val();
+        var ticketId = $("#TicketId").val();
+        let ticketcomment = {
+            Comment: comment,
+            TicketId: ticketId
+        }
+        var form = JSON.stringify(ticketcomment);
+        $.ajax({
+            type: 'POST',
+            data: ticketcomment,
+            dataType: 'json',
+            url: "/Ticket/Comment",
+            success: function () {
+                $("#TicketComment").val("");
+                getComment();
+            }
+        });
+    }
+
+    function getComment() {
+        $.ajax({
+            type: 'GET',
+            url: "/Ticket/IndexComment/" + $('#TicketId').val(),
+            success: function () {
+
+            }
+        }).done(function (partialViewResult) {
+            $("#CommentList").html(partialViewResult);
+        })
+    }
+    function deletecomment(Id) {
+        debugger;
+
+        $("#deletecomment").modal('show');
+        $("#hdnDeleteId").val(Id);
+    }
+
+    function confirmcommentdelete() {
+        debugger;
+        var Id = $("#hdnDeleteId").val()
+        $.ajax({
+            type: "POST",
+            url: "/Ticket/DeleteComment/" + Id,
+            success: function () {
+                debugger;
+                $("#deletecomment").modal('hide');
+                $('.modal-backdrop').remove();
+                getComment();
+            }
+        });
+    }
+
+    function editcomment(Id) {
+        debugger;
+        $(".inline-view_" + Id).hide();
+        $(".inline-edit_" + Id).show();
+        $(".inline-cancel_" + Id).show();
+        $(".inline-save_" + Id).show();
+    }
+
+    function cancelcomment(Id) {
+        debugger;
+        $(".inline-cancel_" + Id).hide();
+        $(".inline-edit_" + Id).hide();
+        $(".inline-view_" + Id).show();
+        $(".inline-save_" + Id).hide();
+    }
+
+    function savecommentbtn(Id) {
+        var editcomment = $("#savecomment_" + Id).val()
+        let savedcomment = {
+            Comment: editcomment
+        }
+        debugger;
+        $.ajax({
+            type: "POST",
+            data: savedcomment,
+            url: "/Ticket/CommentEdit/" + Id,
+            success: function () {
+                getComment();
+                $(".inline-save_" + Id).hide();
+            }
+        });
+    }
+</script>
+

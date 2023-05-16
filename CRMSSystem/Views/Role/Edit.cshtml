@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="inputBox">
-                    <button class="btnDiv">Edit</button>
+                    <button class="btnDiv" id="Savebtn">Edit</button>
                 </div>
             </div>
 
@@ -45,5 +45,10 @@
     $('#backToList').click(function() {
       history.back();
     });
-  });
+    });
+
+    $('#Savebtn').click(function () {
+        toastr.success('Role Updated successfully.');
+        document.location ='@Url.Action("Index", "Admin")';
+    });
 </script>

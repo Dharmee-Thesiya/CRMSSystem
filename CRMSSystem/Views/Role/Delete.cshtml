@@ -27,7 +27,7 @@
     @Html.AntiForgeryToken()
 
     <div class="inputBox">
-        <button class="btnDiv">Delete</button>
+        <button class="btnDiv" id="Savebtn">Delete</button>
     </div>
 }
 
@@ -40,5 +40,10 @@
         $('#backToList').click(function () {
             history.back();
         });
+    });
+
+    $('#Savebtn').click(function () {
+        toastr.success('Role Deleted successfully.');
+        document.location ='@Url.Action("Index", "Admin")';
     });
 </script>

@@ -74,6 +74,8 @@ namespace CRMSSystem
             container.RegisterType<ITicketRepository, TicketRepository>();
             container.RegisterType<ITicketService, TicketService>();
             container.RegisterType<IMRepository<TicketAttachment>, SQLRepository<TicketAttachment>>();
+
+            container.RegisterType<IMRepository<TicketComment>, SQLRepository<TicketComment>>();
         }
     }
 }

@@ -45,5 +45,8 @@
     });
     });
 
-   
+   $('#Savebtn').click(function () {
+        toastr.success('Role Created successfully.');
+        document.location ='@Url.Action("Index", "Admin")';
+    });
 </script>
