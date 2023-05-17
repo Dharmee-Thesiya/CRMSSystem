@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IAuditLogRepository.cs" />
     <Compile Include="Contracts\ICommonLookUpService.cs" />
     <Compile Include="Contracts\IFormRepository.cs" />
     <Compile Include="Contracts\IFormService.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Contracts\IUserRepository.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
+    <Compile Include="Models\AuditLog.cs" />
     <Compile Include="Models\BaseEntity.cs" />
     <Compile Include="Models\CommonLookUp.cs" />
     <Compile Include="Models\Constants.cs" />

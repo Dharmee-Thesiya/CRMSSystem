@@ -368,7 +368,6 @@
     <Content Include="image\edit.svg" />
     <Content Include="image\eye.svg" />
     <Content Include="image\key.svg" />
-    <Content Include="image\login-bg.jpg" />
     <Content Include="image\logo.svg" />
     <Content Include="image\save.png" />
     <Content Include="image\search.svg" />

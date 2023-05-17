@@ -24,6 +24,7 @@ namespace CRMSSystem.SQL
             public DbSet<TicketStatusHistory> TicketStatusHistory { get; set; }
             public DbSet<TicketAttachment> TicketAttachment { get; set; }
             public DbSet<TicketComment>TicketComment { get; set; }
+            public DbSet<AuditLog> AuditLog { get; set; }
 
 
 

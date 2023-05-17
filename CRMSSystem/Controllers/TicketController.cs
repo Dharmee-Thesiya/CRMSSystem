@@ -143,13 +143,6 @@ namespace CRMSSystem.Controllers
             _ticketService.DeleteComment(commitdelete);
             return Content("true");
         }
-        //public static MvcHtmlString Timeago(this HtmlHelper helper, DateTime dateTime)
-        //{
-        //    var tag = new TagBuilder("abbr");
-        //    tag.AddCssClass("timeago");
-        //    tag.Attributes.Add("title", dateTime.ToString("s") + "Z");
-        //    tag.SetInnerText(dateTime.ToString());
-        //    return MvcHtmlString.Create(tag.ToString());
-        //}
+       
     }
 }

@@ -30,12 +30,20 @@
             </div>
         </div>
     </div>
+    <div class="section">
+        <div class="container">
+            <div class="topTitleHead pb20">
 
-
-    <div class="k-d-flex k-justify-content-center" style="margin-left:100%;">
-        <div class="k-w-300">
-            <label for="status" style="font-size:15px;color:coral">Status</label><br />
-            @(Html.Kendo().DropDownList()
+            </div>
+            <div class="tabContentDetails">
+                <div class="tabcontent" style="display: block">
+                    <div class="align-center align-between pb20">
+                        <h3 style="color:black"><b>Ticket Management</b></h3>
+                        <div class="k-d-flex k-justify-content-center" style="margin-left:45%;">
+                            <div class="k-w-300">
+                                <label for="status" style="font-size:15px;color:coral">Status</label><br />
+                                @*for StatusFilter(dropdown)*@
+                                @(Html.Kendo().DropDownList()
                       .Name("status")
                       .HtmlAttributes(new { style = "width:100%" })
                       .OptionLabel("Select Status")
@@ -51,6 +59,15 @@
                           });
                       })
                     )
+                            </div>
+                        </div>
+                        <div class="btnDiv" style="margin-bottom:2px;">
+                            <a href="#"> @Html.ActionLink("+ Add New Ticket", "Create", "Ticket")</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <script>
@@ -70,11 +87,12 @@
     <div class="modal fade" tabindex="-1" role="dialog" id="deleteticket">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-                <div class="modal-header"><img src="~/image/warning.png" style="height:60px;width:60px;margin-left:250px" />
+                <div class="modal-header">
+                    <img src="~/image/warning.png" style="height:60px;width:60px;margin-left:250px" />
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                   
+
                 </div>
                 <div class="modal-body">
                     <h3> Are You Sure You Want To Delete?</h3>
@@ -92,26 +110,7 @@
         </div>
     </div>
 
-    <div class="section">
-        <div class="container">
-            <div class="topTitleHead pb20">
 
-            </div>
-            <!----- Tabs ---->
-            <div class="tabcontentdetails">
-                <div id="TicketManagement" class="tabcontent" style="display: block">
-                    <div class="align-center align-between pb20">
-                        <h2>Ticket Management</h2>
-                        <div class="btnDiv">
-                            <a href="#">@Html.ActionLink(" + Add New Ticket", "Create", "Ticket")</a>
-                        </div>
-                    </div>
-                    <div class="tableDiv">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
 
@@ -133,7 +132,7 @@
                          " <a href='" + Url.Action("Edit", "Ticket") + "/#=Id#' )'><img src='/image/edit.svg'></a>" + " <a href='" + Url.Action("Detail", "Ticket") + "/#=Id#' )'><img src='/image/eye.svg'></a>");
         columns.Command(command => command.Custom("Delete").Click("ticketdelete")).Width(200);
     })
-   
+
 
     .Editable(editable => editable.Mode(GridEditMode.InLine))
     .Pageable(pageable=>

@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityLogService.cs" />
     <Compile Include="CommonLookUpService.cs" />
     <Compile Include="FormsService.cs" />
     <Compile Include="LoginService.cs" />
