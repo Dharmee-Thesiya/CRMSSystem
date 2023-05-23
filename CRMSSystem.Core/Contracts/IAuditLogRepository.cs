@@ -1,4 +1,5 @@
 ﻿using CRMSSystem.Core.Models;
+using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,9 @@ namespace CRMSSystem.Core.Contracts
     {
         IQueryable<AuditLog> Collection();
         void Commit();
-        void Delete(Guid Id);
         AuditLog Find(Guid Id);
         void Insert(AuditLog auditLog);
-        void Update(AuditLog auditLog);
+        List<AuditLogViewModel> GetAuditLogList(bool IsException);
+        AuditLogViewModel GetAuditLogById(Guid Id);
     }
 }

@@ -56,6 +56,7 @@ namespace CRMSSystem.Service
         public List<TicketViewModel> GetTicket()
         {
             return _ticketRepository.GetTicket().OrderByDescending(x => x.CreatedOn).ToList();
+            //return null;
         }
 
         public List<DropDown> SetDropDownValues(string configName)

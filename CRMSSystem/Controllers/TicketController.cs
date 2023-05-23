@@ -13,6 +13,8 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
+    //[CustomActionFilter]
+    [AuditActionFilter]
     public class TicketController : Controller
     {
         ITicketService _ticketService;

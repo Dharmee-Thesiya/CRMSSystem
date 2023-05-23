@@ -2,6 +2,7 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using CRMSSystem.Filter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -12,7 +13,8 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    //[CustomAuthentication]
+    [CustomAuthentication]
+    [AuditActionFilter]
     
     public class CommonLookUpController : Controller
     {
@@ -24,10 +26,10 @@ namespace CRMSSystem.Controllers
         // GET: CommonLookUp
         [AllowAnonymous]
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
-
         {
-            List<CommonLookUp> commonLookUps = _commonLookUpService.GetCommonLookUp().ToList();
-            return PartialView("CommonLookUpPartial", commonLookUps.ToDataSourceResult(request));
+          
+                List<CommonLookUp> commonLookUps = _commonLookUpService.GetCommonLookUp().ToList();
+                return PartialView("CommonLookUpPartial", commonLookUps.ToDataSourceResult(request));
         }
 
         //Create Get: CommonLookUp

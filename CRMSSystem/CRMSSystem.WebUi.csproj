@@ -339,6 +339,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuditLogController.cs" />
     <Compile Include="Controllers\CommonLookUpController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -347,6 +348,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filter\AccessCode.cs" />
     <Compile Include="Filter\AccessPermission.cs" />
+    <Compile Include="Filter\AuditActionFilter.cs" />
     <Compile Include="Filter\CustomActionFilter.cs" />
     <Compile Include="Filter\CustomAuthentication.cs" />
     <Compile Include="Global.asax.cs">
@@ -367,6 +369,7 @@
     <Content Include="image\download.svg" />
     <Content Include="image\edit.svg" />
     <Content Include="image\eye.svg" />
+    <Content Include="image\image.jpg" />
     <Content Include="image\key.svg" />
     <Content Include="image\logo.svg" />
     <Content Include="image\save.png" />
@@ -2730,6 +2733,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Style\error.css" />
     <Content Include="Style\login.css" />
     <Content Include="Style\style.css" />
     <Content Include="Web.config" />
@@ -2772,6 +2776,10 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\Detail.cshtml" />
     <Content Include="Views\Ticket\commentpartialview.cshtml" />
+    <Content Include="Views\AuditLog\Index.cshtml" />
+    <Content Include="Views\AuditLog\Details.cshtml" />
+    <Content Include="Views\AuditLog\ErrorIndex.cshtml" />
+    <Content Include="Views\AuditLog\ErrorDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

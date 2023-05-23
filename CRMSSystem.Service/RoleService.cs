@@ -20,6 +20,7 @@ namespace CRMSSystem.Service
         public List<Role> GetRoles()
         {
             return roleRepository.Collection().Where(x => !x.IsDeleted).OrderByDescending(x=>x.CreatedOn).ToList();
+            //return null;
         }
 
         public string CreateRole(RoleViewModel model)
@@ -31,7 +32,7 @@ namespace CRMSSystem.Service
             Role role = new Role();
             role.Code = model.Code.ToUpper();
             role.Name = model.Name;
-            //role.Id = model.Id;
+            role.Id = model.Id;
 
             roleRepository.Insert(role);
             roleRepository.Commit();

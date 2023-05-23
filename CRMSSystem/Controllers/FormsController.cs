@@ -14,7 +14,7 @@ using System.Web.Mvc;
 namespace CRMSSystem.Controllers
 {
     [CustomAuthentication]
-    
+    [AuditActionFilter]
     public class FormsController : Controller
     {
         IFormService _formService;

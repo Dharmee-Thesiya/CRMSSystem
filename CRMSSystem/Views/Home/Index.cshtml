@@ -1,3 +1,28 @@
 ﻿
-<h2 style="text-align:center;margin-top:100px;padding-top:50px;font-family:Algerian;color:deeppink">WelCome @Session["UserName"]....!!!!</h2>
+@{ ViewBag.Title = "Home Page";
+}
 
+@*<h2 style="text-align:center;color:hotpink;margin-top:200px;font-family:Algerian;font-size:40px;">Hello! @Session["UserName"]</h2>*@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error404</title>
+    <link href="~/Style/error.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="error-container">
+        <span><span>W</span></span>
+        <span>E</span>
+        <span><span>L</span></span>
+        <br />
+        <span>C</span>
+        <span><span>O</span></span>
+        <span>M</span>
+        <span><span>E</span></span>
+    </section>
+    <div class="link-container">
+        <a target="_blank" href="@Url.Action("Index", "Admin")" class="more-link" style="font:bold">Go System</a>
+    </div>
+</body>
+</html>

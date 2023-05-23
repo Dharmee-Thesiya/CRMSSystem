@@ -2,6 +2,7 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
+using CRMSSystem.Filter;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -13,8 +14,8 @@ using System.Web.Security;
 
 namespace CRMSSystem.Controllers
 {
-    //[CustomAuthentication]
-   
+    [CustomAuthentication]
+    [AuditActionFilter]
     public class RoleController : Controller
     {
         IRoleService _roleService;
@@ -28,6 +29,8 @@ namespace CRMSSystem.Controllers
         }
 
         [AllowAnonymous]
+        [AuditActionFilter]
+
         public ActionResult Index([DataSourceRequest] DataSourceRequest request)
         {
             List<Role> roles = _roleService.GetRoles().ToList();
@@ -66,7 +69,6 @@ namespace CRMSSystem.Controllers
                 return View(role);
             }
         }
-
         [HttpPost]
         public ActionResult Edit(RoleViewModel model)
         {

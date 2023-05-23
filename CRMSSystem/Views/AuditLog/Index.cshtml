@@ -1,0 +1,71 @@
+﻿@using Kendo.Mvc.UI
+@using CRMSSystem.Core.View
+
+<div class="section">
+    <div class="container">
+        <div class="topTitleHead pb20">
+
+        </div>
+        <!----- Tabs ---->
+        <div class="tabcontentdetails">
+            <div id="FormsManagement" class="tabcontent" style="display: block">
+                <div class="align-center align-between pb20">
+                    <h2>Audit Log</h2>
+                </div>
+                <div class="tableDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@(Html.Kendo().Grid<AuditLogViewModel>().Name("Usergrid").Columns(columns =>
+{
+    columns.Bound(c => c.UserName).Width(140);
+    columns.Bound(c => c.Url);
+    columns.Bound(c => c.HttpMethod).Width(140);
+    columns.Bound(c => c.HttpStatusCode).Width(140);
+    columns.Bound(c => c.ExecutionDuration).Width(140);
+    columns.Bound(c => c.Exception).Width(140);
+
+
+    columns.Template(c => c.Id).Title("Action")
+                     .ClientTemplate(
+                         " <a href='" + Url.Action("Details", "AuditLog") + "/#=Id#' )'><img src='/image/eye.svg'></a>").Width(100);
+})
+    .ToolBar(t => t.Search())
+    .Search(s=>
+
+    {
+        s.Field(t => t.UserName);
+        s.Field(t => t.HttpStatusCode);
+        s.Field(t => t.HttpMethod);
+        s.Field(t => t.ExecutionDuration);
+
+
+    })
+
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable(pageable=>
+    {
+        pageable.Refresh(true);
+    })
+    .NoRecords("No Record Found")
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;width:1200px" })
+    .Sortable()
+    .Filterable()
+    .Groupable()
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetAuditLogs", "AuditLog"))
+    .Update(update => update.Action("Edit", "AuditLog"))
+    .Destroy(destroy => destroy.Action("Delete", "AuditLog"))
+    .Create(create => create.Action("Create", "AuditLog"))
+    .PageSize(8))
+
+)
+
+<br />
+<button class="btn btn-default">
+    @Html.ActionLink("Previous", "Index", "Admin")
+</button>

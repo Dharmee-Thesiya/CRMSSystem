@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-   
+    [AuditActionFilter]
     public class HomeController : Controller
     {
         // GET: Home

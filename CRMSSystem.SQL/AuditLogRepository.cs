@@ -1,5 +1,6 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
+using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -22,35 +23,66 @@ namespace CRMSSystem.SQL
         {
             return DbSet;
         }
-
         public void Commit()
         {
             context.SaveChanges();
         }
-
-        public void Delete(Guid Id)
-        {
-            var auditlog = Find(Id);
-
-            if (context.Entry(auditlog).State == EntityState.Detached)
-                DbSet.Attach(auditlog);
-            DbSet.Remove(auditlog);
-        }
-
+        
         public AuditLog Find(Guid Id)
         {
             return DbSet.Find(Id);
         }
-
         public void Insert(AuditLog auditLog)
         {
             DbSet.Add(auditLog);
         }
-
-        public void Update(AuditLog auditLog)
+        
+        public List<AuditLogViewModel> GetAuditLogList(bool IsException)
         {
-            DbSet.Attach(auditLog);
-            context.Entry(auditLog).State = EntityState.Modified;
+            var audits = (from a in context.AuditLog                         
+                          join u in context.User on a.UserId equals u.Id
+                          where (IsException && a.Exception!= null) || (!IsException && a.Exception == null)
+                          select new AuditLogViewModel
+                          {
+                              Id = a.Id,
+                              UserId = u.Id,
+                              ExecutionTime = a.ExecutionTime,
+                              ExecutionDuration = a.ExecutionDuration,
+                              ClientAddress = a.ClientAddress,
+                              BrowserInfo = a.BrowserInfo,
+                              HttpMethod = a.HttpMethod,
+                              Url = a.Url,
+                              UserName = u.UserName,
+                              HttpStatusCode = a.HttpStatusCode,
+                              Comments = a.Comments,
+                              Parameters=a.Parameters,
+                              Exception=a.Exception
+                          }).ToList();
+            return audits;
+        }
+
+        public AuditLogViewModel GetAuditLogById(Guid Id)
+        {
+            var audits = (from a in context.AuditLog.Where(x=>x.Parameters!=null)
+                          join u in context.User on a.UserId equals u.Id
+                          where a.Id==Id
+                          select new AuditLogViewModel
+                          {
+                              Id = a.Id,
+                              UserId = u.Id,
+                              ExecutionTime = a.ExecutionTime,
+                              ExecutionDuration = a.ExecutionDuration,
+                              ClientAddress = a.ClientAddress,
+                              BrowserInfo = a.BrowserInfo,
+                              HttpMethod = a.HttpMethod,
+                              Url = a.Url,
+                              UserName = u.UserName,
+                              HttpStatusCode = a.HttpStatusCode,
+                              Comments = a.Comments,
+                              Parameters=a.Parameters,
+                              Exception=a.Exception
+                          }).FirstOrDefault();
+            return audits;
         }
     }
 }
