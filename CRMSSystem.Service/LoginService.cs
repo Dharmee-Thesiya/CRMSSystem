@@ -28,13 +28,11 @@ namespace CRMSSystem.Service
                     return user;
                 }
             }
-            
             return null;
 
         }
         private string HashPasword(string Password, string salt)
         {
-
             string stringDataToHash = Password + "" + salt;
             HashAlgorithm hashAlg = new SHA256CryptoServiceProvider();
             byte[] bytValue = System.Text.Encoding.UTF8.GetBytes(stringDataToHash);

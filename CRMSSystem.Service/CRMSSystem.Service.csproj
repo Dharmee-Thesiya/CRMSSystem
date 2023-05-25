@@ -79,6 +79,7 @@
     <Compile Include="AuditLogService.cs" />
     <Compile Include="CommonLookUpService.cs" />
     <Compile Include="FormsService.cs" />
+    <Compile Include="HomeService.cs" />
     <Compile Include="LoginService.cs" />
     <Compile Include="PermissionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

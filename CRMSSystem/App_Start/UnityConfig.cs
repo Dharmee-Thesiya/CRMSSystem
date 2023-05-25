@@ -79,6 +79,8 @@ namespace CRMSSystem
 
             container.RegisterType<IAuditLogRepository, AuditLogRepository>();
             container.RegisterType<IAuditLogService, AuditLogService>();
+
+            container.RegisterType<IHomeService, HomeService>();
         }
     }
 }

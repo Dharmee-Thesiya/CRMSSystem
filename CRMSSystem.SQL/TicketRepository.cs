@@ -1,6 +1,7 @@
 ﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -50,7 +51,6 @@ namespace CRMSSystem.SQL
                           join cs in context.CommonLookUps on t.StatusId equals cs.Id
                           join cp in context.CommonLookUps on t.PriorityId equals cp.Id
                           join u in context.User on t.AssignId equals u.Id
-
                           where !t.IsDeleted
                           orderby t.CreatedOn descending
                           select new TicketViewModel
@@ -66,7 +66,7 @@ namespace CRMSSystem.SQL
                               Priority = cp.ConfigKey,
                               Title = t.Title,
                               Description = t.Description,
-
+                              
                           }).AsEnumerable();
 
             var data = (from t in ticket
@@ -86,7 +86,6 @@ namespace CRMSSystem.SQL
                             Priority = g.Key.Priority,
                             Title = g.Key.Title,
                             Description = g.Key.Description,
-
                             AttachmentList = g.Where(x => x != null && x.FileName != null).Any() ? g.ToList() : null,
                             AttachmentCount = g.Where(x => x != null && x.FileName != null).Any() ? g.Count() : 0
 

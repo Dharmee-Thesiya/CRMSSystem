@@ -14,7 +14,6 @@ namespace CRMSSystem.SQL
         internal DbSet<CommonLookUp> commonLookUpDbSet;
         internal DbSet<TicketAttachment> ticketAttachmentDbSet;
         internal DbSet<TicketComment> ticketCommentsDbSet;
-       
         
         public SQLRepository(DataContext context)
         {

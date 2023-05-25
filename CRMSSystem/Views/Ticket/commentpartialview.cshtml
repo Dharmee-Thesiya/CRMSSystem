@@ -10,12 +10,15 @@
             <tr>
                 <td>
                     <strong style="color:blue">@Html.DisplayFor(modelItem => item.CreatedbyName)</strong><sup>(@HelperExtension.TimeAgo(item.CreatedOn))</sup>
-                    <sup style="margin-left:167px">
-                        <img src="~/image/edit.svg" onclick="editcomment('@item.Id')" />
-                        <img src="~/image/cancel.png" style="width:20px;height:20px;display:none" class='inline-cancel_@item.Id' onclick="cancelcomment('@item.Id')" />
-                        <img src="~/image/save.png" style="width:20px;height:20px;display:none" class='inline-save_@item.Id' onclick="savecommentbtn('@item.Id')" />
-                        <img src="~/image/trash.svg" onclick="deletecomment('@item.Id')" />
-                    </sup>
+                    @if (item.CreatedBy.ToString() == Session["Id"].ToString())
+                    {
+                        <sup style="margin-left:167px">
+                            <img src="~/image/edit.svg" onclick="editcomment('@item.Id')" />
+                            <img src="~/image/cancel.png" style="width:20px;height:20px;display:none" class='inline-cancel_@item.Id' onclick="cancelcomment('@item.Id')" />
+                            <img src="~/image/save.png" style="width:20px;height:20px;display:none" class='inline-save_@item.Id' onclick="savecommentbtn('@item.Id')" />
+                            <img src="~/image/trash.svg" onclick="deletecomment('@item.Id')" />
+                        </sup>
+                    }
                     <br />
                     <div class="col-md-6">
                         <div class='inline-view_@item.Id'>
@@ -25,7 +28,7 @@
                             @Html.TextBoxFor(modelItem => item.Comment, htmlAttributes: new { @id = "savecomment_" + item.Id })
                         </div>
                     </div>
-                   
+
                 </td>
             </tr>
         }

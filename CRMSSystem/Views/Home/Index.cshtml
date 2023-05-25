@@ -1,28 +1,57 @@
-﻿
-@{ ViewBag.Title = "Home Page";
-}
+﻿@model CRMSSystem.Core.View.HomeViewModel
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="~/Style/DashboardCss.css" rel="stylesheet" />
+<h2>Dashboard</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-blue">
+                <div class="inner">
+                    <h3>@ViewBag.NewTickets</h3>
+                    <p>New</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-copy" style="margin-left:20px"></i>
+                </div>
+                <a class="card-box-footer">Ticket</a>
+            </div>
+        </div>
 
-@*<h2 style="text-align:center;color:hotpink;margin-top:200px;font-family:Algerian;font-size:40px;">Hello! @Session["UserName"]</h2>*@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error404</title>
-    <link href="~/Style/error.css" rel="stylesheet" />
-</head>
-<body>
-    <section class="error-container">
-        <span><span>W</span></span>
-        <span>E</span>
-        <span><span>L</span></span>
-        <br />
-        <span>C</span>
-        <span><span>O</span></span>
-        <span>M</span>
-        <span><span>E</span></span>
-    </section>
-    <div class="link-container">
-        <a target="_blank" href="@Url.Action("Index", "Admin")" class="more-link" style="font:bold">Go System</a>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-orange">
+                <div class="inner">
+                    <h3>@ViewBag.AssignedTickets</h3>
+                    <p>Assigned</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-check"></i>
+                </div>
+                <a class="card-box-footer">Ticket</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-red">
+                <div class="inner">
+                    <h3>@ViewBag.PendingTickets</h3>
+                    <p>Pending</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i>
+                </div>
+                <a class="card-box-footer">Ticket</a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6">
+            <div class="card-box bg-green">
+                <div class="inner">
+                    <h3>@ViewBag.TotalTickets</h3>
+                    <p>Total Tickets</p>
+                </div>
+                <div class="icon">
+                    <i class="glyphicon glyphicon-list-alt"></i>
+                </div>
+                <a href="/Ticket/Index" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>

@@ -25,9 +25,6 @@ namespace CRMSSystem.Service
         {
             HttpContextBase currentContext = new HttpContextWrapper(HttpContext.Current);
             UrlHelper urlHelper = new UrlHelper(HttpContext.Current.Request.RequestContext);
-            Stream req = HttpContext.Current.Request.InputStream;
-            req.Seek(0, System.IO.SeekOrigin.Begin);
-            string json = new StreamReader(req).ReadToEnd();
             RouteData routeData = urlHelper.RouteCollection.GetRouteData(currentContext);
             AuditLog audit = new AuditLog()
             {

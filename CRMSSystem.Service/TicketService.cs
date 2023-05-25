@@ -158,7 +158,7 @@ namespace CRMSSystem.Service
             ticketComment.Comment = model.Comment;
             _ticketCommentRepository.Update(ticketComment);
             _ticketCommentRepository.Commit();
-           
-        }
+
+        }  
     }
 }

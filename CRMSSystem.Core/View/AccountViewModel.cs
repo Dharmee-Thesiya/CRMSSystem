@@ -20,5 +20,6 @@ namespace CRMSSystem.Core.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+        
     }
 }

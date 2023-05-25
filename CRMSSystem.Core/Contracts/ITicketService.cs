@@ -23,6 +23,5 @@ namespace CRMSSystem.Core.Contracts
         TicketCommentViewModel UpdateComment(Guid Id);
         TicketComment DeleteComment(TicketCommentViewModel model);
         void EditComment(TicketCommentViewModel model);
-
     }
 }

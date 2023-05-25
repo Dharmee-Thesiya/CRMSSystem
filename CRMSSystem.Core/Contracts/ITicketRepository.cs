@@ -19,6 +19,6 @@ namespace CRMSSystem.Core.Contracts
         List<TicketViewModel> GetTicket();
         TicketViewModel GetTicketById(Guid Id);
         List<TicketCommentViewModel> GetComments(Guid Id);
-        TicketCommentViewModel GetCommentById(Guid Id); 
+        TicketCommentViewModel GetCommentById(Guid Id);
     }
 }
