@@ -15,8 +15,7 @@ namespace CRMSSystem.Core.Contracts
         string CreateUser(UserViewModel model);
         string EditUser(UserViewModel model);
         void DeleteUser(Guid Id);
-       
-       
+
     }
 }
 

@@ -11,5 +11,6 @@ namespace CRMSSystem.Core.Contracts
     public interface ILoginService
     {
         User Login(AccountViewModel model);
+        User ChangePassword(AccountViewModel model);
     }
 }

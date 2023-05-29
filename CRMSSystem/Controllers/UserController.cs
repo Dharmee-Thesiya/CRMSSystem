@@ -16,8 +16,8 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    [CustomAuthentication]
-    [AuditActionFilter]
+    //[CustomAuthentication]
+    //[AuditActionFilter]
     public class UserController : Controller
     {
         IUserService _userService;

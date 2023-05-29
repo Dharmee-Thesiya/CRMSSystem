@@ -102,7 +102,6 @@ namespace CRMSSystem.Services
         public UserViewModel GetUser(Guid Id)
         {
             return _userRepository.GetUserById(Id);
-
         }
         public List<UserViewModel> GetUsers()
         {

@@ -1371,6 +1371,9 @@ a.text-danger:hover,
 a.text-danger:focus {
   color: #843534;
 }
+.text-success {
+    color: #3c763d;
+}
 .bg-primary {
   color: #fff;
   background-color: #337ab7;

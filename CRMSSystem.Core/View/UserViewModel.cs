@@ -32,7 +32,7 @@ namespace CRMSSystem.Core.View
         [DisplayName("Role Name")]
         public string RoleName { get; set; }
         public List<DropDown> RoleDropDown { get; set; }
-
+        
     }
     
 }

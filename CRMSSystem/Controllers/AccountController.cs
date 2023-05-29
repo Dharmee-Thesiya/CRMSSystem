@@ -1,4 +1,4 @@
-﻿ using CRMSSystem.Core.Contracts;
+﻿using CRMSSystem.Core.Contracts;
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.filter;
@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -39,7 +40,7 @@ namespace CRMSSystem.Controllers
         [HttpPost]
         public ActionResult Login(AccountViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid && model.CurrentPassword != null)
             {
                 return View(model);
             }
@@ -69,5 +70,30 @@ namespace CRMSSystem.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(AccountViewModel model)
+        {
+            var user = _loginService.ChangePassword(model);
+            if (user != null)
+            {
+                TempData["AlertMessage"] = "Password Update Successfully";
+                return RedirectToAction("Index", "Home");
+            }
+            else if (model.CurrentPassword == model.NewPassword)
+            {
+                ModelState.AddModelError("", "New Password And Current Password can't be Same.");
+                return View();
+            }
+            else
+            {
+                ModelState.AddModelError("", "Password Is Incorrect.");
+                return View();
+            }  
+        }
     }
 }
+

@@ -27,22 +27,20 @@
                     <img src="~/image/logo.svg" alt="CRB Logo">
                 </div>
 
+        
+
                 <div class="formSection">
-                    <div class="inputBox">
+                    <div class="inputBox" style="color:red">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "errorMsg" })
-
-
                     </div>
 
                     <div class="inputBox">
-
                         @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
                         @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errorMsg" })
-
                     </div>
 
                     <div class="inputBox btnInput">
