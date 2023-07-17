@@ -1,4 +1,5 @@
 ﻿using CRMSSystem.Core.Contracts;
+using CRMSSystem.Core.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,11 @@ namespace CRMSSystem.Service
     public class HomeService : IHomeService
     {
         ITicketService _ticketService;
-        public HomeService(ITicketService ticketService)
+        ITicketRepository _ticketRepository;
+        public HomeService(ITicketService ticketService, ITicketRepository ticketRepository)
         {
             _ticketService = ticketService;
+            _ticketRepository = ticketRepository;
         }
         public int TotalTickets()
         {
@@ -30,5 +33,14 @@ namespace CRMSSystem.Service
         {
             return _ticketService.GetTicket().Where(x => x.Status == "Pending").Count();
         }
+        public List<HomeViewModel> GetAllCount()
+        {
+            return _ticketRepository.GetAllCount();
+        }
+        public List<TypecountTicket> GetTypecountTickets()
+        {
+            return _ticketRepository.TypeCount();
+        }
+        
     }
 }

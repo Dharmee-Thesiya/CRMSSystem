@@ -64,25 +64,11 @@
                         <div class="btnDiv" style="margin-bottom:2px;">
                             <a href="#"> @Html.ActionLink("+ Add New Ticket", "Create", "Ticket")</a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        function onChange(e) {
-            var value = $("#status").val();
-            grid = $("#TicketGrid").data("kendoGrid");
-            if (value) {
-                grid.dataSource.filter({ field: "status", operator: "contains", value: value });
-            }
-            else {
-                grid.dataSource.filter({});
-            }
-        }
-    </script>
-
 
     <div class="modal fade" tabindex="-1" role="dialog" id="deleteticket">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -92,7 +78,6 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-
                 </div>
                 <div class="modal-body">
                     <h3> Are You Sure You Want To Delete?</h3>
@@ -109,8 +94,6 @@
             </div>
         </div>
     </div>
-
-
 </body>
 </html>
 
@@ -145,12 +128,7 @@
     .Sortable()
     .Filterable()
     .Groupable()
-    .DataSource(dataSource => dataSource
-    .Ajax()
-    .Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetTicket", "Ticket"))
-    .Update(update => update.Action("Edit", "Ticket"))
-    .Destroy(destroy => destroy.Action("Delete", "Ticket"))
-    .Create(create => create.Action("Create", "Ticket"))
+    .DataSource(dataSource => dataSource.Ajax().Model(model => model.Id(p => p.Id)).Read(read => read.Action("GetTicket", "Ticket"))
     .PageSize(5))
 
     )
@@ -207,7 +185,46 @@
             }
         });
     }
+</script>
 
+
+<script>
+
+    $(document).ready(function () {
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == "TypeName") {
+                var name = urlparam[1];
+                grid = $("#TicketGrid").data("kendoGrid");
+                grid.dataSource.filter({ field: "Type", operator: "contains", value: name });
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        debugger;
+        var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < url.length; i++) {
+            var urlparam = url[i].split('=');
+            if (urlparam[0] == "Status") {
+                var name = urlparam[1];
+                grid = $("#TicketGrid").data("kendoGrid");
+                grid.dataSource.filter({ field: "status", operator: "contains", value: name });
+            }
+        }
+    });
+
+    function onChange(e) {
+        var value = $("#status").val();
+        grid = $("#TicketGrid").data("kendoGrid");
+        if (value) {
+            grid.dataSource.filter({ field: "status", operator: "contains", value: value });
+        }
+        else {
+            grid.dataSource.filter({});
+        }
+    }
 </script>
 
 @Styles.Render("~/Content/StyleSheet1.css")

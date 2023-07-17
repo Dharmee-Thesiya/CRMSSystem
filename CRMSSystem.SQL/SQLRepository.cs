@@ -14,7 +14,8 @@ namespace CRMSSystem.SQL
         internal DbSet<CommonLookUp> commonLookUpDbSet;
         internal DbSet<TicketAttachment> ticketAttachmentDbSet;
         internal DbSet<TicketComment> ticketCommentsDbSet;
-        
+        internal DbSet<TicketStatusHistory> tickethistoryDbSet;
+
         public SQLRepository(DataContext context)
         {
             this.context = context;
@@ -22,6 +23,7 @@ namespace CRMSSystem.SQL
             this.commonLookUpDbSet = context.Set<CommonLookUp>();
             this.ticketAttachmentDbSet = context.Set<TicketAttachment>();
             this.ticketCommentsDbSet = context.Set<TicketComment>();
+            this.tickethistoryDbSet = context.Set<TicketStatusHistory>();
         }
 
         public IQueryable<T> Collection()

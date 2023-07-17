@@ -88,5 +88,9 @@ namespace CRMSSystem.Service
         {
             return _commonLookUpRepository.Collection().Where(cl => cl.ConfigName == name && !cl.IsDeleted).OrderByDescending(x => x.CreatedOn).ToList();
         }
+        public string GetCommonLookupbyId(Guid Id)
+        {
+            return _commonLookUpRepository.Collection().Where(x => x.Id == Id).Select(x => x.ConfigValue).FirstOrDefault();
+        }
     }
 }

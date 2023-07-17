@@ -1,6 +1,13 @@
 ﻿@using Kendo.Mvc.UI
 @using CRMSSystem.Core.View
-
+<div>
+    @if (TempData["AlertMessage"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>Success!!!!!&nbsp;</strong>@TempData["AlertMessage"]
+        </div>
+    }
+</div>
 
 @(Html.Kendo().Grid<UserViewModel>().Name("Usergrid").Columns(columns =>
 {
@@ -49,7 +56,17 @@
 
 )
 
-<br/>
+<br />
 <button class="btn btn-default">
     @Html.ActionLink("Previous", "Index", "Admin")
 </button>
+
+<script>
+    window.setTimeout(function () {
+        $(".alert").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 3000);
+</script>
+
+

@@ -8,9 +8,18 @@ namespace CRMSSystem.Core.View
 {
     public class HomeViewModel
     {
-        public int HighPrioritycount { get; set; }
-        public int LowPrioritycount { get; set; }
-        public int ImmediatePrioritycount { get; set; }
-        public int MediumPrioritycount { get; set; }
+        public int TicketCount { get; set; }
+        public string AssignTo { get; set; }
+    }
+    public class TypecountTicket
+    {
+        public int TypeCount { get; set; }
+        public string TypeName { get; set; }
+    }
+    public class StatusCountTicket
+    {
+        public int StatusCount { get; set; }
+        public string StatusName { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRMSSystem.Core.View;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,8 @@ namespace CRMSSystem.Core.Contracts
         int NewTickets();
         int AssignedTickets();
         int PendingTickets();
+        List<HomeViewModel> GetAllCount();
+        List<TypecountTicket> GetTypecountTickets();
+
     }
 }

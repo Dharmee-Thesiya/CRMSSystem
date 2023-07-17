@@ -1,4 +1,4 @@
-﻿@model CRMSSystem.Core.View.TicketViewModel
+﻿ @model CRMSSystem.Core.View.TicketViewModel
 
 <!DOCTYPE html>
 <html>
@@ -57,6 +57,12 @@
                 <td> @Html.DisplayFor(model => model.Description)</td>
             </tr>
         </table>
+        <div class="col-sm-6">
+            <h2 style="margin-top:30PX">Status Changes</h2>
+            @Html.Hidden("TicketId", Model.Id)
+        </div>
+        <div id="HistoryList">
+        </div>
     </div>
 </body>
 </html>
@@ -105,7 +111,7 @@
 <script>
     $(document).ready(function () {
         getComment();
-    });
+    }); 
     function saveComment(e) {
 
         var comment = $("#TicketComment").val();
@@ -194,3 +200,21 @@
     }
 </script>
 
+<script>
+    $(document).ready(function () {
+        gethistory();
+    });
+
+    function gethistory() {
+        debugger;
+        $.ajax({
+            type: 'GET',
+            url: "/Ticket/IndexHistory/" + $('#TicketId').val(),
+            success: function () {
+
+            }
+        }).done(function (partialViewResult) {
+            $("#HistoryList").html(partialViewResult);
+        })
+    }
+</script>

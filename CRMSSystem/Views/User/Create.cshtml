@@ -23,7 +23,6 @@
                     </div>
                     <div class="inputBox selectBox">
                         <label class="form-label">Role Name<strong style="color: red; font-size: 20px">*</strong></label>
-
                         @Html.DropDownListFor(model => model.RoleId, new SelectList(Model.RoleDropDown, "Id", "Name"), "Select Role", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.RoleId, "", new { @class = "errorMsg" })
 

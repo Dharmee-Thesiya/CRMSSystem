@@ -1,72 +1,190 @@
-﻿@model CRMSSystem.Core.View.HomeViewModel
+﻿
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="~/Style/DashboardCss.css" rel="stylesheet" />
-<h2>Dashboard</h2>
+<br />
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #cec9c9;
+        }
+    </style>
+</head>
 @if (TempData["AlertMessage"] != null)
 {
     <div class="alert alert-success">
-        <strong>Success!!!!!</strong>@TempData["AlertMessage"]
-        <button type="button" class="close" data-dismiss="alert"></button>
+        <strong>Success!!!!!&nbsp;</strong>@TempData["AlertMessage"]
     </div>
 }
-<div class="container">
-    <div class="row">
-        <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-blue">
-                <div class="inner">
-                    <h3>@ViewBag.NewTickets</h3>
-                    <p>New</p>
+<div>
+    <h2 style="padding-top:40px">Dashboard</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6" onclick="ticketstatus('New')">
+                <div class="card-box bg-blue">
+                    <div class="inner">
+                        <h3>@ViewBag.NewTickets</h3>
+                        <p>New</p>
+                    </div>
+                    <div class="icon">
+                        <i class="glyphicon glyphicon-copy" style="margin-left:20px"></i>
+                    </div>
+                    <a class="card-box-footer">Ticket</a>
                 </div>
-                <div class="icon">
-                    <i class="glyphicon glyphicon-copy" style="margin-left:20px"></i>
-                </div>
-                <a class="card-box-footer">Ticket</a>
             </div>
-        </div>
 
-        <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-orange">
-                <div class="inner">
-                    <h3>@ViewBag.AssignedTickets</h3>
-                    <p>Assigned</p>
+            <div class="col-lg-3 col-sm-6" onclick="ticketstatus('Assigned')">
+                <div class="card-box bg-orange">
+                    <div class="inner">
+                        <h3>@ViewBag.AssignedTickets</h3>
+                        <p>Assigned</p>
+                    </div>
+                    <div class="icon">
+                        <i class="glyphicon glyphicon-check"></i>
+                    </div>
+                    <a class="card-box-footer">Ticket</a>
                 </div>
-                <div class="icon">
-                    <i class="glyphicon glyphicon-check"></i>
+            </div>
+            <div class="col-lg-3 col-sm-6" onclick="ticketstatus('Pending')">
+                <div class="card-box bg-red">
+                    <div class="inner">
+                        <h3>@ViewBag.PendingTickets</h3>
+                        <p>Pending</p>
+                    </div>
+                    <div class="icon">
+                        <i class="glyphicon glyphicon-exclamation-sign"></i>
+                    </div>
+                    <a class="card-box-footer">Ticket</a>
                 </div>
-                <a class="card-box-footer">Ticket</a>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card-box bg-green">
+                    <div class="inner">
+                        <h3>@ViewBag.TotalTickets</h3>
+                        <p>Total Tickets</p>
+                    </div>
+                    <div class="icon">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                    </div>
+                    <a href="/Ticket/Index" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
             </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-red">
-                <div class="inner">
-                    <h3>@ViewBag.PendingTickets</h3>
-                    <p>Pending</p>
-                </div>
-                <div class="icon">
-                    <i class="glyphicon glyphicon-exclamation-sign"></i>
-                </div>
-                <a class="card-box-footer">Ticket</a>
-            </div>
+        <br />
+        <br />
+        <div class="col-md-6">
+            <h3>Line Chart By Assigned User</h3>
+            <canvas id="myChart" style="width:600px;max-width:700px;height:360px"></canvas>
         </div>
-        <div class="col-lg-3 col-sm-6">
-            <div class="card-box bg-green">
-                <div class="inner">
-                    <h3>@ViewBag.TotalTickets</h3>
-                    <p>Total Tickets</p>
-                </div>
-                <div class="icon">
-                    <i class="glyphicon glyphicon-list-alt"></i>
-                </div>
-                <a href="/Ticket/Index" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
+        <div class="col-md-6">
+            <h3>Type Count</h3>
+        </div>
+        <div id="TypeList">
+        </div>
+        <div class="col-md-10">
+            <h3 style="margin-bottom:40px">Last 5 Ticket Details</h3>
+        </div>
+        <div id="TicketList">
         </div>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+        var data = @Html.Raw(Json.Encode(ViewBag.GetAllCount));
+        var xValues = [], yValues = [];
+
+    $.each(data, function (x, y) {
+        debugger;
+            xValues.push(y.AssignTo);
+            yValues.push(y.TicketCount);
+        });
+
+        new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,1.0)",
+                    borderColor: "rgba(0,0,255,0.1)",
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: { display: false },
+            }
+        });
+</script>
 
 <script>
     window.setTimeout(function () {
         $(".alert").fadeTo(500, 0).slideUp(500, function () {
             $(this).remove();
         });
-    }, 4000);
+    }, 3000);
 </script>
+
+<script>
+
+    $(document).ready(function () {
+        TypeList();
+    });
+    function TypeList() {
+        debugger;
+        $.ajax({
+            type: 'GET',
+            url: "/Home/TypeCount/",
+            success: function () {
+
+            }
+        }).done(function (partialViewResult) {
+            $("#TypeList").html(partialViewResult);
+        })
+    }
+
+    $(document).ready(function () {
+        TicketList();
+    });
+
+    function TicketList() {
+        debugger;
+        $.ajax({
+            type: 'GET',
+            url: "/Home/TicketDetail/",
+            success: function () {
+
+            }
+        }).done(function (partialViewResult) {
+            $("#TicketList").html(partialViewResult);
+        })
+    }
+
+    function typecount(TypeName) {
+        debugger;
+        location.href = "/Ticket/Index?TypeName=" + TypeName;
+
+    }
+    function ticketstatus(Status) {
+        debugger;
+        location.href = "/Ticket/Index?Status=" + Status;
+    }
+
+    function ticketdetail(Id) {
+        location.href = "/Ticket/Detail/" + Id;
+    }
+   
+  
+</script>
+

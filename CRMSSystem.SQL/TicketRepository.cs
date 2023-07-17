@@ -66,7 +66,7 @@ namespace CRMSSystem.SQL
                               Priority = cp.ConfigKey,
                               Title = t.Title,
                               Description = t.Description,
-                              
+
                           }).AsEnumerable();
 
             var data = (from t in ticket
@@ -163,7 +163,7 @@ namespace CRMSSystem.SQL
                            where !tc.IsDeleted && tc.TicketId == Id
                            select new TicketCommentViewModel
                            {
-                               Id=tc.Id,
+                               Id = tc.Id,
                                TicketId = t.Id,
                                Comment = tc.Comment,
                                CreatedbyName = uc.UserName,
@@ -191,6 +191,50 @@ namespace CRMSSystem.SQL
                 ).FirstOrDefault();
             return comment;
         }
+        public List<HomeViewModel> GetAllCount()
+        {
+            var ticketcount = (from t in context.Ticket
+                               join u in context.User on t.AssignId equals u.Id
+                               group t by u into g
+                               select new HomeViewModel
+                               {
+                                   AssignTo = g.Key.Name,
+                                   TicketCount = g.Where(x => x != null && x.AssignId != null).Any() ? g.Count() : 0,
+                               }).ToList();
+            return ticketcount;
+        }
+        public List<TicketViewModel> GetHistoryList(Guid Id)
+        {
+            var history = (from th in context.TicketStatusHistory
+                           join t in context.Ticket on th.TicketId equals t.Id
+                           join u in context.User on th.UpdatedBy equals u.Id
+                           where !th.IsDeleted && th.TicketId == Id
+                           select new TicketViewModel
+                           {
+                               Id = th.Id,
+                               TicketId = t.Id,
+                               OldStatus=th.OldStatus,
+                               Newstatus=th.Newstatus,
+                               UpdatedBy=u.Id,
+                               UpdatedbyName=u.UserName,
+                               UpdatedOn=th.UpdatedOn
+                           }
+                ).ToList();
+            return history;
+        }
+        public List<TypecountTicket> TypeCount()
+        {
+            var typecount = (from t in context.Ticket
+                               join c in context.CommonLookUps on t.TypeId equals c.Id
+                               group t by c into g
+                               select new TypecountTicket
+                               {
+                                   TypeName = g.Key.ConfigValue,
+                                   TypeCount = g.Where(x => x != null && x.TypeId != null).Any() ? g.Count() : 0,
+                               }).ToList();
+            return typecount;
+        }
     }
 }
+
 

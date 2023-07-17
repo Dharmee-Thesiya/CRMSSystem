@@ -97,6 +97,7 @@
     <Compile Include="View\PermissionViewModel.cs" />
     <Compile Include="View\RoleViewModel.cs" />
     <Compile Include="View\TicketCommentViewModel.cs" />
+    <Compile Include="View\TicketHistoryStatusViewModel.cs" />
     <Compile Include="View\TicketViewModel.cs" />
     <Compile Include="View\UserViewModel.cs" />
   </ItemGroup>

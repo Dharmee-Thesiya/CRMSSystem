@@ -1,0 +1,24 @@
+﻿@model List<CRMSSystem.Core.View.TicketViewModel>
+@using CustomHelper.CustomHelpers
+<div class="col-md-13">
+    <table class="table" id="HistoryList" width="10%">
+        <tr><th style="font-size: 15px; color: white; text-align: center; background-color: dimgray ">Status Changes</th></tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <strong style="color:blue">@Html.DisplayFor(modelItem => item.UpdatedbyName)</strong><sup>(@HelperExtension.TimeAgo(item.CreatedOn))</sup>
+                    <br />
+                    <div class="col-md-13">
+                        <b>Status</b> Change From <b>@Html.DisplayFor(modelItem => item.OldStatus)</b>&nbsp;<i class="glyphicon glyphicon-arrow-right"></i>
+                                                  <b>@Html.DisplayFor(modelItem => item.Newstatus)</b>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <button class="btn btn-default">
+        @Html.ActionLink("Previous", "Index")
+    </button>
+</div>
+

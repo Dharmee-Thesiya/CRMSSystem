@@ -20,5 +20,8 @@ namespace CRMSSystem.Core.Contracts
         TicketViewModel GetTicketById(Guid Id);
         List<TicketCommentViewModel> GetComments(Guid Id);
         TicketCommentViewModel GetCommentById(Guid Id);
+        List<HomeViewModel> GetAllCount();
+        List<TicketViewModel> GetHistoryList(Guid Id);
+        List<TypecountTicket> TypeCount();
     }
 }

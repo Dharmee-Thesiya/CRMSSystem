@@ -54,6 +54,7 @@ namespace CRMSSystem.Controllers
                     Guid RoleID = _userRoleRepository.Collection().Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
                     Session["RoleId"] = RoleID;
                     var permission = _permissionService.GetPermissionList(RoleID).ToList();
+                    TempData["AlertMessage"] = "Login Successfully";
                     Session["Permission"] = permission;
                     return RedirectToAction("Index", "Home");
                 }

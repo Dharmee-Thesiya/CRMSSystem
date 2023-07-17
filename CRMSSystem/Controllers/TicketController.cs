@@ -2,6 +2,7 @@
 using CRMSSystem.Core.Models;
 using CRMSSystem.Core.View;
 using CRMSSystem.Filter;
+using Intercom.Core;
 using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
@@ -13,18 +14,18 @@ using System.Web.Mvc;
 
 namespace CRMSSystem.Controllers
 {
-    //[CustomActionFilter]
+
     [AuditActionFilter]
     public class TicketController : Controller
     {
         ITicketService _ticketService;
         IUserService _userService;
-        
-        public TicketController(ITicketService ticketService, IUserService userService)
+        IHomeService _homeService;
+        public TicketController(ITicketService ticketService, IUserService userService, IHomeService homeService)
         {
             _ticketService = ticketService;
             _userService = userService;
-           
+            _homeService = homeService;           
         }
         //GET: Ticket
         [CustomActionFilter("TKT", AccessPermission.PermissionOrder.IsView)]
@@ -72,11 +73,13 @@ namespace CRMSSystem.Controllers
             ticket.StatusDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Status);
             ticket.TypeDropDown = _ticketService.SetDropDownValues(Constants.ConfigName.Type);
             ticket.AssignDropDown = _userService.GetUsers().Select(x => new DropDown() { Id = x.Id, Name = x.Name }).ToList();
+           
             return View(ticket);
         }
         [HttpPost]
         public ActionResult Edit(TicketViewModel model, HttpPostedFileBase file)
         {
+            model.UpdatedBy = (Guid)(Session["Id"]);
             if (file != null)
             {
                 model.Image = model.Id + "_" + DateTime.Now.Ticks + Path.GetExtension(file.FileName);
@@ -145,6 +148,10 @@ namespace CRMSSystem.Controllers
             _ticketService.DeleteComment(commitdelete);
             return Content("true");
         }
-       
+        public ActionResult IndexHistory(Guid Id)
+        {
+            List<TicketViewModel> ticketViewModels = _ticketService.GetHistoryList(Id).ToList();
+            return PartialView("tickethistorystatuspartialview", ticketViewModels);
+        }
     }
 }

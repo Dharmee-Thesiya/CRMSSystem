@@ -34,9 +34,14 @@ namespace CRMSSystem.Core.View
         public string FileName { get; set; }
         public List<TicketAttachment> AttachmentList { get; set; }
         public string CreatedbyName { get; set; }
+        public string UpdatedbyName { get; set; }
         public int AttachmentCount { get; set; }
         public Guid TicketId { get; set; }
         [Required]
         public string Comment { get; set; }
+        public int AssignCount { get; set; }
+        public List<TicketViewModel> AssignList { get; set; }
+        public string OldStatus { get; set; }
+        public string Newstatus { get; set; }
     }
 }

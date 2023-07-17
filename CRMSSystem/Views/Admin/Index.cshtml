@@ -171,10 +171,10 @@
         debugger
         var Id = $("#hdnDeleteId").val()
         $.ajax({
-
             type: "POST",
             url: "/CommonLookup/Delete/" + Id,
             success: function () {
+                debugger;
                 $("#deletemodal").modal('hide');
                 $.ajax({
                     type: 'GET',

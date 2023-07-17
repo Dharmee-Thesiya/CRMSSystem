@@ -77,6 +77,8 @@ namespace CRMSSystem
 
             container.RegisterType<IMRepository<TicketComment>, SQLRepository<TicketComment>>();
 
+            container.RegisterType<IMRepository<TicketStatusHistory>, SQLRepository<TicketStatusHistory>>();
+
             container.RegisterType<IAuditLogRepository, AuditLogRepository>();
             container.RegisterType<IAuditLogService, AuditLogService>();
 

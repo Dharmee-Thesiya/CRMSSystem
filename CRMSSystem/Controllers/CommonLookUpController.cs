@@ -55,6 +55,7 @@ namespace CRMSSystem.Controllers
         {
             
             CommonLookUp commonLookUp =_commonLookUpService.CreateCommonLookUp(model);
+            TempData["AlertMessage"] = "CommonLookUp Create Successfully";
             TempData["PageSelected"] = "CommonLookUp";
             if (commonLookUp!=null)
             {
@@ -74,6 +75,7 @@ namespace CRMSSystem.Controllers
         {
 
             CommonLookUp commonLookUp = _commonLookUpService.EditCommonLookUp(model);
+            TempData["AlertMessage"] = "CommonLookUp Update Successfully";
             TempData["PageSelected"] = "CommonLookUp";
             if (commonLookUp != null)
             {

@@ -67,7 +67,6 @@ namespace CRMSSystem.Service
 
         public List<FormsViewModel> GetForm()
         {
-
             return _formRepository.GetForm().OrderByDescending(x => x.CreatedOn).ToList();
         }
 

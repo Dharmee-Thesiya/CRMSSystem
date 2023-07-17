@@ -45,22 +45,23 @@ namespace CRMSSystem.Controllers
             return View(user);
         }
 
-        [HttpPost]
-        public ActionResult Create(UserViewModel model)
-        {
-            var User = _userService.CreateUser(model);
-            if (User != null)
+            [HttpPost]
+            public ActionResult Create(UserViewModel model)
             {
-                ViewBag.Message= User;
-                model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
-                return View(model);
+                var User = _userService.CreateUser(model);
+                if (User != null)
+                {
+                    TempData["AlertMessage"] = "User Create Successfully";
+                    ViewBag.Message= User;
+                    model.RoleDropDown = _roleService.GetRoles().Select(u => new DropDown() { Id = u.Id, Name = u.Name }).ToList();
+                    return View(model);
+                }
+                else
+                {
+                    TempData["PageSelected"] = "UserManagement";
+                    return RedirectToAction("Index", "Admin");
+                } 
             }
-            else
-            {
-                TempData["PageSelected"] = "UserManagement";
-                return RedirectToAction("Index", "Admin");
-            } 
-        }
 
         public ActionResult Edit(Guid Id)
         {

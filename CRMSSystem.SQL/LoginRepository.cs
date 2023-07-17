@@ -29,7 +29,7 @@ namespace CRMSSystem.SQL
         }
         public User ChangePassword(AccountViewModel model)
         {
-            var currentpass = context.User.Where(x => x.Password != null).FirstOrDefault();
+            var currentpass = context.User.Where(User => User.Password != model.NewPassword).FirstOrDefault();
             return currentpass;
         }
     }

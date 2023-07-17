@@ -15,13 +15,15 @@ namespace CRMSSystem.Service
         ICommonLookUpService _commonLookUpService;
         IMRepository<TicketAttachment> _ticketAttachmentRepository;
         IMRepository<TicketComment> _ticketCommentRepository;
+        IMRepository<TicketStatusHistory> _ticketStatusHistoryRepository;
 
-        public TicketService(ITicketRepository ticketRepository, ICommonLookUpService commonLookUpService, IMRepository<TicketAttachment> ticketAttachmentRepository, IMRepository<TicketComment> ticketCommentRepository)
+        public TicketService(ITicketRepository ticketRepository, ICommonLookUpService commonLookUpService, IMRepository<TicketAttachment> ticketAttachmentRepository, IMRepository<TicketComment> ticketCommentRepository, IMRepository<TicketStatusHistory> ticketStatusHistoryRepository)
         {
             _ticketRepository = ticketRepository;
             _commonLookUpService = commonLookUpService;
             _ticketAttachmentRepository = ticketAttachmentRepository;
             _ticketCommentRepository = ticketCommentRepository;
+            _ticketStatusHistoryRepository = ticketStatusHistoryRepository;
         }
         public Ticket CreateTicket(TicketViewModel model)
         {
@@ -70,6 +72,19 @@ namespace CRMSSystem.Service
         public Ticket EditTicket(TicketViewModel model, string deleteAttachmentIds)
         {
             Ticket ticket = _ticketRepository.Collection().Where(x => x.Id == model.Id).FirstOrDefault();
+            TicketStatusHistory ticketStatusHistory = new TicketStatusHistory();
+            {
+                ticketStatusHistory.Id = Guid.NewGuid();
+                ticketStatusHistory.TicketId = ticket.Id;
+                var oldstatus = _commonLookUpService.GetCommonLookupbyId(ticket.StatusId);
+                ticketStatusHistory.OldStatus = oldstatus;
+                var newstatus = _commonLookUpService.GetCommonLookupbyId(model.StatusId);
+                ticketStatusHistory.Newstatus = newstatus;
+                if (oldstatus != newstatus)
+                {
+                    _ticketStatusHistoryRepository.Insert(ticketStatusHistory);
+                }
+            }
             ticket.Title = model.Title;
             ticket.StatusId = model.StatusId;
             ticket.PriorityId = model.PriorityId;
@@ -77,10 +92,13 @@ namespace CRMSSystem.Service
             ticket.AssignId = model.AssignId;
             ticket.Description = model.Description;
             ticket.Id = model.Id;
+            ticket.UpdatedBy = model.UpdatedBy;
+            ticketStatusHistory.UpdatedBy = ticket.UpdatedBy;
             ticket.UpdatedOn = DateTime.Now;
+            ticketStatusHistory.UpdatedOn = DateTime.Now;
             _ticketRepository.Update(ticket);
             _ticketRepository.Commit();
-
+            _ticketStatusHistoryRepository.Commit();
             if (model.Image != null)
             {
                 TicketAttachment ticketAttachment = new TicketAttachment();
@@ -111,7 +129,6 @@ namespace CRMSSystem.Service
                     }
                 }
             }
-           
             return ticket;
         }
         public Ticket DeleteTicket(Guid Id)
@@ -158,7 +175,11 @@ namespace CRMSSystem.Service
             ticketComment.Comment = model.Comment;
             _ticketCommentRepository.Update(ticketComment);
             _ticketCommentRepository.Commit();
-
-        }  
+        }
+        public List<TicketViewModel> GetHistoryList(Guid Id)
+        {
+            return _ticketRepository.GetHistoryList(Id).OrderByDescending(x => x.CreatedOn).ToList();
+        }
+        
     }
 }
